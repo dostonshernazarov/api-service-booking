@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"Booking/api_establishment_booking/internal/pkg/config"
+	"Booking/api-service-booking/internal/pkg/config"
 )
 
 func NewServer(cfg *config.Config, handler http.Handler) (*http.Server, error) {

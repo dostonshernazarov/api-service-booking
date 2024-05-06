@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"Booking/api_establishment_booking/internal/entity"
+	"Booking/api-service-booking/internal/entity"
 )
 
 type RefreshToken interface {

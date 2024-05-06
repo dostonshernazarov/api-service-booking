@@ -5,8 +5,8 @@ import (
 
 	"go.opentelemetry.io/otel/attribute"
 
-	"Booking/api_establishment_booking/api/response"
-	"Booking/api_establishment_booking/internal/pkg/otlp"
+	"Booking/api-service-booking/api/response"
+	"Booking/api-service-booking/internal/pkg/otlp"
 )
 
 func Tracing(next http.Handler) http.Handler {

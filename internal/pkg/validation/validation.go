@@ -11,7 +11,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	validatorEn "github.com/go-playground/validator/v10/translations/en"
 
-	errorpkg "Booking/api_establishment_booking/internal/errors"
+	errorpkg "Booking/api-service-booking/internal/errors"
 )
 
 func Validator(s interface{}) error {

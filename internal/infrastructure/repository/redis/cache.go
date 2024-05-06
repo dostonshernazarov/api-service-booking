@@ -7,8 +7,8 @@ import (
 
 	// "go.opentelemetry.io/otel/attribute"
 
-	// otlp_pkg "Booking/api_establishment_booking/internal/pkg/otlp"
-	"Booking/api_establishment_booking/internal/pkg/redis"
+	// otlp_pkg "Booking/api-service-booking/internal/pkg/otlp"
+	"Booking/api-service-booking/internal/pkg/redis"
 )
 
 type Cache interface {

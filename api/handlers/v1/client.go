@@ -5,10 +5,10 @@ package v1
 // 	"strconv"
 // 	"time"
 
-// 	"Booking/api_establishment_booking/api/models"
-// 	pbc "Booking/api_establishment_booking/genproto/client_service"
-// 	pbj "Booking/api_establishment_booking/genproto/jobs_service"
-// 	"Booking/api_establishment_booking/internal/pkg/otlp"
+// 	"Booking/api-service-booking/api/models"
+// 	pbc "Booking/api-service-booking/genproto/client_service"
+// 	pbj "Booking/api-service-booking/genproto/jobs_service"
+// 	"Booking/api-service-booking/internal/pkg/otlp"
 
 // 	"github.com/gin-gonic/gin"
 // 	"github.com/google/uuid"

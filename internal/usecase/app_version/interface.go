@@ -3,7 +3,7 @@ package app_version
 import (
 	"context"
 
-	"Booking/api_establishment_booking/internal/entity"
+	"Booking/api-service-booking/internal/entity"
 )
 
 type AppVersion interface {

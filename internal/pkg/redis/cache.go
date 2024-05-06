@@ -5,7 +5,7 @@ import (
 
 	"github.com/go-redis/redis/v8"
 
-	"Booking/api_establishment_booking/internal/pkg/config"
+	"Booking/api-service-booking/internal/pkg/config"
 )
 
 type RedisDB struct {

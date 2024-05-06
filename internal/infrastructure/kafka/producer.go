@@ -1,16 +1,16 @@
 package kafka
 
 import (
-	"Booking/api_establishment_booking/api/models"
+	"Booking/api-service-booking/api/models"
 	"context"
 	"encoding/json"
 
-	// "Booking/api_establishment_booking/internal/entity"
-	configpkg "Booking/api_establishment_booking/internal/pkg/config"
+	// "Booking/api-service-booking/internal/entity"
+	configpkg "Booking/api-service-booking/internal/pkg/config"
 
 	"github.com/segmentio/kafka-go"
 
-	// otlp_pkg "Booking/api_establishment_booking/internal/pkg/otlp"
+	// otlp_pkg "Booking/api-service-booking/internal/pkg/otlp"
 	"go.uber.org/zap"
 )
 

@@ -1,4 +1,4 @@
-module Booking/api_establishment_booking
+module Booking/api-service-booking
 
 go 1.22.1
 

@@ -6,7 +6,7 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 
-	"Booking/api_establishment_booking/internal/pkg/app"
+	"Booking/api-service-booking/internal/pkg/app"
 )
 
 func productionConfig(file string) zap.Config {
