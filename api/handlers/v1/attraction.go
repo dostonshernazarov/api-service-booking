@@ -1,9 +1,9 @@
 package v1
 
 import (
-	"Booking/api_establishment_booking/api/models"
-	pbe "Booking/api_establishment_booking/genproto/establishment-proto"
-	"Booking/api_establishment_booking/internal/pkg/otlp"
+	"Booking/api-service-booking/api/models"
+	pbe "Booking/api-service-booking/genproto/establishment-proto"
+	"Booking/api-service-booking/internal/pkg/otlp"
 	"context"
 	"time"
 

@@ -8,23 +8,23 @@ import (
 
 	"go.uber.org/zap"
 
-	"Booking/api_establishment_booking/api"
-	grpcService "Booking/api_establishment_booking/internal/infrastructure/grpc_service_client"
+	"Booking/api-service-booking/api"
+	grpcService "Booking/api-service-booking/internal/infrastructure/grpc_service_client"
 
-	// "Booking/api_establishment_booking/internal/infrastructure/kafka"
-	"Booking/api_establishment_booking/internal/infrastructure/repository/postgresql"
-	"Booking/api_establishment_booking/internal/pkg/config"
-	"Booking/api_establishment_booking/internal/pkg/logger"
-	"Booking/api_establishment_booking/internal/pkg/otlp"
+	// "Booking/api-service-booking/internal/infrastructure/kafka"
+	"Booking/api-service-booking/internal/infrastructure/repository/postgresql"
+	"Booking/api-service-booking/internal/pkg/config"
+	"Booking/api-service-booking/internal/pkg/logger"
+	"Booking/api-service-booking/internal/pkg/otlp"
 
-	// "Booking/api_establishment_booking/internal/pkg/otlp"
+	// "Booking/api-service-booking/internal/pkg/otlp"
 
-	"Booking/api_establishment_booking/internal/pkg/postgres"
-	"Booking/api_establishment_booking/internal/pkg/redis"
-	"Booking/api_establishment_booking/internal/usecase/app_version"
-	"Booking/api_establishment_booking/internal/usecase/event"
-	"Booking/api_establishment_booking/internal/usecase/refresh_token"
-	// "Booking/api_establishment_booking/internal/usecase/refresh_token"
+	"Booking/api-service-booking/internal/pkg/postgres"
+	"Booking/api-service-booking/internal/pkg/redis"
+	"Booking/api-service-booking/internal/usecase/app_version"
+	"Booking/api-service-booking/internal/usecase/event"
+	"Booking/api-service-booking/internal/usecase/refresh_token"
+	// "Booking/api-service-booking/internal/usecase/refresh_token"
 )
 
 type App struct {

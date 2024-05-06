@@ -3,12 +3,12 @@ package grpc_service_clients
 import (
 	"fmt"
 
-	pbe "Booking/api_establishment_booking/genproto/establishment-proto"
+	pbe "Booking/api-service-booking/genproto/establishment-proto"
 
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	"google.golang.org/grpc"
 
-	"Booking/api_establishment_booking/internal/pkg/config"
+	"Booking/api-service-booking/internal/pkg/config"
 )
 
 type ServiceClient interface {

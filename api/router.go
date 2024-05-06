@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"time"
 
-	_ "Booking/api_establishment_booking/api/docs"
-	v1 "Booking/api_establishment_booking/api/handlers/v1"
+	_ "Booking/api-service-booking/api/docs"
+	v1 "Booking/api-service-booking/api/handlers/v1"
 
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
@@ -13,11 +13,11 @@ import (
 
 	"go.uber.org/zap"
 
-	grpcClients "Booking/api_establishment_booking/internal/infrastructure/grpc_service_client"
-	"Booking/api_establishment_booking/internal/pkg/config"
-	"Booking/api_establishment_booking/internal/usecase/app_version"
-	"Booking/api_establishment_booking/internal/usecase/event"
-	"Booking/api_establishment_booking/internal/usecase/refresh_token"
+	grpcClients "Booking/api-service-booking/internal/infrastructure/grpc_service_client"
+	"Booking/api-service-booking/internal/pkg/config"
+	"Booking/api-service-booking/internal/usecase/app_version"
+	"Booking/api-service-booking/internal/usecase/event"
+	"Booking/api-service-booking/internal/usecase/refresh_token"
 )
 
 type RouteOption struct {

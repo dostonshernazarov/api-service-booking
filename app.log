@@ -2,12 +2,12 @@
 2024-04-27T11:48:28.216+0500	INFO	app/main.go:41	api gateway service stops
 2024-04-27T11:48:28.217+0500	ERROR	app/main.go:32	app run	{"error": "http: Server closed"}
 main.main.func1
-	/home/doston/project/go/src/Booking/api_establishment_booking/cmd/app/main.go:32
+	/home/doston/project/go/src/Booking/api-service-booking/cmd/app/main.go:32
 2024-04-29T20:27:54.914+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
 2024-04-29T20:27:58.090+0500	INFO	app/main.go:41	api gateway service stops
 2024-04-29T20:27:58.092+0500	ERROR	app/main.go:32	app run	{"error": "http: Server closed"}
 main.main.func1
-	/home/doston/project/go/src/Booking/api_establishment_booking/cmd/app/main.go:32
+	/home/doston/project/go/src/Booking/api-service-booking/cmd/app/main.go:32
 2024-04-30T17:10:54.265+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
 2024-04-30T17:13:39.856+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
 2024-04-30T17:14:12.336+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
@@ -18,7 +18,7 @@ main.main.func1
 2024-04-30T17:22:29.213+0500	INFO	app/main.go:41	api gateway service stops
 2024-04-30T17:22:29.214+0500	ERROR	app/main.go:32	app run	{"error": "http: Server closed"}
 main.main.func1
-	/home/user/projects/src/Booking/api_establishment_booking/cmd/app/main.go:32
+	/home/user/projects/src/Booking/api-service-booking/cmd/app/main.go:32
 2024-05-01T01:45:46.819+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
 2024-05-01T01:53:34.812+0500	INFO	app/main.go:41	api gateway service stops
 2024-05-01T01:55:04.964+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
@@ -63,8 +63,8 @@ main.main.func1
 2024-05-01T18:59:28.260+0500	INFO	app/main.go:41	api gateway service stops
 2024-05-01T19:02:24.039+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
 2024-05-01T19:02:32.366+0500	ERROR	v1/client.go:71	error while parsing time
-Booking/api_establishment_booking/api/handlers/v1.HandlerV1.Create
-	/home/user/projects/src/Booking/api_establishment_booking/api/handlers/v1/client.go:71
+Booking/api-service-booking/api/handlers/v1.HandlerV1.Create
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/client.go:71
 github.com/gin-gonic/gin.(*Context).Next
 	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
 github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
@@ -96,8 +96,8 @@ net/http.(*conn).serve
 2024-05-01T19:50:34.436+0500	INFO	app/main.go:41	api gateway service stops
 2024-05-01T19:50:41.034+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
 2024-05-01T19:51:21.138+0500	ERROR	v1/client.go:124	error while getting response from jobs service
-Booking/api_establishment_booking/api/handlers/v1.HandlerV1.Get
-	/home/user/projects/src/Booking/api_establishment_booking/api/handlers/v1/client.go:124
+Booking/api-service-booking/api/handlers/v1.HandlerV1.Get
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/client.go:124
 github.com/gin-gonic/gin.(*Context).Next
 	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
 github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
@@ -119,8 +119,8 @@ net/http.(*conn).serve
 2024-05-01T20:04:31.909+0500	INFO	app/main.go:41	api gateway service stops
 2024-05-01T20:04:34.544+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
 2024-05-01T20:04:41.359+0500	ERROR	v1/client.go:124	error while getting response from jobs service
-Booking/api_establishment_booking/api/handlers/v1.HandlerV1.Get
-	/home/user/projects/src/Booking/api_establishment_booking/api/handlers/v1/client.go:124
+Booking/api-service-booking/api/handlers/v1.HandlerV1.Get
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/client.go:124
 github.com/gin-gonic/gin.(*Context).Next
 	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
 github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
@@ -146,8 +146,8 @@ net/http.(*conn).serve
 2024-05-01T21:15:24.607+0500	INFO	app/main.go:41	api gateway service stops
 2024-05-01T21:21:34.319+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
 2024-05-01T21:21:59.896+0500	ERROR	v1/client.go:317	rpc error: code = Unknown desc = failed to execute SQL query for updating client: ERROR: invalid input syntax for type uuid: "" (SQLSTATE 22P02)
-Booking/api_establishment_booking/api/handlers/v1.HandlerV1.Update
-	/home/user/projects/src/Booking/api_establishment_booking/api/handlers/v1/client.go:317
+Booking/api-service-booking/api/handlers/v1.HandlerV1.Update
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/client.go:317
 github.com/gin-gonic/gin.(*Context).Next
 	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
 github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
@@ -171,8 +171,8 @@ net/http.(*conn).serve
 2024-05-01T21:41:21.258+0500	INFO	app/main.go:41	api gateway service stops
 2024-05-01T21:41:29.919+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
 2024-05-01T21:41:42.926+0500	ERROR	v1/client.go:369	rpc error: code = Unknown desc = no sql rows
-Booking/api_establishment_booking/api/handlers/v1.HandlerV1.Delete
-	/home/user/projects/src/Booking/api_establishment_booking/api/handlers/v1/client.go:369
+Booking/api-service-booking/api/handlers/v1.HandlerV1.Delete
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/client.go:369
 github.com/gin-gonic/gin.(*Context).Next
 	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
 github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
@@ -196,8 +196,8 @@ net/http.(*conn).serve
 2024-05-02T02:24:42.537+0500	INFO	app/main.go:41	api gateway service stops
 2024-05-02T02:24:44.832+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
 2024-05-02T02:26:47.493+0500	ERROR	v1/jobs.go:296	rpc error: code = Unknown desc = no sql rows
-Booking/api_establishment_booking/api/handlers/v1.HandlerV1.DeleteJ
-	/home/user/projects/src/Booking/api_establishment_booking/api/handlers/v1/jobs.go:296
+Booking/api-service-booking/api/handlers/v1.HandlerV1.DeleteJ
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/jobs.go:296
 github.com/gin-gonic/gin.(*Context).Next
 	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
 github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
@@ -219,8 +219,8 @@ net/http.(*conn).serve
 2024-05-02T02:27:23.811+0500	INFO	app/main.go:41	api gateway service stops
 2024-05-02T02:31:17.445+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
 2024-05-02T02:31:26.728+0500	ERROR	v1/client.go:369	rpc error: code = Unknown desc = no sql rows
-Booking/api_establishment_booking/api/handlers/v1.HandlerV1.Delete
-	/home/user/projects/src/Booking/api_establishment_booking/api/handlers/v1/client.go:369
+Booking/api-service-booking/api/handlers/v1.HandlerV1.Delete
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/client.go:369
 github.com/gin-gonic/gin.(*Context).Next
 	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
 github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
@@ -240,8 +240,8 @@ net/http.serverHandler.ServeHTTP
 net/http.(*conn).serve
 	/usr/local/go/src/net/http/server.go:2039
 2024-05-02T02:31:38.987+0500	ERROR	v1/jobs.go:297	rpc error: code = Unknown desc = no sql rows
-Booking/api_establishment_booking/api/handlers/v1.HandlerV1.DeleteJ
-	/home/user/projects/src/Booking/api_establishment_booking/api/handlers/v1/jobs.go:297
+Booking/api-service-booking/api/handlers/v1.HandlerV1.DeleteJ
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/jobs.go:297
 github.com/gin-gonic/gin.(*Context).Next
 	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
 github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
@@ -261,8 +261,8 @@ net/http.serverHandler.ServeHTTP
 net/http.(*conn).serve
 	/usr/local/go/src/net/http/server.go:2039
 2024-05-02T02:33:27.196+0500	ERROR	v1/client.go:369	rpc error: code = Unknown desc = no sql rows
-Booking/api_establishment_booking/api/handlers/v1.HandlerV1.Delete
-	/home/user/projects/src/Booking/api_establishment_booking/api/handlers/v1/client.go:369
+Booking/api-service-booking/api/handlers/v1.HandlerV1.Delete
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/client.go:369
 github.com/gin-gonic/gin.(*Context).Next
 	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
 github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
@@ -282,8 +282,8 @@ net/http.serverHandler.ServeHTTP
 net/http.(*conn).serve
 	/usr/local/go/src/net/http/server.go:2039
 2024-05-02T02:33:37.629+0500	ERROR	v1/client.go:369	rpc error: code = Unknown desc = no sql rows
-Booking/api_establishment_booking/api/handlers/v1.HandlerV1.Delete
-	/home/user/projects/src/Booking/api_establishment_booking/api/handlers/v1/client.go:369
+Booking/api-service-booking/api/handlers/v1.HandlerV1.Delete
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/client.go:369
 github.com/gin-gonic/gin.(*Context).Next
 	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
 github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
@@ -303,8 +303,8 @@ net/http.serverHandler.ServeHTTP
 net/http.(*conn).serve
 	/usr/local/go/src/net/http/server.go:2039
 2024-05-02T02:33:51.681+0500	ERROR	v1/client.go:113	error while getting response from client service
-Booking/api_establishment_booking/api/handlers/v1.HandlerV1.Get
-	/home/user/projects/src/Booking/api_establishment_booking/api/handlers/v1/client.go:113
+Booking/api-service-booking/api/handlers/v1.HandlerV1.Get
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/client.go:113
 github.com/gin-gonic/gin.(*Context).Next
 	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
 github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
@@ -336,8 +336,8 @@ net/http.(*conn).serve
 2024-05-02T02:48:22.270+0500	INFO	app/main.go:41	api gateway service stops
 2024-05-02T02:48:24.673+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
 2024-05-02T02:48:32.783+0500	ERROR	v1/jobs.go:179	rpc error: code = Internal desc = runtime error: index out of range [1] with length 0
-Booking/api_establishment_booking/api/handlers/v1.HandlerV1.ListJ
-	/home/user/projects/src/Booking/api_establishment_booking/api/handlers/v1/jobs.go:179
+Booking/api-service-booking/api/handlers/v1.HandlerV1.ListJ
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/jobs.go:179
 github.com/gin-gonic/gin.(*Context).Next
 	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
 github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
@@ -359,8 +359,8 @@ net/http.(*conn).serve
 2024-05-02T02:49:23.195+0500	INFO	app/main.go:41	api gateway service stops
 2024-05-02T02:49:24.539+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
 2024-05-02T02:49:30.994+0500	ERROR	v1/jobs.go:179	rpc error: code = Internal desc = runtime error: index out of range [0] with length 0
-Booking/api_establishment_booking/api/handlers/v1.HandlerV1.ListJ
-	/home/user/projects/src/Booking/api_establishment_booking/api/handlers/v1/jobs.go:179
+Booking/api-service-booking/api/handlers/v1.HandlerV1.ListJ
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/jobs.go:179
 github.com/gin-gonic/gin.(*Context).Next
 	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
 github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
@@ -392,8 +392,8 @@ net/http.(*conn).serve
 2024-05-02T02:55:31.703+0500	INFO	app/main.go:41	api gateway service stops
 2024-05-02T13:32:04.978+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
 2024-05-02T13:35:26.991+0500	ERROR	v1/client.go:369	rpc error: code = Unknown desc = no sql rows
-Booking/api_establishment_booking/api/handlers/v1.HandlerV1.Delete
-	/home/user/projects/src/Booking/api_establishment_booking/api/handlers/v1/client.go:369
+Booking/api-service-booking/api/handlers/v1.HandlerV1.Delete
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/client.go:369
 github.com/gin-gonic/gin.(*Context).Next
 	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
 github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
@@ -413,8 +413,8 @@ net/http.serverHandler.ServeHTTP
 net/http.(*conn).serve
 	/usr/local/go/src/net/http/server.go:2039
 2024-05-02T13:37:49.823+0500	ERROR	v1/jobs.go:297	rpc error: code = Unknown desc = no sql rows
-Booking/api_establishment_booking/api/handlers/v1.HandlerV1.DeleteJ
-	/home/user/projects/src/Booking/api_establishment_booking/api/handlers/v1/jobs.go:297
+Booking/api-service-booking/api/handlers/v1.HandlerV1.DeleteJ
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/jobs.go:297
 github.com/gin-gonic/gin.(*Context).Next
 	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
 github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
@@ -438,8 +438,8 @@ net/http.(*conn).serve
 2024-05-02T13:45:25.259+0500	INFO	app/main.go:41	api gateway service stops
 2024-05-02T17:46:17.338+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
 2024-05-02T17:48:06.224+0500	ERROR	v1/client.go:113	rpc error: code = Unknown desc = object not found
-Booking/api_establishment_booking/api/handlers/v1.HandlerV1.Get
-	/home/user/projects/src/Booking/api_establishment_booking/api/handlers/v1/client.go:113
+Booking/api-service-booking/api/handlers/v1.HandlerV1.Get
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/client.go:113
 github.com/gin-gonic/gin.(*Context).Next
 	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
 github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
@@ -469,8 +469,8 @@ net/http.(*conn).serve
 2024-05-02T20:07:04.888+0500	INFO	app/main.go:41	api gateway service stops
 2024-05-02T20:08:21.210+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
 2024-05-02T20:12:16.288+0500	ERROR	v1/client.go:123	rpc error: code = Unknown desc = object not found
-Booking/api_establishment_booking/api/handlers/v1.HandlerV1.Get
-	/home/user/projects/src/Booking/api_establishment_booking/api/handlers/v1/client.go:123
+Booking/api-service-booking/api/handlers/v1.HandlerV1.Get
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/client.go:123
 github.com/gin-gonic/gin.(*Context).Next
 	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
 github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
@@ -490,8 +490,8 @@ net/http.serverHandler.ServeHTTP
 net/http.(*conn).serve
 	/usr/local/go/src/net/http/server.go:2039
 2024-05-02T20:12:22.279+0500	ERROR	v1/client.go:123	rpc error: code = Unknown desc = object not found
-Booking/api_establishment_booking/api/handlers/v1.HandlerV1.Get
-	/home/user/projects/src/Booking/api_establishment_booking/api/handlers/v1/client.go:123
+Booking/api-service-booking/api/handlers/v1.HandlerV1.Get
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/client.go:123
 github.com/gin-gonic/gin.(*Context).Next
 	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
 github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
@@ -531,3 +531,9 @@ net/http.(*conn).serve
 2024-05-06T20:42:44.070+0500	INFO	app/main.go:41	api gateway service stops
 2024-05-06T20:42:46.113+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
 2024-05-06T20:51:52.261+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-06T21:18:55.796+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-06T21:21:23.005+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-06T21:21:24.959+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-06T21:23:57.899+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-06T21:23:59.877+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-06T21:25:19.079+0500	INFO	app/main.go:41	api gateway service stops

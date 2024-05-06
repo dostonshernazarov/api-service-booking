@@ -1,7 +1,7 @@
 package event
 
 import (
-	"Booking/api_establishment_booking/api/models"
+	"Booking/api-service-booking/api/models"
 	"context"
 )
 
