@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"time"
 
-	_ "Booking/api_establishment_booking/api/docs"
-	v1 "Booking/api_establishment_booking/api/handlers/v1"
+	_ "Booking/api-service-booking/api/docs"
+	v1 "Booking/api-service-booking/api/handlers/v1"
 
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
@@ -13,11 +13,11 @@ import (
 
 	"go.uber.org/zap"
 
-	grpcClients "Booking/api_establishment_booking/internal/infrastructure/grpc_service_client"
-	"Booking/api_establishment_booking/internal/pkg/config"
-	"Booking/api_establishment_booking/internal/usecase/app_version"
-	"Booking/api_establishment_booking/internal/usecase/event"
-	"Booking/api_establishment_booking/internal/usecase/refresh_token"
+	grpcClients "Booking/api-service-booking/internal/infrastructure/grpc_service_client"
+	"Booking/api-service-booking/internal/pkg/config"
+	"Booking/api-service-booking/internal/usecase/app_version"
+	"Booking/api-service-booking/internal/usecase/event"
+	"Booking/api-service-booking/internal/usecase/refresh_token"
 )
 
 type RouteOption struct {
@@ -30,6 +30,13 @@ type RouteOption struct {
 	AppVersion     app_version.AppVersion
 }
 
+// @title welcome to Booking API
+// @version 1.7
+// @host localhost:8080
+
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
 func NewRoute(option RouteOption) http.Handler {
 
 	router := gin.New()
@@ -48,9 +55,14 @@ func NewRoute(option RouteOption) http.Handler {
 	})
 
 	api := router.Group("/v1")
+	apiUser := api.Group("/user")
 
-	// ATTRACTION METHODS
-	api.POST("/attraction/create", HandlerV1.CreateAttraction)
+	apiUser.POST("/create", HandlerV1.Create)
+	apiUser.GET("/:id", HandlerV1.Get)
+	apiUser.GET("/list/users", HandlerV1.ListUsers)
+	apiUser.GET("/list/deleted", HandlerV1.ListDeletedUsers)
+	apiUser.PUT("/update", HandlerV1.Update)
+	apiUser.DELETE("/delete/:id", HandlerV1.Delete)
 
 	url := ginSwagger.URL("swagger/doc.json")
 	api.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))

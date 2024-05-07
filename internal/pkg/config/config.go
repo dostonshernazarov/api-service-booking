@@ -62,6 +62,7 @@ type Config struct {
 		}
 	}
 	EstablishmentService webAddress
+	UserService webAddress
 	OTLPCollector webAddress
 }
 
@@ -84,9 +85,9 @@ func NewConfig() (*Config, error) {
 	// db configuration
 	config.DB.Host = getEnv("POSTGRES_HOST", "localhost")
 	config.DB.Port = getEnv("POSTGRES_PORT", "5432")
-	config.DB.Name = getEnv("POSTGRES_DATABASE", "establishmentdb")
+	config.DB.Name = getEnv("POSTGRES_DATABASE", "usersdb")
 	config.DB.User = getEnv("POSTGRES_USER", "postgres")
-	config.DB.Password = getEnv("POSTGRES_PASSWORD", "123")
+	config.DB.Password = getEnv("POSTGRES_PASSWORD", "qwerty")
 	config.DB.SSLMode = getEnv("POSTGRES_SSLMODE", "disable")
 
 	// redis configuration
@@ -98,6 +99,10 @@ func NewConfig() (*Config, error) {
 	config.EstablishmentService.Host = getEnv("ESTABLISHMENT_SERVICE_GRPC_HOST", "localhost")
 	config.EstablishmentService.Port = getEnv("ESTABLISHMENT_SERVICE_GRPC_PORT", ":50024")
 
+
+	// user configuration
+	config.UserService.Host = getEnv("USER_SERVICE_GRPC_HOST", "localhost")
+	config.UserService.Port = getEnv("USER_SERVICE_GRPC_PORT", ":50025")
 
 	// token configuration
 	config.Token.Secret = getEnv("TOKEN_SECRET", "token_secret")

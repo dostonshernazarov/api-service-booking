@@ -11,8 +11,8 @@ import (
 	"github.com/jackc/pgx/v4/pgxpool"
 	pgxadapter "github.com/pckhoi/casbin-pgx-adapter/v2"
 
-	errorspkg "Booking/api_establishment_booking/internal/errors"
-	"Booking/api_establishment_booking/internal/pkg/config"
+	errorspkg "Booking/api-service-booking/internal/errors"
+	"Booking/api-service-booking/internal/pkg/config"
 )
 
 // PostgresDB ...

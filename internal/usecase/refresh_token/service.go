@@ -6,8 +6,8 @@ import (
 
 	"github.com/google/uuid"
 
-	"Booking/api_establishment_booking/internal/entity"
-	"Booking/api_establishment_booking/internal/pkg/token"
+	"Booking/api-service-booking/internal/entity"
+	"Booking/api-service-booking/internal/pkg/token"
 )
 
 type refreshTokenService struct {

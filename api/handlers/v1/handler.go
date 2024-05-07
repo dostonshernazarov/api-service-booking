@@ -5,12 +5,12 @@ import (
 
 	"go.uber.org/zap"
 
-	grpcClients "Booking/api_establishment_booking/internal/infrastructure/grpc_service_client"
-	"Booking/api_establishment_booking/internal/pkg/config"
+	grpcClients "Booking/api-service-booking/internal/infrastructure/grpc_service_client"
+	"Booking/api-service-booking/internal/pkg/config"
 
-	appV "Booking/api_establishment_booking/internal/usecase/app_version"
-	"Booking/api_establishment_booking/internal/usecase/event"
-	"Booking/api_establishment_booking/internal/usecase/refresh_token"
+	appV "Booking/api-service-booking/internal/usecase/app_version"
+	"Booking/api-service-booking/internal/usecase/event"
+	"Booking/api-service-booking/internal/usecase/refresh_token"
 )
 
 type HandlerV1 struct {

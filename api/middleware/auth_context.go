@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	token_pkg "Booking/api_establishment_booking/internal/pkg/token"
+	token_pkg "Booking/api-service-booking/internal/pkg/token"
 )
 
 func AuthContext(jwtsecret string) func(next http.Handler) http.Handler {

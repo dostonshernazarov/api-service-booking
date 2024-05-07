@@ -9,7 +9,7 @@ import (
 	kafka "github.com/segmentio/kafka-go"
 	"go.uber.org/zap"
 
-	"Booking/api_establishment_booking/internal/usecase/event"
+	"Booking/api-service-booking/internal/usecase/event"
 )
 
 const (

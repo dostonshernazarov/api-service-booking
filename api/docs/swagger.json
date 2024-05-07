@@ -1,12 +1,20 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "title": "welcome to Booking API",
+        "contact": {},
+        "version": "1.7"
     },
+    "host": "localhost:8080",
     "paths": {
-        "/v1/attraction/create": {
+        "/v1/user/create": {
             "post": {
-                "description": "Api for creating attraction",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Api for Create",
                 "consumes": [
                     "application/json"
                 ],
@@ -14,23 +22,65 @@
                     "application/json"
                 ],
                 "tags": [
-                    "ATTRACTION"
+                    "user"
                 ],
-                "summary": "CREATE ATTRACTION",
+                "summary": "Create",
                 "parameters": [
                     {
-                        "description": "Attraction",
-                        "name": "Attraction",
+                        "description": "createModel",
+                        "name": "User",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.CreateAttraction"
+                            "$ref": "#/definitions/models.UserReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.UserRes"
                         }
                     },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/user/delete/{id}": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Api for Delete",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Delete",
+                "parameters": [
                     {
                         "type": "string",
-                        "description": "owner_id",
-                        "name": "owner_id",
+                        "description": "ID",
+                        "name": "id",
                         "in": "query",
                         "required": true
                     }
@@ -39,11 +89,215 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.AttractionModel"
+                            "$ref": "#/definitions/models.StandartError"
                         }
                     },
-                    "404": {
-                        "description": "Not Found",
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/user/list/deleted": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Api for ListDeletedUsers",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "ListDeletedUsers",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "offset",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Users"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/user/list/users": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Api for ListUsers",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "ListUsers",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "offset",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Users"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/user/update": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Api for Update",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Update",
+                "parameters": [
+                    {
+                        "description": "createModel",
+                        "name": "User",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UserReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.UserRes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/user/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Api for Get",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.UserRes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
                         "schema": {
                             "$ref": "#/definitions/models.StandartError"
                         }
@@ -59,185 +313,10 @@
         }
     },
     "definitions": {
-        "models.AttractionModel": {
-            "type": "object",
-            "properties": {
-                "attraction_id": {
-                    "type": "string"
-                },
-                "attraction_name": {
-                    "type": "string"
-                },
-                "contact_number": {
-                    "type": "string"
-                },
-                "created_at": {
-                    "type": "string"
-                },
-                "description": {
-                    "type": "string"
-                },
-                "images": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/models.ImageModel"
-                    }
-                },
-                "licence_url": {
-                    "type": "string"
-                },
-                "location": {
-                    "$ref": "#/definitions/models.LocationModel"
-                },
-                "owner_id": {
-                    "type": "string"
-                },
-                "rating": {
-                    "type": "number"
-                },
-                "updated_at": {
-                    "type": "string"
-                },
-                "website_url": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.CreateAttraction": {
-            "type": "object",
-            "properties": {
-                "attraction_name": {
-                    "type": "string",
-                    "default": "Anhor Park"
-                },
-                "contact_number": {
-                    "type": "string",
-                    "default": "+(99891)-234-56-78"
-                },
-                "description": {
-                    "type": "string",
-                    "default": "available for all ages"
-                },
-                "images": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/models.CreateImage"
-                    }
-                },
-                "licence_url": {
-                    "type": "string",
-                    "default": "https://creativecommons.org/licenses/by/4.0/"
-                },
-                "location": {
-                    "$ref": "#/definitions/models.CreateLocation"
-                },
-                "rating": {
-                    "type": "number",
-                    "default": 4.3
-                },
-                "website_url": {
-                    "type": "string",
-                    "default": "https://creativecommons.org/licenses/by/4.1/"
-                }
-            }
-        },
-        "models.CreateImage": {
-            "type": "object",
-            "properties": {
-                "image_url": {
-                    "type": "string",
-                    "default": "www.photo/images/141"
-                }
-            }
-        },
-        "models.CreateLocation": {
-            "type": "object",
-            "properties": {
-                "address": {
-                    "type": "string",
-                    "default": "87G9+V57, Shaykhontohur Street 28, Tashkent, Toshkent Shahri"
-                },
-                "city": {
-                    "type": "string",
-                    "default": "Tashkent"
-                },
-                "country": {
-                    "type": "string",
-                    "default": "Uzbekistan"
-                },
-                "latitude": {
-                    "type": "number",
-                    "default": 40.7128
-                },
-                "longitude": {
-                    "type": "number",
-                    "default": 74.006
-                },
-                "state_province": {
-                    "type": "string",
-                    "default": "Shaykhontohur"
-                }
-            }
-        },
         "models.Error": {
             "type": "object",
             "properties": {
                 "message": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.ImageModel": {
-            "type": "object",
-            "properties": {
-                "created_at": {
-                    "type": "string"
-                },
-                "establishment_id": {
-                    "type": "string"
-                },
-                "image_id": {
-                    "type": "string"
-                },
-                "image_url": {
-                    "type": "string"
-                },
-                "updated_at": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.LocationModel": {
-            "type": "object",
-            "properties": {
-                "address": {
-                    "type": "string"
-                },
-                "city": {
-                    "type": "string"
-                },
-                "country": {
-                    "type": "string"
-                },
-                "created_at": {
-                    "type": "string"
-                },
-                "establishment_id": {
-                    "type": "string"
-                },
-                "latitude": {
-                    "type": "number"
-                },
-                "location_id": {
-                    "type": "string"
-                },
-                "longitude": {
-                    "type": "number"
-                },
-                "state_province": {
-                    "type": "string"
-                },
-                "updated_at": {
                     "type": "string"
                 }
             }
@@ -249,6 +328,103 @@
                     "$ref": "#/definitions/models.Error"
                 }
             }
+        },
+        "models.UserReq": {
+            "type": "object",
+            "properties": {
+                "card": {
+                    "type": "string"
+                },
+                "date_of_birth": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "full_name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "phone_number": {
+                    "type": "string"
+                },
+                "profile_img": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.UserRes": {
+            "type": "object",
+            "properties": {
+                "card": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "date_of_birth": {
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "full_name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "phone_number": {
+                    "type": "string"
+                },
+                "profile_img": {
+                    "type": "string"
+                },
+                "refresh_token": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Users": {
+            "type": "object",
+            "properties": {
+                "users": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.UserRes"
+                    }
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
         }
     }
 }
