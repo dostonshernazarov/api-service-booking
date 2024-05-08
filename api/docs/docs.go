@@ -30,6 +30,13 @@ const docTemplate = `{
                 "summary": "CREATE ATTRACTION",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "owner_id",
+                        "name": "owner_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
                         "description": "Attraction",
                         "name": "Attraction",
                         "in": "body",
@@ -37,11 +44,92 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/models.CreateAttraction"
                         }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.AttractionModel"
+                        }
                     },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/attraction/delete": {
+            "delete": {
+                "description": "Api for deleting attraction by attraction_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ATTRACTION"
+                ],
+                "summary": "DELETE ATTRACTION BY ATTRACTION_ID",
+                "parameters": [
                     {
                         "type": "string",
-                        "description": "owner_id",
-                        "name": "owner_id",
+                        "description": "attraction_id",
+                        "name": "attraction_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.DeleteResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/attraction/get": {
+            "get": {
+                "description": "Api for getting attraction by attraction_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ATTRACTION"
+                ],
+                "summary": "GET ATTRACTION BY ATTRACTION_ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "attraction_id",
+                        "name": "attraction_id",
                         "in": "query",
                         "required": true
                     }
@@ -68,6 +156,11 @@ const docTemplate = `{
                 }
             }
         },
+<<<<<<< HEAD
+        "/v1/attraction/list": {
+            "get": {
+                "description": "Api for listing attractions by page and limit",
+=======
         "/v1/users/code": {
             "get": {
                 "security": [
@@ -76,6 +169,7 @@ const docTemplate = `{
                     }
                 ],
                 "description": "Api for verify new password code",
+>>>>>>> main
                 "consumes": [
                     "application/json"
                 ],
@@ -83,6 +177,25 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
+<<<<<<< HEAD
+                    "ATTRACTION"
+                ],
+                "summary": "LIST ATTRACTIONS BY PAGE AND LIMIT",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "page",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "limit",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+=======
                     "SET-PASSWORD"
                 ],
                 "summary": "FORGET PASSWORD CODE",
@@ -96,17 +209,26 @@ const docTemplate = `{
                         "type": "string",
                         "name": "email",
                         "in": "query"
+>>>>>>> main
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
+<<<<<<< HEAD
+                            "$ref": "#/definitions/models.ListAttractionModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+=======
                             "$ref": "#/definitions/models.RegisterRes"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
+>>>>>>> main
                         "schema": {
                             "$ref": "#/definitions/models.StandartError"
                         }
@@ -120,6 +242,11 @@ const docTemplate = `{
                 }
             }
         },
+<<<<<<< HEAD
+        "/v1/attraction/update": {
+            "patch": {
+                "description": "Api for updating attraction by attraction_id",
+=======
         "/v1/users/login": {
             "get": {
                 "security": [
@@ -128,6 +255,7 @@ const docTemplate = `{
                     }
                 ],
                 "description": "Api for login user",
+>>>>>>> main
                 "consumes": [
                     "application/json"
                 ],
@@ -135,6 +263,27 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
+<<<<<<< HEAD
+                    "ATTRACTION"
+                ],
+                "summary": "UPDATE ATTRACTION",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "attraction_id",
+                        "name": "attraction_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "description": "UpdatingAttraction",
+                        "name": "UpdatingAttraction",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UpdateAttraction"
+                        }
+=======
                     "LOGIN"
                 ],
                 "summary": "LOGIN",
@@ -148,17 +297,26 @@ const docTemplate = `{
                         "type": "string",
                         "name": "password",
                         "in": "query"
+>>>>>>> main
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
+<<<<<<< HEAD
+                            "$ref": "#/definitions/models.AttractionModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+=======
                             "$ref": "#/definitions/models.UserResCreate"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
+>>>>>>> main
                         "schema": {
                             "$ref": "#/definitions/models.StandartError"
                         }
@@ -172,6 +330,11 @@ const docTemplate = `{
                 }
             }
         },
+<<<<<<< HEAD
+        "/v1/hotel/create": {
+            "post": {
+                "description": "Api for creating hotel",
+=======
         "/v1/users/password": {
             "put": {
                 "security": [
@@ -232,6 +395,7 @@ const docTemplate = `{
                     }
                 ],
                 "description": "Api for register a new user",
+>>>>>>> main
                 "consumes": [
                     "application/json"
                 ],
@@ -239,6 +403,26 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
+<<<<<<< HEAD
+                    "HOTEL"
+                ],
+                "summary": "CREATE HOTEL",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "owner_id",
+                        "name": "owner_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "description": "Hotel",
+                        "name": "Hotel",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CreateHotel"
+=======
                     "SIGNUP"
                 ],
                 "summary": "REGISTER USER",
@@ -250,6 +434,7 @@ const docTemplate = `{
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/models.RegisterReq"
+>>>>>>> main
                         }
                     }
                 ],
@@ -257,11 +442,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
+<<<<<<< HEAD
+                            "$ref": "#/definitions/models.HotelModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+=======
                             "$ref": "#/definitions/models.RegisterRes"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
+>>>>>>> main
                         "schema": {
                             "$ref": "#/definitions/models.StandartError"
                         }
@@ -275,14 +468,10 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/users/set/{id}": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Api for set new password",
+<<<<<<< HEAD
+        "/v1/hotel/delete": {
+            "delete": {
+                "description": "Api for deleting hotel by hotel_id",
                 "consumes": [
                     "application/json"
                 ],
@@ -290,14 +479,14 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "SET-PASSWORD"
+                    "HOTEL"
                 ],
-                "summary": "FORGET PASSWORD",
+                "summary": "DELETE HOTEL BY HOTEL_ID",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "EMAIL",
-                        "name": "email",
+                        "description": "hotel_id",
+                        "name": "hotel_id",
                         "in": "query",
                         "required": true
                     }
@@ -306,11 +495,11 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.RegisterRes"
+                            "$ref": "#/definitions/models.DeleteResponse"
                         }
                     },
-                    "400": {
-                        "description": "Bad Request",
+                    "404": {
+                        "description": "Not Found",
                         "schema": {
                             "$ref": "#/definitions/models.StandartError"
                         }
@@ -324,6 +513,84 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/hotel/get": {
+            "get": {
+                "description": "Api for getting hotel by hotel_id",
+=======
+        "/v1/users/set/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Api for set new password",
+>>>>>>> main
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+<<<<<<< HEAD
+                    "HOTEL"
+                ],
+                "summary": "GET HOTEL BY HOTEL_ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "hotel_id",
+                        "name": "hotel_id",
+=======
+                    "SET-PASSWORD"
+                ],
+                "summary": "FORGET PASSWORD",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "EMAIL",
+                        "name": "email",
+>>>>>>> main
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+<<<<<<< HEAD
+                            "$ref": "#/definitions/models.HotelModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+=======
+                            "$ref": "#/definitions/models.RegisterRes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+>>>>>>> main
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+<<<<<<< HEAD
+        "/v1/hotel/list": {
+            "get": {
+                "description": "Api for listing hotels by page and limit",
+=======
         "/v1/users/verify": {
             "get": {
                 "security": [
@@ -332,6 +599,7 @@ const docTemplate = `{
                     }
                 ],
                 "description": "Api for verify a new user",
+>>>>>>> main
                 "consumes": [
                     "application/json"
                 ],
@@ -339,6 +607,25 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
+<<<<<<< HEAD
+                    "HOTEL"
+                ],
+                "summary": "LIST HOTELS BY PAGE AND LIMIT",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "page",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "limit",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+=======
                     "SIGNUP"
                 ],
                 "summary": "VERIFICATION",
@@ -352,17 +639,79 @@ const docTemplate = `{
                         "type": "string",
                         "name": "email",
                         "in": "query"
+>>>>>>> main
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
+<<<<<<< HEAD
+                            "$ref": "#/definitions/models.ListHotelsModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/hotel/update": {
+            "patch": {
+                "description": "Api for updating hotel by hotel_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "HOTEL"
+                ],
+                "summary": "UPDATE HOTEL",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "hotel_id",
+                        "name": "hotel_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "description": "UpdatingHotel",
+                        "name": "UpdatingHotel",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UpdateHotel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.HotelModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+=======
                             "$ref": "#/definitions/models.UserResCreate"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
+>>>>>>> main
                         "schema": {
                             "$ref": "#/definitions/models.StandartError"
                         }
@@ -378,6 +727,53 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "models.Attraction": {
+            "type": "object",
+            "properties": {
+                "attraction_id": {
+                    "type": "string"
+                },
+                "attraction_name": {
+                    "type": "string"
+                },
+                "contact_number": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "images": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Image"
+                    }
+                },
+                "licence_url": {
+                    "type": "string"
+                },
+                "location": {
+                    "$ref": "#/definitions/models.Location"
+                },
+                "owner_id": {
+                    "type": "string"
+                },
+                "rating": {
+                    "type": "number"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "website_url": {
+                    "type": "string"
+                }
+            }
+        },
         "models.AttractionModel": {
             "type": "object",
             "properties": {
@@ -460,6 +856,44 @@ const docTemplate = `{
                 }
             }
         },
+        "models.CreateHotel": {
+            "type": "object",
+            "properties": {
+                "contact_number": {
+                    "type": "string",
+                    "default": "+(99891)-234-56-78"
+                },
+                "description": {
+                    "type": "string",
+                    "default": "in affordable prices"
+                },
+                "hotel_name": {
+                    "type": "string",
+                    "default": "Silk Road"
+                },
+                "images": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.CreateImage"
+                    }
+                },
+                "licence_url": {
+                    "type": "string",
+                    "default": "https://creativecommons.org/licenses/by/1.2/"
+                },
+                "location": {
+                    "$ref": "#/definitions/models.CreateLocation"
+                },
+                "rating": {
+                    "type": "number",
+                    "default": 4.6
+                },
+                "website_url": {
+                    "type": "string",
+                    "default": "https://creativecommons.org/licenses/by/1.3/"
+                }
+            }
+        },
         "models.CreateImage": {
             "type": "object",
             "properties": {
@@ -498,10 +932,85 @@ const docTemplate = `{
                 }
             }
         },
+        "models.DeleteResponse": {
+            "type": "object",
+            "properties": {
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
         "models.Error": {
             "type": "object",
             "properties": {
                 "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.HotelModel": {
+            "type": "object",
+            "properties": {
+                "contact_number": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "hotel_id": {
+                    "type": "string"
+                },
+                "hotel_name": {
+                    "type": "string"
+                },
+                "images": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.ImageModel"
+                    }
+                },
+                "licence_url": {
+                    "type": "string"
+                },
+                "location": {
+                    "$ref": "#/definitions/models.LocationModel"
+                },
+                "owner_id": {
+                    "type": "string"
+                },
+                "rating": {
+                    "type": "number"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "website_url": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Image": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "establishment_id": {
+                    "type": "string"
+                },
+                "image_id": {
+                    "type": "string"
+                },
+                "image_url": {
+                    "type": "string"
+                },
+                "updated_at": {
                     "type": "string"
                 }
             }
@@ -519,6 +1028,66 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "image_url": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.ListAttractionModel": {
+            "type": "object",
+            "properties": {
+                "attractions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Attraction"
+                    }
+                }
+            }
+        },
+        "models.ListHotelsModel": {
+            "type": "object",
+            "properties": {
+                "hotels": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.HotelModel"
+                    }
+                }
+            }
+        },
+        "models.Location": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "establishment_id": {
+                    "type": "string"
+                },
+                "latitude": {
+                    "type": "number"
+                },
+                "location_id": {
+                    "type": "string"
+                },
+                "longitude": {
+                    "type": "number"
+                },
+                "state_province": {
                     "type": "string"
                 },
                 "updated_at": {
@@ -591,6 +1160,98 @@ const docTemplate = `{
                 }
             }
         },
+<<<<<<< HEAD
+        "models.UpdateAttraction": {
+            "type": "object",
+            "properties": {
+                "attraction_name": {
+                    "type": "string",
+                    "default": "updated attraction name"
+                },
+                "contact_number": {
+                    "type": "string",
+                    "default": "updated contact number"
+                },
+                "description": {
+                    "type": "string",
+                    "default": "updated description"
+                },
+                "licence_url": {
+                    "type": "string",
+                    "default": "updated licence url"
+                },
+                "location": {
+                    "$ref": "#/definitions/models.UpdateLocation"
+                },
+                "rating": {
+                    "type": "number",
+                    "default": 5
+                },
+                "website_url": {
+                    "type": "string",
+                    "default": "updated website url"
+                }
+            }
+        },
+        "models.UpdateHotel": {
+            "type": "object",
+            "properties": {
+                "contact_number": {
+                    "type": "string",
+                    "default": "updated contact number"
+                },
+                "description": {
+                    "type": "string",
+                    "default": "updated description"
+                },
+                "hotel_name": {
+                    "type": "string",
+                    "default": "updated hotel name"
+                },
+                "licence_url": {
+                    "type": "string",
+                    "default": "updated licence url"
+                },
+                "location": {
+                    "$ref": "#/definitions/models.UpdateLocation"
+                },
+                "rating": {
+                    "type": "number",
+                    "default": 5
+                },
+                "website_url": {
+                    "type": "string",
+                    "default": "updated website url"
+                }
+            }
+        },
+        "models.UpdateLocation": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string",
+                    "default": "updated address"
+                },
+                "city": {
+                    "type": "string",
+                    "default": "updated city"
+                },
+                "country": {
+                    "type": "string",
+                    "default": "updated country"
+                },
+                "latitude": {
+                    "type": "number",
+                    "default": 1.1
+                },
+                "longitude": {
+                    "type": "number",
+                    "default": 1.1
+                },
+                "state_province": {
+                    "type": "string",
+                    "default": "updated state or province"
+=======
         "models.UserResCreate": {
             "type": "object",
             "properties": {
@@ -626,6 +1287,7 @@ const docTemplate = `{
                 },
                 "role": {
                     "type": "string"
+>>>>>>> main
                 }
             }
         }

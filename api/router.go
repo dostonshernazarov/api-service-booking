@@ -51,6 +51,17 @@ func NewRoute(option RouteOption) http.Handler {
 
 	// ATTRACTION METHODS
 	api.POST("/attraction/create", HandlerV1.CreateAttraction)
+	api.GET("/attraction/get", HandlerV1.GetAttraction)
+	api.GET("/attraction/list", HandlerV1.ListAttractions)
+	api.PATCH("/attraction/update", HandlerV1.UpdateAttraction)
+	api.DELETE("/attraction/delete", HandlerV1.DeleteAttraction)
+
+	// HOTEL METHODS
+	api.POST("/hotel/create", HandlerV1.CreateHotel)
+	api.GET("/hotel/get", HandlerV1.GetHotel)
+	api.GET("/hotel/list", HandlerV1.ListHotels)
+	api.PATCH("/hotel/update", HandlerV1.UpdateHotel)
+	api.DELETE("/hotel/delete", HandlerV1.DeleteHotel)
 
 	// REGITER METHODS
 	api.POST("/users/register", HandlerV1.RegisterUser)
