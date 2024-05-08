@@ -765,3 +765,72 @@ net/http.(*conn).serve
 2024-05-08T13:58:07.399+0500	INFO	app/main.go:41	api gateway service stops
 2024-05-08T13:58:50.152+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
 2024-05-08T14:00:33.402+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T16:30:00.732+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T16:30:07.169+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T16:36:36.136+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T16:45:46.010+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T16:51:41.473+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T16:52:07.632+0500	ERROR	v1/register.go:74	Incorrect Email. Try again
+Booking/api-service-booking/api/handlers/v1.HandlerV1.RegisterUser
+	/home/doston/project/go/src/Booking/api-service-booking/api/handlers/v1/register.go:74
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-08T16:52:21.590+0500	ERROR	v1/register.go:84	Password must be at least 8 (numbers and characters) long
+Booking/api-service-booking/api/handlers/v1.HandlerV1.RegisterUser
+	/home/doston/project/go/src/Booking/api-service-booking/api/handlers/v1/register.go:84
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-08T16:55:10.034+0500	ERROR	v1/register.go:552	Password must be at least 8 (numbers and characters) long
+Booking/api-service-booking/api/handlers/v1.HandlerV1.SetNewPassword
+	/home/doston/project/go/src/Booking/api-service-booking/api/handlers/v1/register.go:552
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-08T17:16:01.854+0500	INFO	app/main.go:41	api gateway service stops

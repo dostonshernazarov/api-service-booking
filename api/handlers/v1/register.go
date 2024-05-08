@@ -107,7 +107,7 @@ func (h HandlerV1) RegisterUser(c *gin.Context) {
 
 	// Connect to redis
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
+		Addr:     "redis-db:6379",
 		Password: "",
 		DB:       0,
 	})
@@ -172,7 +172,7 @@ func (h HandlerV1) Verification(c *gin.Context) {
 	code := c.Query("code")
 
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
+		Addr:     "redis-db:6379",
 		Password: "",
 		DB:       0,
 	})
@@ -417,7 +417,7 @@ func (h HandlerV1) ForgetPassword(c *gin.Context) {
 
 	// Connect to redis
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
+		Addr:     "redis-db:6379",
 		Password: "",
 		DB:       0,
 	})
@@ -481,7 +481,7 @@ func (h HandlerV1) ForgetPasswordVerify(c *gin.Context) {
 	code := c.Query("code")
 
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
+		Addr:     "redis-db:6379",
 		Password: "",
 		DB:       0,
 	})
@@ -542,6 +542,16 @@ func (h HandlerV1) SetNewPassword(c *gin.Context) {
 
 	email := c.Query("email")
 	password := c.Query("password")
+
+	isPassword := val.IsValidPassword(password)
+	if !isPassword {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Password must be at least 8 (numbers and characters) long",
+		})
+
+		h.Logger.Error("Password must be at least 8 (numbers and characters) long")
+		return
+	}
 
 	user, err := h.Service.UserService().Get(ctx, &pbu.Filter{
 		Filter:               map[string]string{"email":email},
