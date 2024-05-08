@@ -107,7 +107,7 @@ func (h HandlerV1) RegisterUser(c *gin.Context) {
 
 	// Connect to redis
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     "redis-db:6379",
+		Addr:     "localhost:6379",
 		Password: "",
 		DB:       0,
 	})
@@ -172,7 +172,7 @@ func (h HandlerV1) Verification(c *gin.Context) {
 	code := c.Query("code")
 
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     "redis-db:6379",
+		Addr:     "localhost:6379",
 		Password: "",
 		DB:       0,
 	})
@@ -307,6 +307,8 @@ func (h HandlerV1) Login(c *gin.Context) {
 		return
 	}
 
+	// println("\n\n", user.User.Email, "\n\n")
+
 	if !etc.CheckPasswordHash(password, user.User.Password) {
 		c.JSON(http.StatusConflict, gin.H{
 			"message": "Incorrect email or password",
@@ -417,7 +419,7 @@ func (h HandlerV1) ForgetPassword(c *gin.Context) {
 
 	// Connect to redis
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     "redis-db:6379",
+		Addr:     "localhost:6379",
 		Password: "",
 		DB:       0,
 	})
@@ -481,7 +483,7 @@ func (h HandlerV1) ForgetPasswordVerify(c *gin.Context) {
 	code := c.Query("code")
 
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     "redis-db:6379",
+		Addr:     "localhost:6379",
 		Password: "",
 		DB:       0,
 	})
@@ -603,6 +605,13 @@ func (h HandlerV1) SetNewPassword(c *gin.Context) {
 		Role:                 user.User.Role,
 		RefreshToken:         refresh,
 	})
+	if err != nil {
+		c.JSON(http.StatusConflict, gin.H{
+			"error": "Oops. Something went wrong with password",
+		})
+		h.Logger.Error("error while hash password in set new password", l.Error(err))
+		return
+	}
 
 	c.JSON(http.StatusOK, &models.UserResCreate{
 		Id:           updUser.Id,
