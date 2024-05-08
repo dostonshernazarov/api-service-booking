@@ -123,10 +123,49 @@ definitions:
       updated_at:
         type: string
     type: object
+  models.RegisterReq:
+    properties:
+      email:
+        type: string
+      full_name:
+        type: string
+      password:
+        type: string
+    type: object
+  models.RegisterRes:
+    properties:
+      content:
+        type: string
+    type: object
   models.StandartError:
     properties:
       error:
         $ref: '#/definitions/models.Error'
+    type: object
+  models.UserResCreate:
+    properties:
+      access_token:
+        type: string
+      birthday:
+        type: string
+      card:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      gender:
+        type: string
+      id:
+        type: string
+      image_url:
+        type: string
+      phone_num:
+        type: string
+      refresh_token:
+        type: string
+      role:
+        type: string
     type: object
 info:
   contact: {}
@@ -166,4 +205,195 @@ paths:
       summary: CREATE ATTRACTION
       tags:
       - ATTRACTION
+  /v1/users/code:
+    get:
+      consumes:
+      - application/json
+      description: Api for verify new password code
+      parameters:
+      - in: query
+        name: code
+        type: string
+      - in: query
+        name: email
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.RegisterRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: FORGET PASSWORD CODE
+      tags:
+      - SET-PASSWORD
+  /v1/users/login:
+    get:
+      consumes:
+      - application/json
+      description: Api for login user
+      parameters:
+      - in: query
+        name: email
+        type: string
+      - in: query
+        name: password
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserResCreate'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: LOGIN
+      tags:
+      - LOGIN
+  /v1/users/password:
+    put:
+      consumes:
+      - application/json
+      description: Api for update new password
+      parameters:
+      - in: query
+        name: email
+        type: string
+      - in: query
+        name: password
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserResCreate'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: SET NEW PASSWORD
+      tags:
+      - SET-PASSWORD
+  /v1/users/register:
+    post:
+      consumes:
+      - application/json
+      description: Api for register a new user
+      parameters:
+      - description: RegisterUser
+        in: body
+        name: User
+        required: true
+        schema:
+          $ref: '#/definitions/models.RegisterReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.RegisterRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: REGISTER USER
+      tags:
+      - SIGNUP
+  /v1/users/set/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Api for set new password
+      parameters:
+      - description: EMAIL
+        in: query
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.RegisterRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: FORGET PASSWORD
+      tags:
+      - SET-PASSWORD
+  /v1/users/verify:
+    get:
+      consumes:
+      - application/json
+      description: Api for verify a new user
+      parameters:
+      - in: query
+        name: code
+        type: string
+      - in: query
+        name: email
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserResCreate'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: VERIFICATION
+      tags:
+      - SIGNUP
 swagger: "2.0"

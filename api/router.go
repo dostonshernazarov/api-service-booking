@@ -52,6 +52,14 @@ func NewRoute(option RouteOption) http.Handler {
 	// ATTRACTION METHODS
 	api.POST("/attraction/create", HandlerV1.CreateAttraction)
 
+	// REGITER METHODS
+	api.POST("/users/register", HandlerV1.RegisterUser)
+	api.GET("/users/verify", HandlerV1.Verification)
+	api.GET("/users/login", HandlerV1.Login)
+	api.GET("/users/set/:id", HandlerV1.ForgetPassword)
+	api.GET("/users/code", HandlerV1.ForgetPasswordVerify)
+	api.PUT("/users/password", HandlerV1.SetNewPassword)
+
 	url := ginSwagger.URL("swagger/doc.json")
 	api.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 	return router
