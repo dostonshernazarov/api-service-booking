@@ -1,4 +1,4 @@
-FROM golang:1.22.1-alpine3.19
+FROM golang:1.22.1-alpine3.18 AS builder
 
 RUN mkdir app
 
@@ -8,6 +8,10 @@ WORKDIR /app
 
 RUN go build -o main cmd/app/main.go
 
-CMD ["/app/main"]
+FROM alpine:3.18
 
-EXPOSE 8080
+WORKDIR /app
+
+COPY --from=builder /app .
+
+CMD ["/app/main"]

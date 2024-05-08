@@ -156,9 +156,20 @@ const docTemplate = `{
                 }
             }
         },
+<<<<<<< HEAD
         "/v1/attraction/list": {
             "get": {
                 "description": "Api for listing attractions by page and limit",
+=======
+        "/v1/users/code": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Api for verify new password code",
+>>>>>>> main
                 "consumes": [
                     "application/json"
                 ],
@@ -166,6 +177,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
+<<<<<<< HEAD
                     "ATTRACTION"
                 ],
                 "summary": "LIST ATTRACTIONS BY PAGE AND LIMIT",
@@ -183,17 +195,40 @@ const docTemplate = `{
                         "name": "limit",
                         "in": "query",
                         "required": true
+=======
+                    "SET-PASSWORD"
+                ],
+                "summary": "FORGET PASSWORD CODE",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "code",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "email",
+                        "in": "query"
+>>>>>>> main
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
+<<<<<<< HEAD
                             "$ref": "#/definitions/models.ListAttractionModel"
                         }
                     },
                     "404": {
                         "description": "Not Found",
+=======
+                            "$ref": "#/definitions/models.RegisterRes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+>>>>>>> main
                         "schema": {
                             "$ref": "#/definitions/models.StandartError"
                         }
@@ -207,9 +242,20 @@ const docTemplate = `{
                 }
             }
         },
+<<<<<<< HEAD
         "/v1/attraction/update": {
             "patch": {
                 "description": "Api for updating attraction by attraction_id",
+=======
+        "/v1/users/login": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Api for login user",
+>>>>>>> main
                 "consumes": [
                     "application/json"
                 ],
@@ -217,6 +263,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
+<<<<<<< HEAD
                     "ATTRACTION"
                 ],
                 "summary": "UPDATE ATTRACTION",
@@ -236,17 +283,40 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/models.UpdateAttraction"
                         }
+=======
+                    "LOGIN"
+                ],
+                "summary": "LOGIN",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "email",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "password",
+                        "in": "query"
+>>>>>>> main
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
+<<<<<<< HEAD
                             "$ref": "#/definitions/models.AttractionModel"
                         }
                     },
                     "404": {
                         "description": "Not Found",
+=======
+                            "$ref": "#/definitions/models.UserResCreate"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+>>>>>>> main
                         "schema": {
                             "$ref": "#/definitions/models.StandartError"
                         }
@@ -260,9 +330,19 @@ const docTemplate = `{
                 }
             }
         },
+<<<<<<< HEAD
         "/v1/hotel/create": {
             "post": {
                 "description": "Api for creating hotel",
+=======
+        "/v1/users/password": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Api for update new password",
                 "consumes": [
                     "application/json"
                 ],
@@ -270,6 +350,60 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
+                    "SET-PASSWORD"
+                ],
+                "summary": "SET NEW PASSWORD",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "email",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "password",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.UserResCreate"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/users/register": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Api for register a new user",
+>>>>>>> main
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+<<<<<<< HEAD
                     "HOTEL"
                 ],
                 "summary": "CREATE HOTEL",
@@ -288,6 +422,19 @@ const docTemplate = `{
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/models.CreateHotel"
+=======
+                    "SIGNUP"
+                ],
+                "summary": "REGISTER USER",
+                "parameters": [
+                    {
+                        "description": "RegisterUser",
+                        "name": "User",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.RegisterReq"
+>>>>>>> main
                         }
                     }
                 ],
@@ -295,11 +442,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
+<<<<<<< HEAD
                             "$ref": "#/definitions/models.HotelModel"
                         }
                     },
                     "404": {
                         "description": "Not Found",
+=======
+                            "$ref": "#/definitions/models.RegisterRes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+>>>>>>> main
                         "schema": {
                             "$ref": "#/definitions/models.StandartError"
                         }
@@ -313,6 +468,7 @@ const docTemplate = `{
                 }
             }
         },
+<<<<<<< HEAD
         "/v1/hotel/delete": {
             "delete": {
                 "description": "Api for deleting hotel by hotel_id",
@@ -360,6 +516,16 @@ const docTemplate = `{
         "/v1/hotel/get": {
             "get": {
                 "description": "Api for getting hotel by hotel_id",
+=======
+        "/v1/users/set/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Api for set new password",
+>>>>>>> main
                 "consumes": [
                     "application/json"
                 ],
@@ -367,6 +533,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
+<<<<<<< HEAD
                     "HOTEL"
                 ],
                 "summary": "GET HOTEL BY HOTEL_ID",
@@ -375,6 +542,16 @@ const docTemplate = `{
                         "type": "string",
                         "description": "hotel_id",
                         "name": "hotel_id",
+=======
+                    "SET-PASSWORD"
+                ],
+                "summary": "FORGET PASSWORD",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "EMAIL",
+                        "name": "email",
+>>>>>>> main
                         "in": "query",
                         "required": true
                     }
@@ -383,11 +560,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
+<<<<<<< HEAD
                             "$ref": "#/definitions/models.HotelModel"
                         }
                     },
                     "404": {
                         "description": "Not Found",
+=======
+                            "$ref": "#/definitions/models.RegisterRes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+>>>>>>> main
                         "schema": {
                             "$ref": "#/definitions/models.StandartError"
                         }
@@ -401,9 +586,20 @@ const docTemplate = `{
                 }
             }
         },
+<<<<<<< HEAD
         "/v1/hotel/list": {
             "get": {
                 "description": "Api for listing hotels by page and limit",
+=======
+        "/v1/users/verify": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Api for verify a new user",
+>>>>>>> main
                 "consumes": [
                     "application/json"
                 ],
@@ -411,6 +607,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
+<<<<<<< HEAD
                     "HOTEL"
                 ],
                 "summary": "LIST HOTELS BY PAGE AND LIMIT",
@@ -428,12 +625,28 @@ const docTemplate = `{
                         "name": "limit",
                         "in": "query",
                         "required": true
+=======
+                    "SIGNUP"
+                ],
+                "summary": "VERIFICATION",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "code",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "email",
+                        "in": "query"
+>>>>>>> main
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
+<<<<<<< HEAD
                             "$ref": "#/definitions/models.ListHotelsModel"
                         }
                     },
@@ -492,6 +705,13 @@ const docTemplate = `{
                     },
                     "404": {
                         "description": "Not Found",
+=======
+                            "$ref": "#/definitions/models.UserResCreate"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+>>>>>>> main
                         "schema": {
                             "$ref": "#/definitions/models.StandartError"
                         }
@@ -910,6 +1130,28 @@ const docTemplate = `{
                 }
             }
         },
+        "models.RegisterReq": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "full_name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.RegisterRes": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string"
+                }
+            }
+        },
         "models.StandartError": {
             "type": "object",
             "properties": {
@@ -918,6 +1160,7 @@ const docTemplate = `{
                 }
             }
         },
+<<<<<<< HEAD
         "models.UpdateAttraction": {
             "type": "object",
             "properties": {
@@ -1008,6 +1251,43 @@ const docTemplate = `{
                 "state_province": {
                     "type": "string",
                     "default": "updated state or province"
+=======
+        "models.UserResCreate": {
+            "type": "object",
+            "properties": {
+                "access_token": {
+                    "type": "string"
+                },
+                "birthday": {
+                    "type": "string"
+                },
+                "card": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "full_name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "image_url": {
+                    "type": "string"
+                },
+                "phone_num": {
+                    "type": "string"
+                },
+                "refresh_token": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+>>>>>>> main
                 }
             }
         }

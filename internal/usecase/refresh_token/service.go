@@ -7,7 +7,7 @@ import (
 	"github.com/google/uuid"
 
 	"Booking/api-service-booking/internal/entity"
-	"Booking/api-service-booking/internal/pkg/token"
+	// "Booking/api-service-booking/internal/pkg/token"
 )
 
 type refreshTokenService struct {
@@ -67,19 +67,19 @@ func (r *refreshTokenService) GenerateToken(ctx context.Context, sub, tokenType,
 	// ctx, span := otlp.Start(ctx, "refreshTokenService", "refreshTokenUsecaseGenerateToken")
 	// defer span.End()
 
-	accessToken, refreshToken, err := token.GenerateToken(sub, tokenType, jwtSecret, accessTTL, refreshTTL, optionalFields...)
-	if err != nil {
-		return "", "", err
-	}
+	// accessToken, refreshToken, err := token.GenerateToken(sub, tokenType, jwtSecret, accessTTL, refreshTTL, optionalFields...)
+	// if err != nil {
+	// 	return "", "", err
+	// }
 
-	m := entity.RefreshToken{
-		RefreshToken: refreshToken,
-		ExpiryDate:   time.Now().Add(refreshTTL),
-	}
+	// m := entity.RefreshToken{
+	// 	RefreshToken: refreshToken,
+	// 	ExpiryDate:   time.Now().Add(refreshTTL),
+	// }
 
-	err = r.Create(ctx, &m)
-	if err != nil {
-		return "", "", err
-	}
-	return accessToken, refreshToken, nil
+	// err = r.Create(ctx, &m)
+	// if err != nil {
+	// 	return "", "", err
+	// }
+	return "", "", nil
 }

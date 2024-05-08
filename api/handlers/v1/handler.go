@@ -7,6 +7,7 @@ import (
 
 	grpcClients "Booking/api-service-booking/internal/infrastructure/grpc_service_client"
 	"Booking/api-service-booking/internal/pkg/config"
+	tokens "Booking/api-service-booking/internal/pkg/token"
 
 	appV "Booking/api-service-booking/internal/usecase/app_version"
 	"Booking/api-service-booking/internal/usecase/event"
@@ -17,6 +18,7 @@ type HandlerV1 struct {
 	Config         *config.Config
 	Logger         *zap.Logger
 	ContextTimeout time.Duration
+	jwtHandler tokens.JwtHandler
 	Service        grpcClients.ServiceClient
 	RefreshToken   refresh_token.RefreshToken
 	AppVersion     appV.AppVersion
