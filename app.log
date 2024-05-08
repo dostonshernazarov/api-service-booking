@@ -537,3 +537,472 @@ net/http.(*conn).serve
 2024-05-06T21:23:57.899+0500	INFO	app/main.go:41	api gateway service stops
 2024-05-06T21:23:59.877+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
 2024-05-06T21:25:19.079+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-06T21:39:32.584+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-06T21:43:50.641+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-06T21:44:38.331+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-06T21:49:59.931+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-06T21:50:01.783+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-06T21:52:16.469+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-06T21:52:18.303+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-06T21:59:19.806+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T17:19:00.430+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T17:20:19.316+0500	ERROR	v1/attraction.go:176	rpc error: code = Unknown desc = failed to get attraction: number of field descriptions must equal number of destinations, got 10 and 11
+Booking/api-service-booking/api/handlers/v1.HandlerV1.GetAttraction
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/attraction.go:176
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-08T17:24:19.900+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T17:24:22.569+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T17:24:25.348+0500	ERROR	v1/attraction.go:176	rpc error: code = Unknown desc = failed to get attraction: number of field descriptions must equal number of destinations, got 10 and 11
+Booking/api-service-booking/api/handlers/v1.HandlerV1.GetAttraction
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/attraction.go:176
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-08T17:26:35.661+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T17:26:38.332+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T17:26:41.972+0500	ERROR	v1/attraction.go:176	rpc error: code = Unknown desc = failed to get location for attraction: number of field descriptions must equal number of destinations, got 11 and 10
+Booking/api-service-booking/api/handlers/v1.HandlerV1.GetAttraction
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/attraction.go:176
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-08T17:30:27.114+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T17:30:29.284+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T17:30:31.307+0500	ERROR	v1/attraction.go:176	rpc error: code = Unknown desc = failed to get location for attraction: number of field descriptions must equal number of destinations, got 11 and 10
+Booking/api-service-booking/api/handlers/v1.HandlerV1.GetAttraction
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/attraction.go:176
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-08T17:33:10.192+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T17:33:12.316+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T17:33:14.607+0500	ERROR	v1/attraction.go:176	rpc error: code = Unknown desc = failed to get location for attraction: number of field descriptions must equal number of destinations, got 11 and 10
+Booking/api-service-booking/api/handlers/v1.HandlerV1.GetAttraction
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/attraction.go:176
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-08T17:36:26.595+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T17:36:28.594+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T17:36:30.513+0500	ERROR	v1/attraction.go:176	rpc error: code = Unknown desc = failed to get location for attraction: number of field descriptions must equal number of destinations, got 11 and 10
+Booking/api-service-booking/api/handlers/v1.HandlerV1.GetAttraction
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/attraction.go:176
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-08T17:38:10.836+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T17:38:12.638+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T17:38:14.580+0500	ERROR	v1/attraction.go:176	rpc error: code = Unknown desc = failed to get location for attraction: can't scan into dest[10]: cannot assign NULL to *time.Time
+Booking/api-service-booking/api/handlers/v1.HandlerV1.GetAttraction
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/attraction.go:176
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-08T17:40:21.795+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T17:40:23.835+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T17:40:26.114+0500	ERROR	v1/attraction.go:176	rpc error: code = Unknown desc = failed to scan image row: number of field descriptions must equal number of destinations, got 6 and 5
+Booking/api-service-booking/api/handlers/v1.HandlerV1.GetAttraction
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/attraction.go:176
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-08T17:41:58.783+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T17:42:00.890+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T17:42:46.534+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T18:06:47.837+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T18:06:57.352+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T18:07:35.574+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T18:11:42.648+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T18:12:51.893+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T18:18:43.698+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T18:18:46.182+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T18:18:53.513+0500	ERROR	v1/attraction.go:280	rpc error: code = Internal desc = failed to fetch attractions: failed to execute SQL query for listing attractions: ERROR: column "decs" does not exist (SQLSTATE 42703)
+Booking/api-service-booking/api/handlers/v1.HandlerV1.ListAttractions
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/attraction.go:280
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-08T18:19:22.668+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T18:19:24.896+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T18:19:28.111+0500	ERROR	v1/attraction.go:280	rpc error: code = Internal desc = failed to fetch attractions: failed to execute SQL query for listing attractions: expected 0 arguments, got 1
+Booking/api-service-booking/api/handlers/v1.HandlerV1.ListAttractions
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/attraction.go:280
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-08T18:21:05.542+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T18:21:08.594+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T18:24:25.157+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T19:32:54.501+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T19:33:27.856+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T19:37:15.898+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T19:47:45.304+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T19:47:47.311+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T19:50:40.609+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T19:50:46.503+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T19:53:01.568+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T19:53:03.578+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T19:55:11.164+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T20:06:26.327+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T20:11:48.149+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T20:11:50.846+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T20:12:39.243+0500	ERROR	v1/attraction.go:177	rpc error: code = Unknown desc = failed to get attraction: no rows in result set
+Booking/api-service-booking/api/handlers/v1.HandlerV1.GetAttraction
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/attraction.go:177
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-08T20:46:30.919+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T21:09:47.142+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T21:11:19.385+0500	ERROR	v1/hotel.go:177	rpc error: code = Unknown desc = failed to get hotel: no rows in result set
+Booking/api-service-booking/api/handlers/v1.HandlerV1.GetHotel
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/hotel.go:177
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-08T21:14:15.103+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T21:14:17.420+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T21:15:19.072+0500	ERROR	v1/hotel.go:177	rpc error: code = Unknown desc = failed to scan image row: number of field descriptions must equal number of destinations, got 5 and 6
+Booking/api-service-booking/api/handlers/v1.HandlerV1.GetHotel
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/hotel.go:177
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-08T21:17:51.922+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T21:17:56.057+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T21:21:35.678+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T21:21:37.642+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T21:22:17.999+0500	ERROR	v1/hotel.go:177	rpc error: code = Unknown desc = failed to scan image row: number of field descriptions must equal number of destinations, got 5 and 6
+Booking/api-service-booking/api/handlers/v1.HandlerV1.GetHotel
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/hotel.go:177
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-08T21:23:01.450+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T21:23:03.593+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T21:23:31.302+0500	ERROR	v1/hotel.go:280	rpc error: code = Internal desc = failed to fetch hotels: failed to scan row while listing hotels: number of field descriptions must equal number of destinations, got 10 and 11
+Booking/api-service-booking/api/handlers/v1.HandlerV1.ListHotels
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/hotel.go:280
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-08T21:24:09.846+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T21:24:12.137+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T21:24:14.849+0500	ERROR	v1/hotel.go:280	rpc error: code = Internal desc = failed to fetch hotels: failed to get location for hotel: no rows in result set
+Booking/api-service-booking/api/handlers/v1.HandlerV1.ListHotels
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/hotel.go:280
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-08T21:30:06.732+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T21:30:08.890+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T21:30:12.369+0500	ERROR	v1/hotel.go:280	rpc error: code = Internal desc = failed to fetch hotels: failed to get location for hotel: no rows in result set
+Booking/api-service-booking/api/handlers/v1.HandlerV1.ListHotels
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/hotel.go:280
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-08T21:31:59.156+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T21:32:01.030+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T21:32:03.195+0500	ERROR	v1/hotel.go:280	rpc error: code = Internal desc = failed to fetch hotels: failed to get location for hotel: no rows in result set
+Booking/api-service-booking/api/handlers/v1.HandlerV1.ListHotels
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/hotel.go:280
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-08T21:33:31.634+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-08T21:33:33.647+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-08T21:36:50.765+0500	ERROR	v1/hotel.go:177	rpc error: code = Unknown desc = failed to get hotel: no rows in result set
+Booking/api-service-booking/api/handlers/v1.HandlerV1.GetHotel
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/hotel.go:177
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-08T21:37:55.900+0500	INFO	app/main.go:41	api gateway service stops
