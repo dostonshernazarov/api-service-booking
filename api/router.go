@@ -63,6 +63,13 @@ func NewRoute(option RouteOption) http.Handler {
 	api.PATCH("/hotel/update", HandlerV1.UpdateHotel)
 	api.DELETE("/hotel/delete", HandlerV1.DeleteHotel)
 
+	// RESTAURANT METHODS
+	api.POST("/restaurant/create", HandlerV1.CreateRestaurant)
+	api.GET("/restaurant/get", HandlerV1.GetRestaurant)
+	api.GET("/restaurant/list", HandlerV1.ListRestaurants)
+	api.PATCH("/restaurant/update", HandlerV1.UpdateRestaurant)
+	api.DELETE("/restaurant/delete", HandlerV1.DeleteRestaurant)
+
 	url := ginSwagger.URL("swagger/doc.json")
 	api.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 	return router

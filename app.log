@@ -1006,3 +1006,49 @@ net/http.serverHandler.ServeHTTP
 net/http.(*conn).serve
 	/usr/local/go/src/net/http/server.go:2039
 2024-05-08T21:37:55.900+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-09T17:43:38.482+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-09T17:44:44.029+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-09T17:45:23.984+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-09T17:49:12.294+0500	ERROR	v1/restaurant.go:283	rpc error: code = Internal desc = failed to fetch restaurants: failed to scan row while listing restaurants: number of field descriptions must equal number of destinations, got 11 and 12
+Booking/api-service-booking/api/handlers/v1.HandlerV1.ListRestaurants
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/restaurant.go:283
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-09T17:50:51.229+0500	ERROR	v1/restaurant.go:179	rpc error: code = Unknown desc = failed to get restaurant: no rows in result set
+Booking/api-service-booking/api/handlers/v1.HandlerV1.GetRestaurant
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/restaurant.go:179
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-09T17:51:08.415+0500	INFO	app/main.go:41	api gateway service stops

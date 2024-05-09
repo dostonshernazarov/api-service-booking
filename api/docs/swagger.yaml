@@ -140,6 +140,36 @@ definitions:
         default: Shaykhontohur
         type: string
     type: object
+  models.CreateRestaurant:
+    properties:
+      contact_number:
+        default: +(99891)-234-56-78
+        type: string
+      description:
+        default: uzbek national cousine
+        type: string
+      images:
+        items:
+          $ref: '#/definitions/models.CreateImage'
+        type: array
+      licence_url:
+        default: https://creativecommons.org/licenses/by/3.2/
+        type: string
+      location:
+        $ref: '#/definitions/models.CreateLocation'
+      opening_hours:
+        default: 06:00-22:00
+        type: string
+      rating:
+        default: 4.1
+        type: number
+      restaurant_name:
+        default: Kamolon Osh Markazi
+        type: string
+      website_url:
+        default: https://creativecommons.org/licenses/by/3.3/
+        type: string
+    type: object
   models.DeleteResponse:
     properties:
       success:
@@ -221,6 +251,13 @@ definitions:
           $ref: '#/definitions/models.HotelModel'
         type: array
     type: object
+  models.ListRestaurantsModel:
+    properties:
+      restaurants:
+        items:
+          $ref: '#/definitions/models.RestaurantModel'
+        type: array
+    type: object
   models.Location:
     properties:
       address:
@@ -267,6 +304,37 @@ definitions:
       state_province:
         type: string
       updated_at:
+        type: string
+    type: object
+  models.RestaurantModel:
+    properties:
+      contact_number:
+        type: string
+      created_at:
+        type: string
+      description:
+        type: string
+      images:
+        items:
+          $ref: '#/definitions/models.ImageModel'
+        type: array
+      licence_url:
+        type: string
+      location:
+        $ref: '#/definitions/models.LocationModel'
+      opening_hours:
+        type: string
+      owner_id:
+        type: string
+      rating:
+        type: number
+      restaurant_id:
+        type: string
+      restaurant_name:
+        type: string
+      updated_at:
+        type: string
+      website_url:
         type: string
     type: object
   models.StandartError:
@@ -339,6 +407,32 @@ definitions:
         type: number
       state_province:
         default: updated state or province
+        type: string
+    type: object
+  models.UpdateRestaurant:
+    properties:
+      contact_number:
+        default: updated contact number
+        type: string
+      description:
+        default: updated description
+        type: string
+      licence_url:
+        default: updated licence url
+        type: string
+      location:
+        $ref: '#/definitions/models.UpdateLocation'
+      opening_hours:
+        default: 09:00-00:00
+        type: string
+      rating:
+        default: 4.9
+        type: number
+      restaurant_name:
+        default: updated restaurant name
+        type: string
+      website_url:
+        default: updated website url
         type: string
     type: object
 info:
@@ -668,4 +762,166 @@ paths:
       summary: UPDATE HOTEL
       tags:
       - HOTEL
+  /v1/restaurant/create:
+    post:
+      consumes:
+      - application/json
+      description: Api for creating restaurant
+      parameters:
+      - description: owner_id
+        in: query
+        name: owner_id
+        required: true
+        type: string
+      - description: Restaurant
+        in: body
+        name: Restaurant
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateRestaurant'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.RestaurantModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      summary: CREATE RESTAURANT
+      tags:
+      - RESTAURANT
+  /v1/restaurant/delete:
+    delete:
+      consumes:
+      - application/json
+      description: Api for deleting restaurant by restaurant_id
+      parameters:
+      - description: restaurant_id
+        in: query
+        name: restaurant_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DeleteResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      summary: DELETE RESTAURANT BY RESTAURANT_ID
+      tags:
+      - RESTAURANT
+  /v1/restaurant/get:
+    get:
+      consumes:
+      - application/json
+      description: Api for getting restaurant by restaurant_id
+      parameters:
+      - description: restaurant_id
+        in: query
+        name: restaurant_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.RestaurantModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      summary: GET RESTAURANT BY RESTAURANT_ID
+      tags:
+      - RESTAURANT
+  /v1/restaurant/list:
+    get:
+      consumes:
+      - application/json
+      description: Api for listing restaurants by page and limit
+      parameters:
+      - description: page
+        in: query
+        name: page
+        required: true
+        type: string
+      - description: limit
+        in: query
+        name: limit
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ListRestaurantsModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      summary: LIST RESTAURANTS BY PAGE AND LIMIT
+      tags:
+      - RESTAURANT
+  /v1/restaurant/update:
+    patch:
+      consumes:
+      - application/json
+      description: Api for updating restaurant by restaurant_id
+      parameters:
+      - description: restaurant_id
+        in: query
+        name: restaurant_id
+        required: true
+        type: string
+      - description: UpdatingRestaurant
+        in: body
+        name: UpdatingRestaurant
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateRestaurant'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.RestaurantModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      summary: UPDATE RESTAURANT
+      tags:
+      - RESTAURANT
 swagger: "2.0"

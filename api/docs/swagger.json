@@ -493,6 +493,251 @@
                     }
                 }
             }
+        },
+        "/v1/restaurant/create": {
+            "post": {
+                "description": "Api for creating restaurant",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "RESTAURANT"
+                ],
+                "summary": "CREATE RESTAURANT",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "owner_id",
+                        "name": "owner_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "description": "Restaurant",
+                        "name": "Restaurant",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CreateRestaurant"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.RestaurantModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/restaurant/delete": {
+            "delete": {
+                "description": "Api for deleting restaurant by restaurant_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "RESTAURANT"
+                ],
+                "summary": "DELETE RESTAURANT BY RESTAURANT_ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "restaurant_id",
+                        "name": "restaurant_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.DeleteResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/restaurant/get": {
+            "get": {
+                "description": "Api for getting restaurant by restaurant_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "RESTAURANT"
+                ],
+                "summary": "GET RESTAURANT BY RESTAURANT_ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "restaurant_id",
+                        "name": "restaurant_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.RestaurantModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/restaurant/list": {
+            "get": {
+                "description": "Api for listing restaurants by page and limit",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "RESTAURANT"
+                ],
+                "summary": "LIST RESTAURANTS BY PAGE AND LIMIT",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "page",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "limit",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ListRestaurantsModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/restaurant/update": {
+            "patch": {
+                "description": "Api for updating restaurant by restaurant_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "RESTAURANT"
+                ],
+                "summary": "UPDATE RESTAURANT",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "restaurant_id",
+                        "name": "restaurant_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "description": "UpdatingRestaurant",
+                        "name": "UpdatingRestaurant",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UpdateRestaurant"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.RestaurantModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -701,6 +946,48 @@
                 }
             }
         },
+        "models.CreateRestaurant": {
+            "type": "object",
+            "properties": {
+                "contact_number": {
+                    "type": "string",
+                    "default": "+(99891)-234-56-78"
+                },
+                "description": {
+                    "type": "string",
+                    "default": "uzbek national cousine"
+                },
+                "images": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.CreateImage"
+                    }
+                },
+                "licence_url": {
+                    "type": "string",
+                    "default": "https://creativecommons.org/licenses/by/3.2/"
+                },
+                "location": {
+                    "$ref": "#/definitions/models.CreateLocation"
+                },
+                "opening_hours": {
+                    "type": "string",
+                    "default": "06:00-22:00"
+                },
+                "rating": {
+                    "type": "number",
+                    "default": 4.1
+                },
+                "restaurant_name": {
+                    "type": "string",
+                    "default": "Kamolon Osh Markazi"
+                },
+                "website_url": {
+                    "type": "string",
+                    "default": "https://creativecommons.org/licenses/by/3.3/"
+                }
+            }
+        },
         "models.DeleteResponse": {
             "type": "object",
             "properties": {
@@ -826,6 +1113,17 @@
                 }
             }
         },
+        "models.ListRestaurantsModel": {
+            "type": "object",
+            "properties": {
+                "restaurants": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.RestaurantModel"
+                    }
+                }
+            }
+        },
         "models.Location": {
             "type": "object",
             "properties": {
@@ -895,6 +1193,53 @@
                     "type": "string"
                 },
                 "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.RestaurantModel": {
+            "type": "object",
+            "properties": {
+                "contact_number": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "images": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.ImageModel"
+                    }
+                },
+                "licence_url": {
+                    "type": "string"
+                },
+                "location": {
+                    "$ref": "#/definitions/models.LocationModel"
+                },
+                "opening_hours": {
+                    "type": "string"
+                },
+                "owner_id": {
+                    "type": "string"
+                },
+                "rating": {
+                    "type": "number"
+                },
+                "restaurant_id": {
+                    "type": "string"
+                },
+                "restaurant_name": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "website_url": {
                     "type": "string"
                 }
             }
@@ -997,6 +1342,42 @@
                 "state_province": {
                     "type": "string",
                     "default": "updated state or province"
+                }
+            }
+        },
+        "models.UpdateRestaurant": {
+            "type": "object",
+            "properties": {
+                "contact_number": {
+                    "type": "string",
+                    "default": "updated contact number"
+                },
+                "description": {
+                    "type": "string",
+                    "default": "updated description"
+                },
+                "licence_url": {
+                    "type": "string",
+                    "default": "updated licence url"
+                },
+                "location": {
+                    "$ref": "#/definitions/models.UpdateLocation"
+                },
+                "opening_hours": {
+                    "type": "string",
+                    "default": "09:00-00:00"
+                },
+                "rating": {
+                    "type": "number",
+                    "default": 4.9
+                },
+                "restaurant_name": {
+                    "type": "string",
+                    "default": "updated restaurant name"
+                },
+                "website_url": {
+                    "type": "string",
+                    "default": "updated website url"
                 }
             }
         }
