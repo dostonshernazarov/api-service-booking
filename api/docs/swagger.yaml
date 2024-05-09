@@ -295,6 +295,7 @@ definitions:
         $ref: '#/definitions/models.Error'
     type: object
 <<<<<<< HEAD
+<<<<<<< HEAD
   models.UserReq:
     properties:
       card:
@@ -328,6 +329,8 @@ definitions:
         type: string
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> main
   models.UpdateAttraction:
     properties:
       attraction_name:
@@ -393,7 +396,8 @@ definitions:
         type: number
       state_province:
         default: updated state or province
-=======
+        type: string
+    type: object
   models.UserResCreate:
     properties:
       access_token:
@@ -427,6 +431,7 @@ definitions:
         type: string
       role:
 <<<<<<< HEAD
+<<<<<<< HEAD
         type: string
       updated_at:
         type: string
@@ -439,6 +444,8 @@ definitions:
         type: array
     type: object
 host: localhost:8080
+=======
+>>>>>>> main
 =======
 >>>>>>> main
         type: string
@@ -538,7 +545,6 @@ paths:
         name: id
 =======
       - ATTRACTION
-<<<<<<< HEAD
   /v1/attraction/delete:
     delete:
       consumes:
@@ -604,19 +610,6 @@ paths:
         in: query
         name: attraction_id
         required: true
-=======
-  /v1/users/code:
-    get:
-      consumes:
-      - application/json
-      description: Api for verify new password code
-      parameters:
-      - in: query
-        name: code
-        type: string
-      - in: query
-        name: email
->>>>>>> main
         type: string
 >>>>>>> main
       produces:
@@ -625,6 +618,7 @@ paths:
         "200":
           description: OK
           schema:
+<<<<<<< HEAD
 <<<<<<< HEAD
             $ref: '#/definitions/models.Users'
         "400":
@@ -640,12 +634,18 @@ paths:
           description: Bad Request
 >>>>>>> main
 >>>>>>> main
+=======
+            $ref: '#/definitions/models.AttractionModel'
+        "404":
+          description: Not Found
+>>>>>>> main
           schema:
             $ref: '#/definitions/models.StandartError'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+<<<<<<< HEAD
 <<<<<<< HEAD
       security:
       - ApiKeyAuth: []
@@ -666,6 +666,8 @@ paths:
         type: integer
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> main
       summary: GET ATTRACTION BY ATTRACTION_ID
       tags:
       - ATTRACTION
@@ -684,24 +686,6 @@ paths:
         in: query
         name: limit
         required: true
-=======
-      security:
-      - ApiKeyAuth: []
-      summary: FORGET PASSWORD CODE
-      tags:
-      - SET-PASSWORD
-  /v1/users/login:
-    get:
-      consumes:
-      - application/json
-      description: Api for login user
-      parameters:
-      - in: query
-        name: email
-        type: string
-      - in: query
-        name: password
->>>>>>> main
         type: string
 >>>>>>> main
       produces:
@@ -710,6 +694,7 @@ paths:
         "200":
           description: OK
           schema:
+<<<<<<< HEAD
 <<<<<<< HEAD
             $ref: '#/definitions/models.Users'
         "400":
@@ -725,12 +710,18 @@ paths:
           description: Bad Request
 >>>>>>> main
 >>>>>>> main
+=======
+            $ref: '#/definitions/models.ListAttractionModel'
+        "404":
+          description: Not Found
+>>>>>>> main
           schema:
             $ref: '#/definitions/models.StandartError'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+<<<<<<< HEAD
 <<<<<<< HEAD
       security:
       - ApiKeyAuth: []
@@ -746,6 +737,8 @@ paths:
       - description: createModel
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> main
       summary: LIST ATTRACTIONS BY PAGE AND LIMIT
       tags:
       - ATTRACTION
@@ -766,47 +759,21 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/models.UpdateAttraction'
-=======
-      security:
-      - ApiKeyAuth: []
-      summary: LOGIN
-      tags:
-      - LOGIN
-  /v1/users/password:
-    put:
-      consumes:
-      - application/json
-      description: Api for update new password
-      parameters:
-      - in: query
-        name: email
-        type: string
-      - in: query
-        name: password
-        type: string
->>>>>>> main
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-<<<<<<< HEAD
             $ref: '#/definitions/models.AttractionModel'
         "404":
           description: Not Found
-=======
-            $ref: '#/definitions/models.UserResCreate'
-        "400":
-          description: Bad Request
->>>>>>> main
           schema:
             $ref: '#/definitions/models.StandartError'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
-<<<<<<< HEAD
       summary: UPDATE ATTRACTION
       tags:
       - ATTRACTION
@@ -827,6 +794,7 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/models.CreateHotel'
+<<<<<<< HEAD
 =======
       security:
       - ApiKeyAuth: []
@@ -851,12 +819,15 @@ paths:
           $ref: '#/definitions/models.RegisterReq'
 >>>>>>> main
 >>>>>>> main
+=======
+>>>>>>> main
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
+<<<<<<< HEAD
 <<<<<<< HEAD
             $ref: '#/definitions/models.UserRes'
         "400":
@@ -872,12 +843,18 @@ paths:
           description: Bad Request
 >>>>>>> main
 >>>>>>> main
+=======
+            $ref: '#/definitions/models.HotelModel'
+        "404":
+          description: Not Found
+>>>>>>> main
           schema:
             $ref: '#/definitions/models.StandartError'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+<<<<<<< HEAD
 <<<<<<< HEAD
       security:
       - ApiKeyAuth: []
@@ -891,6 +868,8 @@ securityDefinitions:
     type: apiKey
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> main
       summary: CREATE HOTEL
       tags:
       - HOTEL
@@ -932,22 +911,6 @@ securityDefinitions:
       - description: hotel_id
         in: query
         name: hotel_id
-=======
-      security:
-      - ApiKeyAuth: []
-      summary: REGISTER USER
-      tags:
-      - SIGNUP
-  /v1/users/set/{id}:
-    get:
-      consumes:
-      - application/json
-      description: Api for set new password
-      parameters:
-      - description: EMAIL
-        in: query
-        name: email
->>>>>>> main
         required: true
         type: string
       produces:
@@ -956,22 +919,15 @@ securityDefinitions:
         "200":
           description: OK
           schema:
-<<<<<<< HEAD
             $ref: '#/definitions/models.HotelModel'
         "404":
           description: Not Found
-=======
-            $ref: '#/definitions/models.RegisterRes'
-        "400":
-          description: Bad Request
->>>>>>> main
           schema:
             $ref: '#/definitions/models.StandartError'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
-<<<<<<< HEAD
       summary: GET HOTEL BY HOTEL_ID
       tags:
       - HOTEL
@@ -990,24 +946,6 @@ securityDefinitions:
         in: query
         name: limit
         required: true
-=======
-      security:
-      - ApiKeyAuth: []
-      summary: FORGET PASSWORD
-      tags:
-      - SET-PASSWORD
-  /v1/users/verify:
-    get:
-      consumes:
-      - application/json
-      description: Api for verify a new user
-      parameters:
-      - in: query
-        name: code
-        type: string
-      - in: query
-        name: email
->>>>>>> main
         type: string
       produces:
       - application/json
@@ -1015,22 +953,15 @@ securityDefinitions:
         "200":
           description: OK
           schema:
-<<<<<<< HEAD
             $ref: '#/definitions/models.ListHotelsModel'
         "404":
           description: Not Found
-=======
-            $ref: '#/definitions/models.UserResCreate'
-        "400":
-          description: Bad Request
->>>>>>> main
           schema:
             $ref: '#/definitions/models.StandartError'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
-<<<<<<< HEAD
       summary: LIST HOTELS BY PAGE AND LIMIT
       tags:
       - HOTEL
@@ -1069,12 +1000,200 @@ securityDefinitions:
       summary: UPDATE HOTEL
       tags:
       - HOTEL
-=======
+  /v1/users/code:
+    get:
+      consumes:
+      - application/json
+      description: Api for verify new password code
+      parameters:
+      - in: query
+        name: code
+        type: string
+      - in: query
+        name: email
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.RegisterRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: FORGET PASSWORD CODE
+      tags:
+      - SET-PASSWORD
+  /v1/users/login:
+    get:
+      consumes:
+      - application/json
+      description: Api for login user
+      parameters:
+      - in: query
+        name: email
+        type: string
+      - in: query
+        name: password
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserResCreate'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: LOGIN
+      tags:
+      - LOGIN
+  /v1/users/password:
+    put:
+      consumes:
+      - application/json
+      description: Api for update new password
+      parameters:
+      - in: query
+        name: email
+        type: string
+      - in: query
+        name: password
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserResCreate'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: SET NEW PASSWORD
+      tags:
+      - SET-PASSWORD
+  /v1/users/register:
+    post:
+      consumes:
+      - application/json
+      description: Api for register a new user
+      parameters:
+      - description: RegisterUser
+        in: body
+        name: User
+        required: true
+        schema:
+          $ref: '#/definitions/models.RegisterReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.RegisterRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: REGISTER USER
+      tags:
+      - SIGNUP
+  /v1/users/set/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Api for set new password
+      parameters:
+      - description: EMAIL
+        in: query
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.RegisterRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: FORGET PASSWORD
+      tags:
+      - SET-PASSWORD
+  /v1/users/verify:
+    get:
+      consumes:
+      - application/json
+      description: Api for verify a new user
+      parameters:
+      - in: query
+        name: code
+        type: string
+      - in: query
+        name: email
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserResCreate'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
       security:
       - ApiKeyAuth: []
       summary: VERIFICATION
       tags:
       - SIGNUP
+<<<<<<< HEAD
 >>>>>>> main
+>>>>>>> main
+=======
 >>>>>>> main
 swagger: "2.0"
