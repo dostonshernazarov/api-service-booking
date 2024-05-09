@@ -3,31 +3,44 @@ package v1
 import (
 	models "Booking/api-service-booking/api/models"
 	pbu "Booking/api-service-booking/genproto/user-proto"
+	"Booking/api-service-booking/internal/pkg/etc"
 	l "Booking/api-service-booking/internal/pkg/logger"
+	"Booking/api-service-booking/internal/pkg/otlp"
+	tokens "Booking/api-service-booking/internal/pkg/token"
 	"Booking/api-service-booking/internal/pkg/utils"
-	"context"
+	valid "Booking/api-service-booking/internal/pkg/validation"
+	// "context"
 	"net/http"
-	"time"
+	// "time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
+	"go.opentelemetry.io/otel/attribute"
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
-// Create
-// @Summary Create
+// CREATE
+// @Summary CREATE
 // @Security ApiKeyAuth
 // @Description Api for Create
-// @Tags user
+// @Tags USER
 // @Accept json
 // @Produce json
-// @Param User body models.UserReq true "createModel"
+// @Param User body models.UserCreate true "createModel"
 // @Success 200 {object} models.UserRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/user/create [post]
+// @Router /v1/users/create [post]
 func (h *HandlerV1) Create(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "CreateUser")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+		attribute.Key("host").String(c.Request.Host),
+	)
+	defer span.End()
+	
 	var (
-		body        models.UserReq
+		body        models.UserCreate
 		jsonMarshal protojson.MarshalOptions
 	)
 	jsonMarshal.UseProtoNames = true
@@ -41,18 +54,88 @@ func (h *HandlerV1) Create(c *gin.Context) {
 		return
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
+	res := valid.IsValidEmail(body.Email)
+	if !res {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Incorrect Email. Try again",
+		})
+
+		h.Logger.Error("Incorrect Email. Try again, error while in Create")
+		return
+	}
+
+	res = valid.IsValidPassword(body.Password)
+	if !res {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Incorrect Password. Try again",
+		})
+
+		h.Logger.Error("Incorrect Password. Try again, error while in Create")
+		return
+	}
+
+	isEmail, err := h.Service.UserService().CheckUniquess(ctx, &pbu.FV{
+		Field:                "email",
+		Value:                body.Email,
+	})
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Went wrong",
+		})
+
+		h.Logger.Error("Error while check unique email in Create")
+		return
+	}
+
+	if isEmail.Code != 0 {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "Email already in use",
+		})
+
+		return
+	}
+
+
+	password, err  := etc.HashPassword(body.Password)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Went wrong",
+		})
+
+		h.Logger.Error("Error while hash password in Create")
+		return
+	}
+
+	newId := uuid.NewString()
+
+	h.jwtHandler = tokens.JwtHandler{
+		Sub:  newId,
+		Iss:  "client",
+		Role: "user",
+		Log:  h.Logger,
+	}
+
+	access, refresh, err := h.jwtHandler.GenerateJwt()
+	if err != nil {
+		c.JSON(http.StatusConflict, gin.H{
+			"error": "error while generating jwt",
+		})
+		h.Logger.Error("error generate new jwt tokens", l.Error(err))
+		return
+	}
 
 	response, err := h.Service.UserService().Create(ctx, &pbu.User{
-		FullName:		body.FullName,
-		Email:			body.Email,
-        Password:		body.Password,
-        DateOfBirth:	body.DateOfBirth,
-        ProfileImg:		body.ProfileImg,
-        Card:			body.Card,
-		Gender:			body.Gender,
-        PhoneNumber:	body.PhoneNumber,
+		Id:                   newId,
+		FullName:             body.FullName,
+		Email:                body.Email,
+		Password:             password,
+		DateOfBirth:          body.DateOfBirth,
+		ProfileImg:           body.ProfileImg,
+		Card:                 body.Card,
+		Gender:               body.Gender,
+		PhoneNumber:          body.PhoneNumber,
+		Role:                 "user",
+		RefreshToken:         refresh,
 	})
 	
 	if err != nil {
@@ -62,45 +145,46 @@ func (h *HandlerV1) Create(c *gin.Context) {
 		l.Error(err)
 		return
 	}
-	c.JSON(http.StatusCreated, response)
 
-	var userBody models.UserRes
-	c.JSON(http.StatusCreated, &models.UserRes{
-		Id:				userBody.Id,
-		FullName:		userBody.FullName,
-		Email:			userBody.Email,
-        Password:		userBody.Password,
-        DateOfBirth:	userBody.DateOfBirth,
-        ProfileImg:		userBody.ProfileImg,
-        Card:			userBody.Card,
-		Gender:			userBody.Gender,
-        PhoneNumber:	userBody.PhoneNumber,
-        Role:			userBody.Role,
-        RefreshToken:	userBody.RefreshToken,
-        CreatedAt:		userBody.CreatedAt,
+	c.JSON(http.StatusCreated, &models.UserResCreate{
+		Id:           response.Id,
+		FullName:     response.FullName,
+		Email:        response.Email,
+		DateOfBirth:  response.DateOfBirth,
+		ProfileImg:   response.ProfileImg,
+		Card:         response.Card,
+		Gender:       response.Gender,
+		PhoneNumber:  response.PhoneNumber,
+		Role:         response.Role,
+		AccessToken:  access,
+		RefreshToken: response.RefreshToken,
 	})
 }
 
-// Get
-// @Summary Get
+// GET
+// @Summary GET
 // @Security ApiKeyAuth
 // @Description Api for Get
-// @Tags user
+// @Tags USER
 // @Accept json
 // @Produce json
 // @Param id path string true "ID"
 // @Success 200 {object} models.UserRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/user/{id} [get]
+// @Router /v1/users/{id} [get]
 func (h *HandlerV1) Get(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "GetUser")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+		attribute.Key("host").String(c.Request.Host),
+	)
+	defer span.End()
+
 	var jsonMarshal protojson.MarshalOptions
 	jsonMarshal.UseProtoNames = true
 
 	id := c.Param("id")
-
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
 
 	response, err := h.Service.UserService().Get(
 		ctx, &pbu.Filter{
@@ -113,22 +197,45 @@ func (h *HandlerV1) Get(c *gin.Context) {
 		l.Error(err)
 		return
 	}
-	c.JSON(http.StatusOK, response)
+	c.JSON(http.StatusOK, &models.UserRes{
+		Id:           response.User.Id,
+		FullName:     response.User.FullName,
+		Email:        response.User.Email,
+		Password:     response.User.Password,
+		DateOfBirth:  response.User.DateOfBirth,
+		ProfileImg:   response.User.ProfileImg,
+		Card:         response.User.Card,
+		Gender:       response.User.Gender,
+		PhoneNumber:  response.User.PhoneNumber,
+		Role:         response.User.Role,
+		RefreshToken: response.User.RefreshToken,
+		CreatedAt:    response.User.CreatedAt,
+		UpdatedAt:    response.User.CreatedAt,
+		DeletedAt:    response.User.DeletedAt,
+	})
 }
 
-// ListUsers
-// @Summary ListUsers
+// LIST USERS
+// @Summary LIST USERS
 // @Security ApiKeyAuth
 // @Description Api for ListUsers
-// @Tags user
+// @Tags USER
 // @Accept json
 // @Produce json
 // @Param request query models.Pagination true "request"
-// @Success 200 {object} models.Users
+// @Success 200 {object} pbu.ListUsersRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/user/list/users [get]
+// @Router /v1/users/list/users [get]
 func (h *HandlerV1) ListUsers(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "ListUser")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+		attribute.Key("host").String(c.Request.Host),
+	)
+	defer span.End()
+
+
 	queryParams := c.Request.URL.Query()
 	params, errStr := utils.ParseQueryParam(queryParams)
 	if errStr != nil {
@@ -140,13 +247,11 @@ func (h *HandlerV1) ListUsers(c *gin.Context) {
 	var jsonMarshal protojson.MarshalOptions
 	jsonMarshal.UseProtoNames = true
 
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
 
 	response, err := h.Service.UserService().ListUsers(
 		ctx, &pbu.ListUsersReq{
 			Limit: params.Limit,
-			Offset:  params.Offset,
+			Offset:  (params.Page-1)*params.Limit,
 		})
 
 	if err != nil {
@@ -160,19 +265,26 @@ func (h *HandlerV1) ListUsers(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
-// ListDeletedUsers
-// @Summary ListDeletedUsers
+// LIST DELETED USERS
+// @Summary LIST DELETED USERS
 // @Security ApiKeyAuth
 // @Description Api for ListDeletedUsers
-// @Tags user
+// @Tags USER
 // @Accept json
 // @Produce json
 // @Param request query models.Pagination true "request"
-// @Success 200 {object} models.Users
+// @Success 200 {object} pbu.ListUsersRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/user/list/deleted [get]
+// @Router /v1/users/list/deleted [get]
 func (h *HandlerV1) ListDeletedUsers(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "ListDeletedUser")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+		attribute.Key("host").String(c.Request.Host),
+	)
+	defer span.End()
+
 	queryParams := c.Request.URL.Query()
 	params, errStr := utils.ParseQueryParam(queryParams)
 	if errStr != nil {
@@ -184,13 +296,11 @@ func (h *HandlerV1) ListDeletedUsers(c *gin.Context) {
 	var jsonMarshal protojson.MarshalOptions
 	jsonMarshal.UseProtoNames = true
 
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
 
 	response, err := h.Service.UserService().ListDeletedUsers(
 		ctx, &pbu.ListUsersReq{
 			Limit: params.Limit,
-			Offset:  params.Offset,
+			Offset:  (params.Page-1)*params.Limit,
 		})
 
 	if err != nil {
@@ -204,21 +314,28 @@ func (h *HandlerV1) ListDeletedUsers(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
-// Update
-// @Summary Update
+// UPDATE
+// @Summary UPDATE
 // @Security ApiKeyAuth
 // @Description Api for Update
-// @Tags user
+// @Tags USER
 // @Accept json
 // @Produce json
 // @Param User body models.UserReq true "createModel"
 // @Success 200 {object} models.UserRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/user/update [put]
+// @Router /v1/users/update [put]
 func (h *HandlerV1) Update(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "UpdateUser")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+		attribute.Key("host").String(c.Request.Host),
+	)
+	defer span.End()
+
 	var (
-		body        pbu.User
+		body        models.UserReq
 		jsonMarshal protojson.MarshalOptions
 	)
 	jsonMarshal.UseProtoNames = true
@@ -228,56 +345,155 @@ func (h *HandlerV1) Update(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
-		// h.log.Error("failed to bind json", l.Error(err))
+		h.Logger.Error("failed to bind json", l.Error(err))
 		return
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
+	if body.Id == "" {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Went wrong",
+		})
+		h.Logger.Error("Id required:", l.Error(err))
+		return
+	}
 
-	response, err := h.Service.UserService().Update(ctx, &body)
+	getUser ,err := h.Service.UserService().Get(ctx, &pbu.Filter{
+		Filter:               map[string]string{"id":body.Id},
+	})
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Went wrong",
+		})
+		h.Logger.Error("failed to get user in update", l.Error(err))
+		return
+	}
+
+	if body.FullName == "" {
+		body.FullName = getUser.User.FullName
+	}
+
+	if body.Email == "" {
+		body.Email = getUser.User.Email
+	}
+
+	if body.Password == "" {
+		body.Password = getUser.User.Password
+	}
+
+	if body.DateOfBirth == "" {
+		body.DateOfBirth = getUser.User.DateOfBirth
+	}
+
+	if body.ProfileImg == "" {
+		body.ProfileImg = getUser.User.ProfileImg
+	}
+
+	if body.Card == "" {
+		body.Card = getUser.User.Card
+	}
+
+	if body.Gender == "" {
+		body.Gender = getUser.User.Gender
+	}
+
+	if body.PhoneNumber == "" {
+		body.PhoneNumber = getUser.User.PhoneNumber
+	}
+
+	if body.Password != "" {
+		body.Password, err =  etc.HashPassword(body.Password)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": "Went wrong",
+			})
+			h.Logger.Error("failed to hash password in update", l.Error(err))
+			return
+		}
+	}
+
+	response, err := h.Service.UserService().Update(ctx, &pbu.User{
+		Id:                   body.Id,
+		FullName:             body.FullName,
+		Email:                body.Email,
+		Password:             body.Password,
+		DateOfBirth:          body.DateOfBirth,
+		ProfileImg:           body.ProfileImg,
+		Card:                 body.Card,
+		Gender:               body.Gender,
+		PhoneNumber:          body.PhoneNumber,
+	})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
-		// h.log.Error("failed to update user", l.Error(err))
+		h.Logger.Error("failed to update user", l.Error(err))
 		return
 	}
 
-	c.JSON(http.StatusOK, response)
+	c.JSON(http.StatusOK, &models.UserRes{
+		Id:           response.Id,
+		FullName:     response.FullName,
+		Email:        response.Email,
+		Password:     response.Password,
+		DateOfBirth:  response.DateOfBirth,
+		ProfileImg:   response.ProfileImg,
+		Card:         response.Card,
+		Gender:       response.Gender,
+		PhoneNumber:  response.PhoneNumber,
+		Role:         response.Role,
+		RefreshToken: response.RefreshToken,
+		CreatedAt:    response.CreatedAt,
+		UpdatedAt:    response.UpdatedAt,
+		DeletedAt:    response.DeletedAt,
+	})
 }
 
-// Delete
-// @Summary Delete
+// DELETE
+// @Summary DELETE
 // @Security ApiKeyAuth
 // @Description Api for Delete
-// @Tags user
+// @Tags USER
 // @Accept json
 // @Produce json
 // @Param id query string true "ID"
-// @Success 200 {object} models.StandartError
+// @Success 200 {object} models.RegisterRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/user/delete/{id} [delete]
+// @Router /v1/users/delete/{id} [delete]
 func (h *HandlerV1) Delete(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "DeleteUser")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+		attribute.Key("host").String(c.Request.Host),
+	)
+	defer span.End()
+
 	var jsonMarshal protojson.MarshalOptions
 	jsonMarshal.UseProtoNames = true
 
 	id := c.Query("id")
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
 
-	response, err := h.Service.UserService().SoftDelete(
+	_, err := h.Service.UserService().SoftDelete(
 		ctx, &pbu.Id{
 			Id: id,
 		})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": err.Error(),
+			"error": "Went wrong, error",
 		})
-		// h.log.Error("failed to delete user", l.Error(err))
+		h.Logger.Error("failed to delete user", l.Error(err))
 		return
 	}
 
-	c.JSON(http.StatusOK, response)
+	// if response != nil {
+	// 	c.JSON(http.StatusInternalServerError, gin.H{
+	// 		"error": "Went wrong",
+	// 	})
+	// 	h.Logger.Error("failed to delete user", l.Error(err))
+	// 	return
+	// }
+
+	c.JSON(http.StatusOK, &models.RegisterRes{
+		Content: "User has been deleted",
+	})
 }

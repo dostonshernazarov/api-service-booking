@@ -8,7 +8,7 @@ import (
 type QueryParam struct {
 	Filters  map[string]string
 	Limit    uint64
-	Offset   uint64
+	Page   uint64
 	Ordering []string
 	Search   string
 }
@@ -17,7 +17,7 @@ func ParseQueryParam(queryParams map[string][]string) (*QueryParam, []string) {
 	params := QueryParam{
 		Filters:  make(map[string]string),
 		Limit:    10,
-		Offset:   0,
+		Page:   0,
 		Ordering: []string{},
 		Search:   "",
 	}
@@ -25,8 +25,8 @@ func ParseQueryParam(queryParams map[string][]string) (*QueryParam, []string) {
 	var err error
 
 	for key, value := range queryParams {
-		if key == "offset" {
-			params.Offset, err = strconv.ParseUint(value[0], 10, 64)
+		if key == "page" {
+			params.Page, err = strconv.ParseUint(value[0], 10, 64)
 			if err != nil {
 				errStr = append(errStr, "invalid `page` param")
 			}

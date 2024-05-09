@@ -13,6 +13,17 @@ type UserReq struct {
 	PhoneNumber string `json:"phone_number"`
 }
 
+type UserCreate struct {
+	FullName string `json:"full_name"`
+	Email string `json:"email"`
+	Password string `json:"password"`
+	DateOfBirth string `json:"date_of_birth"`
+	ProfileImg string `json:"profile_img"`
+	Card string `json:"card"`
+	Gender string `json:"gender"`
+	PhoneNumber string `json:"phone_number"`
+}
+
 type UserRes struct {
 	Id       string `json:"id"`
 	FullName string `json:"full_name"`
@@ -30,12 +41,13 @@ type UserRes struct {
 	DeletedAt string `json:"deleted_at"`
 }
 
+
 type Users struct {
     Users []*UserRes `json:"users"`
 }
 
 type Pagination struct {
 	Limit uint64 `json:"limit"`
-	Offset uint64 `json:"offset"`
+	Page uint64 `json:"page"`
 }
 

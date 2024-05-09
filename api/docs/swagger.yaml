@@ -355,6 +355,25 @@ definitions:
         default: updated state or province
         type: string
     type: object
+  models.UserCreate:
+    properties:
+      card:
+        type: string
+      date_of_birth:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      gender:
+        type: string
+      password:
+        type: string
+      phone_number:
+        type: string
+      profile_img:
+        type: string
+    type: object
   models.UserReq:
     properties:
       card:
@@ -432,12 +451,43 @@ definitions:
       role:
         type: string
     type: object
-  models.Users:
+  user.ListUsersRes:
     properties:
       users:
         items:
-          $ref: '#/definitions/models.UserRes'
+          $ref: '#/definitions/user.User'
         type: array
+    type: object
+  user.User:
+    properties:
+      card:
+        type: string
+      created_at:
+        type: string
+      date_of_birth:
+        type: string
+      deleted_at:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      gender:
+        type: string
+      id:
+        type: string
+      password:
+        type: string
+      phone_number:
+        type: string
+      profile_img:
+        type: string
+      refresh_token:
+        type: string
+      role:
+        type: string
+      updated_at:
+        type: string
     type: object
 host: localhost:8080
 info:
@@ -769,7 +819,7 @@ paths:
       summary: UPDATE HOTEL
       tags:
       - HOTEL
-  /v1/user/{id}:
+  /v1/users/{id}:
     get:
       consumes:
       - application/json
@@ -797,168 +847,9 @@ paths:
             $ref: '#/definitions/models.StandartError'
       security:
       - ApiKeyAuth: []
-      summary: Get
+      summary: GET
       tags:
-      - user
-  /v1/user/create:
-    post:
-      consumes:
-      - application/json
-      description: Api for Create
-      parameters:
-      - description: createModel
-        in: body
-        name: User
-        required: true
-        schema:
-          $ref: '#/definitions/models.UserReq'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.UserRes'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.StandartError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.StandartError'
-      security:
-      - ApiKeyAuth: []
-      summary: Create
-      tags:
-      - user
-  /v1/user/delete/{id}:
-    delete:
-      consumes:
-      - application/json
-      description: Api for Delete
-      parameters:
-      - description: ID
-        in: query
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.StandartError'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.StandartError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.StandartError'
-      security:
-      - ApiKeyAuth: []
-      summary: Delete
-      tags:
-      - user
-  /v1/user/list/deleted:
-    get:
-      consumes:
-      - application/json
-      description: Api for ListDeletedUsers
-      parameters:
-      - in: query
-        name: limit
-        type: integer
-      - in: query
-        name: offset
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Users'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.StandartError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.StandartError'
-      security:
-      - ApiKeyAuth: []
-      summary: ListDeletedUsers
-      tags:
-      - user
-  /v1/user/list/users:
-    get:
-      consumes:
-      - application/json
-      description: Api for ListUsers
-      parameters:
-      - in: query
-        name: limit
-        type: integer
-      - in: query
-        name: offset
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Users'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.StandartError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.StandartError'
-      security:
-      - ApiKeyAuth: []
-      summary: ListUsers
-      tags:
-      - user
-  /v1/user/update:
-    put:
-      consumes:
-      - application/json
-      description: Api for Update
-      parameters:
-      - description: createModel
-        in: body
-        name: User
-        required: true
-        schema:
-          $ref: '#/definitions/models.UserReq'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.UserRes'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.StandartError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.StandartError'
-      security:
-      - ApiKeyAuth: []
-      summary: Update
-      tags:
-      - user
+      - USER
   /v1/users/code:
     get:
       consumes:
@@ -991,6 +882,133 @@ paths:
       summary: FORGET PASSWORD CODE
       tags:
       - SET-PASSWORD
+  /v1/users/create:
+    post:
+      consumes:
+      - application/json
+      description: Api for Create
+      parameters:
+      - description: createModel
+        in: body
+        name: User
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: CREATE
+      tags:
+      - USER
+  /v1/users/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Api for Delete
+      parameters:
+      - description: ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.RegisterRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: DELETE
+      tags:
+      - USER
+  /v1/users/list/deleted:
+    get:
+      consumes:
+      - application/json
+      description: Api for ListDeletedUsers
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.ListUsersRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: LIST DELETED USERS
+      tags:
+      - USER
+  /v1/users/list/users:
+    get:
+      consumes:
+      - application/json
+      description: Api for ListUsers
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.ListUsersRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: LIST USERS
+      tags:
+      - USER
   /v1/users/login:
     get:
       consumes:
@@ -1118,6 +1136,38 @@ paths:
       summary: FORGET PASSWORD
       tags:
       - SET-PASSWORD
+  /v1/users/update:
+    put:
+      consumes:
+      - application/json
+      description: Api for Update
+      parameters:
+      - description: createModel
+        in: body
+        name: User
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: UPDATE
+      tags:
+      - USER
   /v1/users/verify:
     get:
       consumes:
