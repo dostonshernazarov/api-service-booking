@@ -55,7 +55,7 @@ func NewRoute(option RouteOption) http.Handler {
 	})
 
 	api := router.Group("/v1")
-	apiUser := api.Group("/user")
+	apiUser := api.Group("/users")
 
 <<<<<<< HEAD
 	apiUser.POST("/create", HandlerV1.Create)
