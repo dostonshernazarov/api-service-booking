@@ -87,7 +87,11 @@ func NewConfig() (*Config, error) {
 	config.DB.Port = getEnv("POSTGRES_PORT", "5432")
 	config.DB.Name = getEnv("POSTGRES_DATABASE", "usersdb")
 	config.DB.User = getEnv("POSTGRES_USER", "postgres")
+<<<<<<< HEAD
 	config.DB.Password = getEnv("POSTGRES_PASSWORD", "qwerty")
+=======
+	config.DB.Password = getEnv("POSTGRES_PASSWORD", "doston")
+>>>>>>> main
 	config.DB.SSLMode = getEnv("POSTGRES_SSLMODE", "disable")
 
 	// redis configuration
@@ -99,6 +103,9 @@ func NewConfig() (*Config, error) {
 	config.EstablishmentService.Host = getEnv("ESTABLISHMENT_SERVICE_GRPC_HOST", "localhost")
 	config.EstablishmentService.Port = getEnv("ESTABLISHMENT_SERVICE_GRPC_PORT", ":50024")
 
+	config.UserService.Host = getEnv("USER_SERVICE_GRPC_HOST", "localhost")
+	config.UserService.Port = getEnv("USER_SERVICE_GRPC_PORT", ":50025")
+
 
 	// user configuration
 	config.UserService.Host = getEnv("USER_SERVICE_GRPC_HOST", "localhost")
@@ -108,12 +115,12 @@ func NewConfig() (*Config, error) {
 	config.Token.Secret = getEnv("TOKEN_SECRET", "token_secret")
 
 	// access ttl parse
-	accessTTl, err := time.ParseDuration(getEnv("TOKEN_ACCESS_TTL", "1h"))
+	accessTTl, err := time.ParseDuration(getEnv("TOKEN_ACCESS_TTL", "2h"))
 	if err != nil {
 		return nil, err
 	}
 	// refresh ttl parse
-	refreshTTL, err := time.ParseDuration(getEnv("TOKEN_REFRESH_TTL", "24h"))
+	refreshTTL, err := time.ParseDuration(getEnv("TOKEN_REFRESH_TTL", "48h"))
 	if err != nil {
 		return nil, err
 	}

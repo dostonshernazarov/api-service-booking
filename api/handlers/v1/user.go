@@ -1,4 +1,5 @@
 package v1
+<<<<<<< HEAD
 
 import (
 	models "Booking/api-service-booking/api/models"
@@ -281,3 +282,5 @@ func (h *HandlerV1) Delete(c *gin.Context) {
 
 	c.JSON(http.StatusOK, response)
 }
+=======
+>>>>>>> main

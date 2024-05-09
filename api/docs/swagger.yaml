@@ -1,14 +1,300 @@
 definitions:
+<<<<<<< HEAD
+=======
+  models.Attraction:
+    properties:
+      attraction_id:
+        type: string
+      attraction_name:
+        type: string
+      contact_number:
+        type: string
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      description:
+        type: string
+      images:
+        items:
+          $ref: '#/definitions/models.Image'
+        type: array
+      licence_url:
+        type: string
+      location:
+        $ref: '#/definitions/models.Location'
+      owner_id:
+        type: string
+      rating:
+        type: number
+      updated_at:
+        type: string
+      website_url:
+        type: string
+    type: object
+  models.AttractionModel:
+    properties:
+      attraction_id:
+        type: string
+      attraction_name:
+        type: string
+      contact_number:
+        type: string
+      created_at:
+        type: string
+      description:
+        type: string
+      images:
+        items:
+          $ref: '#/definitions/models.ImageModel'
+        type: array
+      licence_url:
+        type: string
+      location:
+        $ref: '#/definitions/models.LocationModel'
+      owner_id:
+        type: string
+      rating:
+        type: number
+      updated_at:
+        type: string
+      website_url:
+        type: string
+    type: object
+  models.CreateAttraction:
+    properties:
+      attraction_name:
+        default: Anhor Park
+        type: string
+      contact_number:
+        default: +(99891)-234-56-78
+        type: string
+      description:
+        default: available for all ages
+        type: string
+      images:
+        items:
+          $ref: '#/definitions/models.CreateImage'
+        type: array
+      licence_url:
+        default: https://creativecommons.org/licenses/by/4.0/
+        type: string
+      location:
+        $ref: '#/definitions/models.CreateLocation'
+      rating:
+        default: 4.3
+        type: number
+      website_url:
+        default: https://creativecommons.org/licenses/by/4.1/
+        type: string
+    type: object
+  models.CreateHotel:
+    properties:
+      contact_number:
+        default: +(99891)-234-56-78
+        type: string
+      description:
+        default: in affordable prices
+        type: string
+      hotel_name:
+        default: Silk Road
+        type: string
+      images:
+        items:
+          $ref: '#/definitions/models.CreateImage'
+        type: array
+      licence_url:
+        default: https://creativecommons.org/licenses/by/1.2/
+        type: string
+      location:
+        $ref: '#/definitions/models.CreateLocation'
+      rating:
+        default: 4.6
+        type: number
+      website_url:
+        default: https://creativecommons.org/licenses/by/1.3/
+        type: string
+    type: object
+  models.CreateImage:
+    properties:
+      image_url:
+        default: www.photo/images/141
+        type: string
+    type: object
+  models.CreateLocation:
+    properties:
+      address:
+        default: 87G9+V57, Shaykhontohur Street 28, Tashkent, Toshkent Shahri
+        type: string
+      city:
+        default: Tashkent
+        type: string
+      country:
+        default: Uzbekistan
+        type: string
+      latitude:
+        default: 40.7128
+        type: number
+      longitude:
+        default: 74.006
+        type: number
+      state_province:
+        default: Shaykhontohur
+        type: string
+    type: object
+  models.DeleteResponse:
+    properties:
+      success:
+        type: boolean
+    type: object
+>>>>>>> main
   models.Error:
     properties:
       message:
         type: string
     type: object
+<<<<<<< HEAD
+=======
+  models.HotelModel:
+    properties:
+      contact_number:
+        type: string
+      created_at:
+        type: string
+      description:
+        type: string
+      hotel_id:
+        type: string
+      hotel_name:
+        type: string
+      images:
+        items:
+          $ref: '#/definitions/models.ImageModel'
+        type: array
+      licence_url:
+        type: string
+      location:
+        $ref: '#/definitions/models.LocationModel'
+      owner_id:
+        type: string
+      rating:
+        type: number
+      updated_at:
+        type: string
+      website_url:
+        type: string
+    type: object
+  models.Image:
+    properties:
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      establishment_id:
+        type: string
+      image_id:
+        type: string
+      image_url:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.ImageModel:
+    properties:
+      created_at:
+        type: string
+      establishment_id:
+        type: string
+      image_id:
+        type: string
+      image_url:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.ListAttractionModel:
+    properties:
+      attractions:
+        items:
+          $ref: '#/definitions/models.Attraction'
+        type: array
+    type: object
+  models.ListHotelsModel:
+    properties:
+      hotels:
+        items:
+          $ref: '#/definitions/models.HotelModel'
+        type: array
+    type: object
+  models.Location:
+    properties:
+      address:
+        type: string
+      city:
+        type: string
+      country:
+        type: string
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      establishment_id:
+        type: string
+      latitude:
+        type: number
+      location_id:
+        type: string
+      longitude:
+        type: number
+      state_province:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.LocationModel:
+    properties:
+      address:
+        type: string
+      city:
+        type: string
+      country:
+        type: string
+      created_at:
+        type: string
+      establishment_id:
+        type: string
+      latitude:
+        type: number
+      location_id:
+        type: string
+      longitude:
+        type: number
+      state_province:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.RegisterReq:
+    properties:
+      email:
+        type: string
+      full_name:
+        type: string
+      password:
+        type: string
+    type: object
+  models.RegisterRes:
+    properties:
+      content:
+        type: string
+    type: object
+>>>>>>> main
   models.StandartError:
     properties:
       error:
         $ref: '#/definitions/models.Error'
     type: object
+<<<<<<< HEAD
   models.UserReq:
     properties:
       card:
@@ -40,6 +326,83 @@ definitions:
         type: string
       deleted_at:
         type: string
+=======
+<<<<<<< HEAD
+  models.UpdateAttraction:
+    properties:
+      attraction_name:
+        default: updated attraction name
+        type: string
+      contact_number:
+        default: updated contact number
+        type: string
+      description:
+        default: updated description
+        type: string
+      licence_url:
+        default: updated licence url
+        type: string
+      location:
+        $ref: '#/definitions/models.UpdateLocation'
+      rating:
+        default: 5
+        type: number
+      website_url:
+        default: updated website url
+        type: string
+    type: object
+  models.UpdateHotel:
+    properties:
+      contact_number:
+        default: updated contact number
+        type: string
+      description:
+        default: updated description
+        type: string
+      hotel_name:
+        default: updated hotel name
+        type: string
+      licence_url:
+        default: updated licence url
+        type: string
+      location:
+        $ref: '#/definitions/models.UpdateLocation'
+      rating:
+        default: 5
+        type: number
+      website_url:
+        default: updated website url
+        type: string
+    type: object
+  models.UpdateLocation:
+    properties:
+      address:
+        default: updated address
+        type: string
+      city:
+        default: updated city
+        type: string
+      country:
+        default: updated country
+        type: string
+      latitude:
+        default: 1.1
+        type: number
+      longitude:
+        default: 1.1
+        type: number
+      state_province:
+        default: updated state or province
+=======
+  models.UserResCreate:
+    properties:
+      access_token:
+        type: string
+      birthday:
+        type: string
+      card:
+        type: string
+>>>>>>> main
       email:
         type: string
       full_name:
@@ -48,15 +411,22 @@ definitions:
         type: string
       id:
         type: string
+<<<<<<< HEAD
       password:
         type: string
       phone_number:
         type: string
       profile_img:
+=======
+      image_url:
+        type: string
+      phone_num:
+>>>>>>> main
         type: string
       refresh_token:
         type: string
       role:
+<<<<<<< HEAD
         type: string
       updated_at:
         type: string
@@ -69,6 +439,11 @@ definitions:
         type: array
     type: object
 host: localhost:8080
+=======
+>>>>>>> main
+        type: string
+    type: object
+>>>>>>> main
 info:
   contact: {}
   title: welcome to Booking API
@@ -80,11 +455,25 @@ paths:
       - application/json
       description: Api for Get
       parameters:
+<<<<<<< HEAD
       - description: ID
         in: path
         name: id
         required: true
         type: string
+=======
+      - description: owner_id
+        in: query
+        name: owner_id
+        required: true
+        type: string
+      - description: Attraction
+        in: body
+        name: Attraction
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateAttraction'
+>>>>>>> main
       produces:
       - application/json
       responses:
@@ -104,6 +493,7 @@ paths:
       - ApiKeyAuth: []
       summary: Get
       tags:
+<<<<<<< HEAD
       - user
   /v1/user/create:
     post:
@@ -146,6 +536,19 @@ paths:
       - description: ID
         in: query
         name: id
+=======
+      - ATTRACTION
+<<<<<<< HEAD
+  /v1/attraction/delete:
+    delete:
+      consumes:
+      - application/json
+      description: Api for deleting attraction by attraction_id
+      parameters:
+      - description: attraction_id
+        in: query
+        name: attraction_id
+>>>>>>> main
         required: true
         type: string
       produces:
@@ -154,15 +557,22 @@ paths:
         "200":
           description: OK
           schema:
+<<<<<<< HEAD
             $ref: '#/definitions/models.StandartError'
         "400":
           description: Bad Request
+=======
+            $ref: '#/definitions/models.DeleteResponse'
+        "404":
+          description: Not Found
+>>>>>>> main
           schema:
             $ref: '#/definitions/models.StandartError'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+<<<<<<< HEAD
       security:
       - ApiKeyAuth: []
       summary: Delete
@@ -180,21 +590,63 @@ paths:
       - in: query
         name: offset
         type: integer
+=======
+      summary: DELETE ATTRACTION BY ATTRACTION_ID
+      tags:
+      - ATTRACTION
+  /v1/attraction/get:
+    get:
+      consumes:
+      - application/json
+      description: Api for getting attraction by attraction_id
+      parameters:
+      - description: attraction_id
+        in: query
+        name: attraction_id
+        required: true
+=======
+  /v1/users/code:
+    get:
+      consumes:
+      - application/json
+      description: Api for verify new password code
+      parameters:
+      - in: query
+        name: code
+        type: string
+      - in: query
+        name: email
+>>>>>>> main
+        type: string
+>>>>>>> main
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
+<<<<<<< HEAD
             $ref: '#/definitions/models.Users'
         "400":
           description: Bad Request
+=======
+<<<<<<< HEAD
+            $ref: '#/definitions/models.AttractionModel'
+        "404":
+          description: Not Found
+=======
+            $ref: '#/definitions/models.RegisterRes'
+        "400":
+          description: Bad Request
+>>>>>>> main
+>>>>>>> main
           schema:
             $ref: '#/definitions/models.StandartError'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+<<<<<<< HEAD
       security:
       - ApiKeyAuth: []
       summary: ListDeletedUsers
@@ -212,21 +664,74 @@ paths:
       - in: query
         name: offset
         type: integer
+=======
+<<<<<<< HEAD
+      summary: GET ATTRACTION BY ATTRACTION_ID
+      tags:
+      - ATTRACTION
+  /v1/attraction/list:
+    get:
+      consumes:
+      - application/json
+      description: Api for listing attractions by page and limit
+      parameters:
+      - description: page
+        in: query
+        name: page
+        required: true
+        type: string
+      - description: limit
+        in: query
+        name: limit
+        required: true
+=======
+      security:
+      - ApiKeyAuth: []
+      summary: FORGET PASSWORD CODE
+      tags:
+      - SET-PASSWORD
+  /v1/users/login:
+    get:
+      consumes:
+      - application/json
+      description: Api for login user
+      parameters:
+      - in: query
+        name: email
+        type: string
+      - in: query
+        name: password
+>>>>>>> main
+        type: string
+>>>>>>> main
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
+<<<<<<< HEAD
             $ref: '#/definitions/models.Users'
         "400":
           description: Bad Request
+=======
+<<<<<<< HEAD
+            $ref: '#/definitions/models.ListAttractionModel'
+        "404":
+          description: Not Found
+=======
+            $ref: '#/definitions/models.UserResCreate'
+        "400":
+          description: Bad Request
+>>>>>>> main
+>>>>>>> main
           schema:
             $ref: '#/definitions/models.StandartError'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+<<<<<<< HEAD
       security:
       - ApiKeyAuth: []
       summary: ListUsers
@@ -239,26 +744,141 @@ paths:
       description: Api for Update
       parameters:
       - description: createModel
+=======
+<<<<<<< HEAD
+      summary: LIST ATTRACTIONS BY PAGE AND LIMIT
+      tags:
+      - ATTRACTION
+  /v1/attraction/update:
+    patch:
+      consumes:
+      - application/json
+      description: Api for updating attraction by attraction_id
+      parameters:
+      - description: attraction_id
+        in: query
+        name: attraction_id
+        required: true
+        type: string
+      - description: UpdatingAttraction
         in: body
-        name: User
+        name: UpdatingAttraction
         required: true
         schema:
-          $ref: '#/definitions/models.UserReq'
+          $ref: '#/definitions/models.UpdateAttraction'
+=======
+      security:
+      - ApiKeyAuth: []
+      summary: LOGIN
+      tags:
+      - LOGIN
+  /v1/users/password:
+    put:
+      consumes:
+      - application/json
+      description: Api for update new password
+      parameters:
+      - in: query
+        name: email
+        type: string
+      - in: query
+        name: password
+        type: string
+>>>>>>> main
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.UserRes'
+<<<<<<< HEAD
+            $ref: '#/definitions/models.AttractionModel'
+        "404":
+          description: Not Found
+=======
+            $ref: '#/definitions/models.UserResCreate'
         "400":
           description: Bad Request
+>>>>>>> main
           schema:
             $ref: '#/definitions/models.StandartError'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+<<<<<<< HEAD
+      summary: UPDATE ATTRACTION
+      tags:
+      - ATTRACTION
+  /v1/hotel/create:
+    post:
+      consumes:
+      - application/json
+      description: Api for creating hotel
+      parameters:
+      - description: owner_id
+        in: query
+        name: owner_id
+        required: true
+        type: string
+      - description: Hotel
+        in: body
+        name: Hotel
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateHotel'
+=======
+      security:
+      - ApiKeyAuth: []
+      summary: SET NEW PASSWORD
+      tags:
+      - SET-PASSWORD
+  /v1/users/register:
+    post:
+      consumes:
+      - application/json
+      description: Api for register a new user
+      parameters:
+      - description: RegisterUser
+>>>>>>> main
+        in: body
+        name: User
+        required: true
+        schema:
+<<<<<<< HEAD
+          $ref: '#/definitions/models.UserReq'
+=======
+          $ref: '#/definitions/models.RegisterReq'
+>>>>>>> main
+>>>>>>> main
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+<<<<<<< HEAD
+            $ref: '#/definitions/models.UserRes'
+        "400":
+          description: Bad Request
+=======
+<<<<<<< HEAD
+            $ref: '#/definitions/models.HotelModel'
+        "404":
+          description: Not Found
+=======
+            $ref: '#/definitions/models.RegisterRes'
+        "400":
+          description: Bad Request
+>>>>>>> main
+>>>>>>> main
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+<<<<<<< HEAD
       security:
       - ApiKeyAuth: []
       summary: Update
@@ -269,4 +889,192 @@ securityDefinitions:
     in: header
     name: Authorization
     type: apiKey
+=======
+<<<<<<< HEAD
+      summary: CREATE HOTEL
+      tags:
+      - HOTEL
+  /v1/hotel/delete:
+    delete:
+      consumes:
+      - application/json
+      description: Api for deleting hotel by hotel_id
+      parameters:
+      - description: hotel_id
+        in: query
+        name: hotel_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DeleteResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      summary: DELETE HOTEL BY HOTEL_ID
+      tags:
+      - HOTEL
+  /v1/hotel/get:
+    get:
+      consumes:
+      - application/json
+      description: Api for getting hotel by hotel_id
+      parameters:
+      - description: hotel_id
+        in: query
+        name: hotel_id
+=======
+      security:
+      - ApiKeyAuth: []
+      summary: REGISTER USER
+      tags:
+      - SIGNUP
+  /v1/users/set/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Api for set new password
+      parameters:
+      - description: EMAIL
+        in: query
+        name: email
+>>>>>>> main
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+<<<<<<< HEAD
+            $ref: '#/definitions/models.HotelModel'
+        "404":
+          description: Not Found
+=======
+            $ref: '#/definitions/models.RegisterRes'
+        "400":
+          description: Bad Request
+>>>>>>> main
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+<<<<<<< HEAD
+      summary: GET HOTEL BY HOTEL_ID
+      tags:
+      - HOTEL
+  /v1/hotel/list:
+    get:
+      consumes:
+      - application/json
+      description: Api for listing hotels by page and limit
+      parameters:
+      - description: page
+        in: query
+        name: page
+        required: true
+        type: string
+      - description: limit
+        in: query
+        name: limit
+        required: true
+=======
+      security:
+      - ApiKeyAuth: []
+      summary: FORGET PASSWORD
+      tags:
+      - SET-PASSWORD
+  /v1/users/verify:
+    get:
+      consumes:
+      - application/json
+      description: Api for verify a new user
+      parameters:
+      - in: query
+        name: code
+        type: string
+      - in: query
+        name: email
+>>>>>>> main
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+<<<<<<< HEAD
+            $ref: '#/definitions/models.ListHotelsModel'
+        "404":
+          description: Not Found
+=======
+            $ref: '#/definitions/models.UserResCreate'
+        "400":
+          description: Bad Request
+>>>>>>> main
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+<<<<<<< HEAD
+      summary: LIST HOTELS BY PAGE AND LIMIT
+      tags:
+      - HOTEL
+  /v1/hotel/update:
+    patch:
+      consumes:
+      - application/json
+      description: Api for updating hotel by hotel_id
+      parameters:
+      - description: hotel_id
+        in: query
+        name: hotel_id
+        required: true
+        type: string
+      - description: UpdatingHotel
+        in: body
+        name: UpdatingHotel
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateHotel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.HotelModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      summary: UPDATE HOTEL
+      tags:
+      - HOTEL
+=======
+      security:
+      - ApiKeyAuth: []
+      summary: VERIFICATION
+      tags:
+      - SIGNUP
+>>>>>>> main
+>>>>>>> main
 swagger: "2.0"

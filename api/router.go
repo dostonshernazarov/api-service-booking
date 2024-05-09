@@ -57,12 +57,36 @@ func NewRoute(option RouteOption) http.Handler {
 	api := router.Group("/v1")
 	apiUser := api.Group("/user")
 
+<<<<<<< HEAD
 	apiUser.POST("/create", HandlerV1.Create)
 	apiUser.GET("/:id", HandlerV1.Get)
 	apiUser.GET("/list/users", HandlerV1.ListUsers)
 	apiUser.GET("/list/deleted", HandlerV1.ListDeletedUsers)
 	apiUser.PUT("/update", HandlerV1.Update)
 	apiUser.DELETE("/delete/:id", HandlerV1.Delete)
+=======
+	// ATTRACTION METHODS
+	api.POST("/attraction/create", HandlerV1.CreateAttraction)
+	api.GET("/attraction/get", HandlerV1.GetAttraction)
+	api.GET("/attraction/list", HandlerV1.ListAttractions)
+	api.PATCH("/attraction/update", HandlerV1.UpdateAttraction)
+	api.DELETE("/attraction/delete", HandlerV1.DeleteAttraction)
+
+	// HOTEL METHODS
+	api.POST("/hotel/create", HandlerV1.CreateHotel)
+	api.GET("/hotel/get", HandlerV1.GetHotel)
+	api.GET("/hotel/list", HandlerV1.ListHotels)
+	api.PATCH("/hotel/update", HandlerV1.UpdateHotel)
+	api.DELETE("/hotel/delete", HandlerV1.DeleteHotel)
+
+	// REGITER METHODS
+	api.POST("/users/register", HandlerV1.RegisterUser)
+	api.GET("/users/verify", HandlerV1.Verification)
+	api.GET("/users/login", HandlerV1.Login)
+	api.GET("/users/set/:id", HandlerV1.ForgetPassword)
+	api.GET("/users/code", HandlerV1.ForgetPasswordVerify)
+	api.PUT("/users/password", HandlerV1.SetNewPassword)
+>>>>>>> main
 
 	url := ginSwagger.URL("swagger/doc.json")
 	api.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
