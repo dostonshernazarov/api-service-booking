@@ -36,10 +36,9 @@ func New(cfg *config.Config) (ServiceClient, error) {
 		return nil, err
 	}
 
-<<<<<<< HEAD
+
 	// user service
-=======
->>>>>>> main
+
 	connUserService, err := grpc.Dial(
 		fmt.Sprintf("%s%s", cfg.UserService.Host, cfg.UserService.Port),
 		grpc.WithInsecure(),
@@ -50,11 +49,6 @@ func New(cfg *config.Config) (ServiceClient, error) {
 		return nil, err
 	}
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> main
 	return &serviceClient{
 		establishmentService: pbe.NewEstablishmentServiceClient(connEstablishmentService),
 		userService: pbu.NewUserServiceClient(connUserService),

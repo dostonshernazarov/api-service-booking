@@ -87,11 +87,8 @@ func NewConfig() (*Config, error) {
 	config.DB.Port = getEnv("POSTGRES_PORT", "5432")
 	config.DB.Name = getEnv("POSTGRES_DATABASE", "usersdb")
 	config.DB.User = getEnv("POSTGRES_USER", "postgres")
-<<<<<<< HEAD
-	config.DB.Password = getEnv("POSTGRES_PASSWORD", "qwerty")
-=======
 	config.DB.Password = getEnv("POSTGRES_PASSWORD", "doston")
->>>>>>> main
+
 	config.DB.SSLMode = getEnv("POSTGRES_SSLMODE", "disable")
 
 	// redis configuration
