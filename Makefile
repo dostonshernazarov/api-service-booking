@@ -37,10 +37,10 @@ pull-proto:
 go-gen:
 	go generate ./...
 
-# generate swagger
-.PHONY: swagger-gen
+# generate swag
+.PHONY: swag-gen
 swag-gen:
-	swag init -g api/router.go -o api/docs
+	swag init --parseDependency --dir ./api -g router.go -o ./api/docs
 
 # run test
 .PHONY: test

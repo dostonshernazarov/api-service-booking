@@ -7,7 +7,11 @@ import (
 	"github.com/google/uuid"
 
 	"Booking/api-service-booking/internal/entity"
+<<<<<<< HEAD
+	"Booking/api-service-booking/internal/pkg/token"
+=======
 	// "Booking/api-service-booking/internal/pkg/token"
+>>>>>>> main
 )
 
 type refreshTokenService struct {

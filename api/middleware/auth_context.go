@@ -4,8 +4,13 @@ package middleware
 // 	"context"
 // 	"net/http"
 
+<<<<<<< HEAD
+	token_pkg "Booking/api-service-booking/internal/pkg/token"
+)
+=======
 // 	token_pkg "Booking/api-service-booking/internal/pkg/token"
 // )
+>>>>>>> main
 
 // func AuthContext(jwtsecret string) func(next http.Handler) http.Handler {
 // 	return func(next http.Handler) http.Handler {

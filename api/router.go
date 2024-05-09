@@ -30,6 +30,13 @@ type RouteOption struct {
 	AppVersion     app_version.AppVersion
 }
 
+// @title welcome to Booking API
+// @version 1.7
+// @host localhost:8080
+
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
 func NewRoute(option RouteOption) http.Handler {
 
 	router := gin.New()
@@ -48,7 +55,16 @@ func NewRoute(option RouteOption) http.Handler {
 	})
 
 	api := router.Group("/v1")
+	apiUser := api.Group("/user")
 
+<<<<<<< HEAD
+	apiUser.POST("/create", HandlerV1.Create)
+	apiUser.GET("/:id", HandlerV1.Get)
+	apiUser.GET("/list/users", HandlerV1.ListUsers)
+	apiUser.GET("/list/deleted", HandlerV1.ListDeletedUsers)
+	apiUser.PUT("/update", HandlerV1.Update)
+	apiUser.DELETE("/delete/:id", HandlerV1.Delete)
+=======
 	// ATTRACTION METHODS
 	api.POST("/attraction/create", HandlerV1.CreateAttraction)
 	api.GET("/attraction/get", HandlerV1.GetAttraction)
@@ -70,6 +86,7 @@ func NewRoute(option RouteOption) http.Handler {
 	api.GET("/users/set/:id", HandlerV1.ForgetPassword)
 	api.GET("/users/code", HandlerV1.ForgetPasswordVerify)
 	api.PUT("/users/password", HandlerV1.SetNewPassword)
+>>>>>>> main
 
 	url := ginSwagger.URL("swagger/doc.json")
 	api.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))

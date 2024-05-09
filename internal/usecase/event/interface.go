@@ -23,6 +23,6 @@ type BrokerConsumer interface {
 }
 
 type BrokerProducer interface {
-	ProduceUserToCreate(ctx context.Context, key string, value *models.Attraction) error
+	ProduceUserToCreate(ctx context.Context, key string, value *models.UserRes) error
 	Close()
 }
