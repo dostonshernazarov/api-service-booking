@@ -1332,3 +1332,9 @@ net/http.(*conn).serve
 2024-05-08T21:01:24.613+0500	INFO	app/main.go:41	api gateway service stops
 >>>>>>> main
 >>>>>>> main
+2024-05-09T12:52:25.229+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-09T13:31:29.066+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-09T13:39:26.644+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-09T13:41:56.129+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-09T16:07:08.518+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-09T16:07:27.258+0500	INFO	app/main.go:41	api gateway service stops

@@ -15,14 +15,9 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/v1/user/create": {
+        "/v1/attraction/create": {
             "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Api for Create",
+                "description": "Api for creating attraction",
                 "consumes": [
                     "application/json"
                 ],
@@ -30,15 +25,11 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "user"
+                    "ATTRACTION"
                 ],
-                "summary": "Create",
+                "summary": "CREATE ATTRACTION",
                 "parameters": [
                     {
-<<<<<<< HEAD
-                        "description": "createModel",
-                        "name": "User",
-=======
                         "type": "string",
                         "description": "owner_id",
                         "name": "owner_id",
@@ -48,19 +39,10 @@ const docTemplate = `{
                     {
                         "description": "Attraction",
                         "name": "Attraction",
->>>>>>> main
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.UserReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.UserRes"
+                            "$ref": "#/definitions/models.CreateAttraction"
                         }
                     }
                 ],
@@ -71,13 +53,8 @@ const docTemplate = `{
                             "$ref": "#/definitions/models.AttractionModel"
                         }
                     },
-<<<<<<< HEAD
-                    "400": {
-                        "description": "Bad Request",
-=======
                     "404": {
                         "description": "Not Found",
->>>>>>> main
                         "schema": {
                             "$ref": "#/definitions/models.StandartError"
                         }
@@ -91,20 +68,9 @@ const docTemplate = `{
                 }
             }
         },
-<<<<<<< HEAD
-        "/v1/user/delete/{id}": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Api for Delete",
-=======
         "/v1/attraction/delete": {
             "delete": {
                 "description": "Api for deleting attraction by attraction_id",
->>>>>>> main
                 "consumes": [
                     "application/json"
                 ],
@@ -112,16 +78,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-<<<<<<< HEAD
-                    "user"
-                ],
-                "summary": "Delete",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "ID",
-                        "name": "id",
-=======
                     "ATTRACTION"
                 ],
                 "summary": "DELETE ATTRACTION BY ATTRACTION_ID",
@@ -174,7 +130,6 @@ const docTemplate = `{
                         "type": "string",
                         "description": "attraction_id",
                         "name": "attraction_id",
->>>>>>> main
                         "in": "query",
                         "required": true
                     }
@@ -183,215 +138,11 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.StandartError"
+                            "$ref": "#/definitions/models.AttractionModel"
                         }
                     },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/models.StandartError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/models.StandartError"
-                        }
-                    }
-                }
-            }
-        },
-        "/v1/user/list/deleted": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Api for ListDeletedUsers",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "user"
-                ],
-                "summary": "ListDeletedUsers",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "name": "limit",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "offset",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.Users"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/models.StandartError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/models.StandartError"
-                        }
-                    }
-                }
-            }
-        },
-        "/v1/user/list/users": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Api for ListUsers",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "user"
-                ],
-                "summary": "ListUsers",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "name": "limit",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "offset",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.Users"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/models.StandartError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/models.StandartError"
-                        }
-                    }
-                }
-            }
-        },
-        "/v1/user/update": {
-            "put": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Api for Update",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "user"
-                ],
-                "summary": "Update",
-                "parameters": [
-                    {
-                        "description": "createModel",
-                        "name": "User",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.UserReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.UserRes"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/models.StandartError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/models.StandartError"
-                        }
-                    }
-                }
-            }
-        },
-        "/v1/user/{id}": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Api for Get",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "user"
-                ],
-                "summary": "Get",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.UserRes"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
+                    "404": {
+                        "description": "Not Found",
                         "schema": {
                             "$ref": "#/definitions/models.StandartError"
                         }
@@ -754,6 +505,310 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/user/create": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Api for Create",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Create",
+                "parameters": [
+                    {
+                        "description": "createModel",
+                        "name": "User",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UserReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.UserRes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/user/delete/{id}": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Api for Delete",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Delete",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/user/list/deleted": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Api for ListDeletedUsers",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "ListDeletedUsers",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "offset",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Users"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/user/list/users": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Api for ListUsers",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "ListUsers",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "offset",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Users"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/user/update": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Api for Update",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Update",
+                "parameters": [
+                    {
+                        "description": "createModel",
+                        "name": "User",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UserReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.UserRes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/user/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Api for Get",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.UserRes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/users/code": {
             "get": {
                 "security": [
@@ -1064,8 +1119,6 @@ const docTemplate = `{
         }
     },
     "definitions": {
-<<<<<<< HEAD
-=======
         "models.Attraction": {
             "type": "object",
             "properties": {
@@ -1279,7 +1332,6 @@ const docTemplate = `{
                 }
             }
         },
->>>>>>> main
         "models.Error": {
             "type": "object",
             "properties": {
@@ -1288,8 +1340,6 @@ const docTemplate = `{
                 }
             }
         },
-<<<<<<< HEAD
-=======
         "models.HotelModel": {
             "type": "object",
             "properties": {
@@ -1494,7 +1544,6 @@ const docTemplate = `{
                 }
             }
         },
->>>>>>> main
         "models.StandartError": {
             "type": "object",
             "properties": {
@@ -1503,59 +1552,6 @@ const docTemplate = `{
                 }
             }
         },
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "models.UserReq": {
-            "type": "object",
-            "properties": {
-                "card": {
-                    "type": "string"
-                },
-                "date_of_birth": {
-                    "type": "string"
-                },
-                "email": {
-                    "type": "string"
-                },
-                "full_name": {
-                    "type": "string"
-                },
-                "gender": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "password": {
-                    "type": "string"
-                },
-                "phone_number": {
-                    "type": "string"
-                },
-                "profile_img": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.UserRes": {
-            "type": "object",
-            "properties": {
-                "card": {
-                    "type": "string"
-                },
-                "created_at": {
-                    "type": "string"
-                },
-                "date_of_birth": {
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "type": "string"
-                },
-=======
-<<<<<<< HEAD
-=======
->>>>>>> main
         "models.UpdateAttraction": {
             "type": "object",
             "properties": {
@@ -1649,19 +1645,15 @@ const docTemplate = `{
                 }
             }
         },
-        "models.UserResCreate": {
+        "models.UserReq": {
             "type": "object",
             "properties": {
-                "access_token": {
-                    "type": "string"
-                },
-                "birthday": {
-                    "type": "string"
-                },
                 "card": {
                     "type": "string"
                 },
->>>>>>> main
+                "date_of_birth": {
+                    "type": "string"
+                },
                 "email": {
                     "type": "string"
                 },
@@ -1674,7 +1666,6 @@ const docTemplate = `{
                 "id": {
                     "type": "string"
                 },
-<<<<<<< HEAD
                 "password": {
                     "type": "string"
                 },
@@ -1682,12 +1673,44 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "profile_img": {
-=======
-                "image_url": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.UserRes": {
+            "type": "object",
+            "properties": {
+                "card": {
                     "type": "string"
                 },
-                "phone_num": {
->>>>>>> main
+                "created_at": {
+                    "type": "string"
+                },
+                "date_of_birth": {
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "full_name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "phone_number": {
+                    "type": "string"
+                },
+                "profile_img": {
                     "type": "string"
                 },
                 "refresh_token": {
@@ -1695,10 +1718,46 @@ const docTemplate = `{
                 },
                 "role": {
                     "type": "string"
-<<<<<<< HEAD
-<<<<<<< HEAD
                 },
                 "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.UserResCreate": {
+            "type": "object",
+            "properties": {
+                "access_token": {
+                    "type": "string"
+                },
+                "birthday": {
+                    "type": "string"
+                },
+                "card": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "full_name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "image_url": {
+                    "type": "string"
+                },
+                "phone_num": {
+                    "type": "string"
+                },
+                "refresh_token": {
+                    "type": "string"
+                },
+                "role": {
                     "type": "string"
                 }
             }
@@ -1720,13 +1779,6 @@ const docTemplate = `{
             "type": "apiKey",
             "name": "Authorization",
             "in": "header"
-=======
->>>>>>> main
-=======
->>>>>>> main
-                }
-            }
->>>>>>> main
         }
     }
 }`
