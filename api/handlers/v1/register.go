@@ -3,11 +3,11 @@ package v1
 import (
 	"Booking/api-service-booking/api/models"
 	pbu "Booking/api-service-booking/genproto/user-proto"
+	"Booking/api-service-booking/internal/pkg/etc"
 	l "Booking/api-service-booking/internal/pkg/logger"
 	"Booking/api-service-booking/internal/pkg/otlp"
-	tokens "Booking/api-service-booking/internal/pkg/token"
-	"Booking/api-service-booking/internal/pkg/etc"
 	scode "Booking/api-service-booking/internal/pkg/sendcode"
+	tokens "Booking/api-service-booking/internal/pkg/token"
 	val "Booking/api-service-booking/internal/pkg/validation"
 
 	// "context"
@@ -121,7 +121,6 @@ func (h HandlerV1) RegisterUser(c *gin.Context) {
 	toRedis.Fullname = body.Fullname
 	toRedis.Password = body.Password
 
-
 	userByte, err := json.Marshal(toRedis)
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{
@@ -212,14 +211,15 @@ func (h HandlerV1) Verification(c *gin.Context) {
 		return
 	}
 
-	h.jwtHandler = tokens.JwtHandler{
+	h.JwtHandler = tokens.JwtHandler{
 		Sub:  id.String(),
 		Iss:  "client",
+		SigninKey: h.Config.Token.SignInKey,
 		Role: "user",
 		Log:  h.Logger,
 	}
 
-	access, refresh, err := h.jwtHandler.GenerateJwt()
+	access, refresh, err := h.JwtHandler.GenerateJwt()
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{
 			"error": "error while generating jwt",
@@ -238,17 +238,17 @@ func (h HandlerV1) Verification(c *gin.Context) {
 	}
 
 	res, err := h.Service.UserService().Create(ctx, &pbu.User{
-		Id:                   id.String(),
-		FullName:             userdetail.Fullname,
-		Email:                userdetail.Email,
-		Password:             userdetail.Password,
-		DateOfBirth:          "",
-		ProfileImg:           "",
-		Card:                 "",
-		Gender:               "",
-		PhoneNumber:          "",
-		Role:                 "user",
-		RefreshToken:         refresh,
+		Id:           id.String(),
+		FullName:     userdetail.Fullname,
+		Email:        userdetail.Email,
+		Password:     userdetail.Password,
+		DateOfBirth:  "",
+		ProfileImg:   "",
+		Card:         "",
+		Gender:       "",
+		PhoneNumber:  "",
+		Role:         "user",
+		RefreshToken: refresh,
 	})
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{
@@ -268,7 +268,7 @@ func (h HandlerV1) Verification(c *gin.Context) {
 		Gender:       res.Gender,
 		PhoneNumber:  res.PhoneNumber,
 		Role:         res.Role,
-		AccessToken: access,
+		AccessToken:  access,
 		RefreshToken: refresh,
 	})
 }
@@ -297,7 +297,7 @@ func (h HandlerV1) Login(c *gin.Context) {
 	password := c.Query("password")
 
 	user, err := h.Service.UserService().Get(ctx, &pbu.Filter{
-		Filter:               map[string]string{"email":email},
+		Filter: map[string]string{"email": email},
 	})
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{
@@ -316,15 +316,15 @@ func (h HandlerV1) Login(c *gin.Context) {
 		return
 	}
 
-	h.jwtHandler = tokens.JwtHandler{
+	h.JwtHandler = tokens.JwtHandler{
 		Sub:       user.User.Id,
 		Role:      user.User.Role,
-		SigninKey: h.Config.Token.Secret,
+		SigninKey: h.Config.Token.SignInKey,
 		Log:       h.Logger,
 		Timeout:   int(h.Config.Token.AccessTTL),
 	}
 
-	access, refresh, err := h.jwtHandler.GenerateJwt()
+	access, refresh, err := h.JwtHandler.GenerateJwt()
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{
 			"error": "Went wrong",
@@ -334,17 +334,17 @@ func (h HandlerV1) Login(c *gin.Context) {
 	}
 
 	_, err = h.Service.UserService().Update(ctx, &pbu.User{
-		Id:                   user.User.Id,
-		FullName:             user.User.FullName,
-		Email:                user.User.Email,
-		Password:             user.User.Password,
-		DateOfBirth:          user.User.DateOfBirth,
-		ProfileImg:           user.User.ProfileImg,
-		Card:                 user.User.Card,
-		Gender:               user.User.Gender,
-		PhoneNumber:          user.User.PhoneNumber,
-		Role:                 user.User.Role,
-		RefreshToken:         refresh,
+		Id:           user.User.Id,
+		FullName:     user.User.FullName,
+		Email:        user.User.Email,
+		Password:     user.User.Password,
+		DateOfBirth:  user.User.DateOfBirth,
+		ProfileImg:   user.User.ProfileImg,
+		Card:         user.User.Card,
+		Gender:       user.User.Gender,
+		PhoneNumber:  user.User.PhoneNumber,
+		Role:         user.User.Role,
+		RefreshToken: refresh,
 	})
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{
@@ -353,7 +353,6 @@ func (h HandlerV1) Login(c *gin.Context) {
 		h.Logger.Error("error while update user in login", l.Error(err))
 		return
 	}
-
 
 	c.JSON(http.StatusOK, &models.UserResCreate{
 		Id:           user.User.Id,
@@ -365,7 +364,7 @@ func (h HandlerV1) Login(c *gin.Context) {
 		Gender:       user.User.Gender,
 		PhoneNumber:  user.User.PhoneNumber,
 		Role:         user.User.Role,
-		AccessToken: access,
+		AccessToken:  access,
 		RefreshToken: refresh,
 	})
 }
@@ -399,8 +398,8 @@ func (h HandlerV1) ForgetPassword(c *gin.Context) {
 
 	println("\n\n", email, "\n")
 	uniqueCheck, err := h.Service.UserService().CheckUniquess(ctx, &pbu.FV{
-		Field:                "email",
-		Value:                email,
+		Field: "email",
+		Value: email,
 	})
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{
@@ -409,7 +408,7 @@ func (h HandlerV1) ForgetPassword(c *gin.Context) {
 		h.Logger.Error("error while check unique in forget password", l.Error(err))
 		return
 	}
-	
+
 	if uniqueCheck.Code == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "Incorrect email",
@@ -520,7 +519,6 @@ func (h HandlerV1) ForgetPasswordVerify(c *gin.Context) {
 	c.JSON(http.StatusOK, responsemessage)
 }
 
-
 // SET NEW PASSWORD ...
 // @Security ApiKeyAuth
 // @Router /v1/users/password [PUT]
@@ -541,7 +539,6 @@ func (h HandlerV1) SetNewPassword(c *gin.Context) {
 	)
 	defer span.End()
 
-
 	email := c.Query("email")
 	password := c.Query("password")
 
@@ -556,7 +553,7 @@ func (h HandlerV1) SetNewPassword(c *gin.Context) {
 	}
 
 	user, err := h.Service.UserService().Get(ctx, &pbu.Filter{
-		Filter:               map[string]string{"email":email},
+		Filter: map[string]string{"email": email},
 	})
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -566,15 +563,15 @@ func (h HandlerV1) SetNewPassword(c *gin.Context) {
 		return
 	}
 
-	h.jwtHandler = tokens.JwtHandler{
+	h.JwtHandler = tokens.JwtHandler{
 		Sub:       user.User.Id,
 		Role:      user.User.Role,
-		SigninKey: h.Config.Token.Secret,
+		SigninKey: h.Config.Token.SignInKey,
 		Log:       h.Logger,
 		Timeout:   int(h.Config.Token.AccessTTL),
 	}
 
-	access, refresh, err := h.jwtHandler.GenerateJwt()
+	access, refresh, err := h.JwtHandler.GenerateJwt()
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{
 			"error": "Went wrong",
@@ -593,17 +590,17 @@ func (h HandlerV1) SetNewPassword(c *gin.Context) {
 	}
 
 	updUser, err := h.Service.UserService().Update(ctx, &pbu.User{
-		Id:                   user.User.Id,
-		FullName:             user.User.FullName,
-		Email:                user.User.Email,
-		Password:             password,
-		DateOfBirth:          user.User.DateOfBirth,
-		ProfileImg:           user.User.ProfileImg,
-		Card:                 user.User.Card,
-		Gender:               user.User.Gender,
-		PhoneNumber:          user.User.PhoneNumber,
-		Role:                 user.User.Role,
-		RefreshToken:         refresh,
+		Id:           user.User.Id,
+		FullName:     user.User.FullName,
+		Email:        user.User.Email,
+		Password:     password,
+		DateOfBirth:  user.User.DateOfBirth,
+		ProfileImg:   user.User.ProfileImg,
+		Card:         user.User.Card,
+		Gender:       user.User.Gender,
+		PhoneNumber:  user.User.PhoneNumber,
+		Role:         user.User.Role,
+		RefreshToken: refresh,
 	})
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{
@@ -626,4 +623,107 @@ func (h HandlerV1) SetNewPassword(c *gin.Context) {
 		AccessToken:  access,
 		RefreshToken: updUser.RefreshToken,
 	})
+}
+
+// UPDATE TOKEN
+// @Security ApiKeyAuth
+// @Router /v1/token/{refresh} [GET]
+// @Summary UPDATE TOKEN
+// @Description Api for updated acces token
+// @Tags TOKEN
+// @Accept json
+// @Produce json
+// @Param refresh path string true "Refresh Token"
+// @Success 200 {object} models.TokenResp
+// @Failure 400 {object} models.StandartError
+// @Failure 500 {object} models.StandartError
+func (h HandlerV1) UpdateToken(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "SetNewPassword")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+		attribute.Key("host").String(c.Request.Host),
+	)
+	defer span.End()
+
+	RToken := c.Param("refresh")
+
+	// println("\n\n", RToken, "\n\n")
+
+	user, err := h.Service.UserService().Get(ctx, &pbu.Filter{
+		Filter: map[string]string{"refresh_token": RToken},
+	})
+	if err != nil {
+		c.JSON(500, gin.H{
+			"error": "Incorrect token.",
+		})
+		h.Logger.Error("Failed to get user in update token", l.Error(err))
+		return
+	}
+
+	resClaim, err := tokens.ExtractClaim(RToken, []byte(h.Config.Token.SignInKey))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Went wrong, 1",
+		})
+		h.Logger.Error("Failed to extract token update token", l.Error(err))
+		return
+	}
+
+	Now_time := time.Now().Unix()
+	exp := (resClaim["exp"])
+	if exp.(float64)-float64(Now_time) > 0 {
+		h.JwtHandler = tokens.JwtHandler{
+			Sub:  user.User.Id,
+			Iss:  "client",
+			SigninKey: h.Config.Token.SignInKey,
+			Role: user.User.Role,
+			Log:  h.Logger,
+		}
+
+		accessR, refreshR, err := h.JwtHandler.GenerateJwt()
+		if err != nil {
+			c.JSON(http.StatusConflict, gin.H{
+				"error": "Went wrong",
+			})
+			h.Logger.Error("Failed to generate token update token", l.Error(err))
+			return
+		}
+		_, err = h.Service.UserService().Update(ctx, &pbu.User{
+			Id:                   user.User.Id,
+			FullName:             user.User.FullName,
+			Email:                user.User.Email,
+			Password:             user.User.Password,
+			DateOfBirth:          user.User.DateOfBirth,
+			ProfileImg:           user.User.ProfileImg,
+			Card:                 user.User.Card,
+			Gender:               user.User.Gender,
+			PhoneNumber:          user.User.PhoneNumber,
+			Role:                 user.User.Role,
+			RefreshToken:         refreshR,
+		})
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": "Went wrong",
+			})
+			h.Logger.Error("Failed to update user in update token", l.Error(err))
+			return
+		}
+
+		respUser := &models.TokenResp{
+			ID:      user.User.Id,
+			Access:  accessR,
+			Refresh: refreshR,
+			Role:    user.User.Role,
+		}
+
+		c.JSON(http.StatusOK, respUser)
+
+	} else {
+		c.JSON(http.StatusUnauthorized, gin.H{
+			"error": "refresh token expired",
+		})
+		h.Logger.Error("refresh token expired")
+		return
+	}
+
 }

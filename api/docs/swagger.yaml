@@ -288,6 +288,17 @@ definitions:
       error:
         $ref: '#/definitions/models.Error'
     type: object
+  models.TokenResp:
+    properties:
+      access_token:
+        type: string
+      refresh_token:
+        type: string
+      role:
+        type: string
+      user_id:
+        type: string
+    type: object
   models.UpdateAttraction:
     properties:
       attraction_name:
@@ -975,6 +986,37 @@ paths:
       summary: UPDATE HOTEL
       tags:
       - HOTEL
+  /v1/token/{refresh}:
+    get:
+      consumes:
+      - application/json
+      description: Api for updated acces token
+      parameters:
+      - description: Refresh Token
+        in: path
+        name: refresh
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.TokenResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: UPDATE TOKEN
+      tags:
+      - TOKEN
   /v1/users/{id}:
     get:
       consumes:
@@ -1113,6 +1155,12 @@ paths:
       - in: query
         name: page
         type: integer
+      - in: query
+        name: column
+        type: string
+      - in: query
+        name: value
+        type: string
       produces:
       - application/json
       responses:
@@ -1145,6 +1193,12 @@ paths:
       - in: query
         name: page
         type: integer
+      - in: query
+        name: column
+        type: string
+      - in: query
+        name: value
+        type: string
       produces:
       - application/json
       responses:
@@ -1261,7 +1315,7 @@ paths:
       summary: REGISTER USER
       tags:
       - SIGNUP
-  /v1/users/set/{id}:
+  /v1/users/set/{email}:
     get:
       consumes:
       - application/json

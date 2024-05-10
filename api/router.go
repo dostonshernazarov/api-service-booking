@@ -6,6 +6,7 @@ import (
 
 	_ "Booking/api-service-booking/api/docs"
 	v1 "Booking/api-service-booking/api/handlers/v1"
+
 	// "Booking/api-service-booking/api/middleware"
 
 	"github.com/casbin/casbin/v2"
@@ -18,9 +19,10 @@ import (
 
 	grpcClients "Booking/api-service-booking/internal/infrastructure/grpc_service_client"
 	"Booking/api-service-booking/internal/pkg/config"
+	tokens "Booking/api-service-booking/internal/pkg/token"
 	"Booking/api-service-booking/internal/usecase/app_version"
 	"Booking/api-service-booking/internal/usecase/event"
-	"Booking/api-service-booking/internal/usecase/refresh_token"
+	// "Booking/api-service-booking/internal/usecase/refresh_token"
 )
 
 type RouteOption struct {
@@ -28,7 +30,7 @@ type RouteOption struct {
 	Logger         *zap.Logger
 	ContextTimeout time.Duration
 	Service        grpcClients.ServiceClient
-	RefreshToken   refresh_token.RefreshToken
+	JwtHandler   tokens.JwtHandler
 	BrokerProducer event.BrokerProducer
 	AppVersion     app_version.AppVersion
 	Enforcer       *casbin.Enforcer
@@ -53,7 +55,7 @@ func NewRoute(option RouteOption) http.Handler {
 		Logger:         option.Logger,
 		ContextTimeout: option.ContextTimeout,
 		Service:        option.Service,
-		RefreshToken:   option.RefreshToken,
+		JwtHandler:   option.JwtHandler,
 		AppVersion:     option.AppVersion,
 		BrokerProducer: option.BrokerProducer,
 		Enforcer:       option.Enforcer,
@@ -104,6 +106,8 @@ func NewRoute(option RouteOption) http.Handler {
 	api.GET("/users/set/:id", HandlerV1.ForgetPassword)
 	api.GET("/users/code", HandlerV1.ForgetPasswordVerify)
 	api.PUT("/users/password", HandlerV1.SetNewPassword)
+
+	api.GET("/token/:refresh", HandlerV1.UpdateToken)
 
 	// ADMIN METHODS
 	api.POST("/admins", HandlerV1.CreateAdmin)

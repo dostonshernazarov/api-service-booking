@@ -50,3 +50,8 @@ type Pagination struct {
 	Page uint64 `json:"page"`
 }
 
+type FieldValues struct {
+	Column string `json:"column"`
+	Value string `json:"value"`
+}
+

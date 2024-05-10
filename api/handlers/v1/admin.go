@@ -108,14 +108,15 @@ func (h *HandlerV1) CreateAdmin(c *gin.Context) {
 
 	newId := uuid.NewString()
 
-	h.jwtHandler = tokens.JwtHandler{
+	h.JwtHandler = tokens.JwtHandler{
 		Sub:  newId,
 		Iss:  "client",
 		Role: "admin",
+		SigninKey: h.Config.Token.SignInKey,
 		Log:  h.Logger,
 	}
 
-	access, refresh, err := h.jwtHandler.GenerateJwt()
+	access, refresh, err := h.JwtHandler.GenerateJwt()
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{
 			"error": "error while generating jwt",

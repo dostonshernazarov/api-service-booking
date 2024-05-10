@@ -108,14 +108,15 @@ func (h *HandlerV1) Create(c *gin.Context) {
 
 	newId := uuid.NewString()
 
-	h.jwtHandler = tokens.JwtHandler{
+	h.JwtHandler = tokens.JwtHandler{
 		Sub:  newId,
 		Iss:  "client",
 		Role: "user",
+		SigninKey: h.Config.Token.SignInKey,
 		Log:  h.Logger,
 	}
 
-	access, refresh, err := h.jwtHandler.GenerateJwt()
+	access, refresh, err := h.JwtHandler.GenerateJwt()
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{
 			"error": "error while generating jwt",
@@ -230,6 +231,7 @@ func (h *HandlerV1) Get(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param request query models.Pagination true "request"
+// @Param request query models.FieldValues true "request"
 // @Success 200 {object} pbu.ListUsersRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
@@ -251,14 +253,27 @@ func (h *HandlerV1) ListUsers(c *gin.Context) {
 		})
 		return
 	}
+
+	columnQ := c.Query("column")
+	valueQ := c.Query("value")
+
+	if columnQ == "" {
+		columnQ = "email"
+	}
+
+
 	var jsonMarshal protojson.MarshalOptions
 	jsonMarshal.UseProtoNames = true
 
 
 	response, err := h.Service.UserService().ListUsers(
 		ctx, &pbu.ListUsersReq{
-			Limit: params.Limit,
-			Offset:  (params.Page-1)*params.Limit,
+			Limit:                params.Limit,
+			Offset:               (params.Page - 1) * params.Limit,
+			Fv:                   &pbu.FV{
+				Field:                columnQ,
+				Value:                valueQ,
+			},
 		})
 
 	if err != nil {
@@ -280,6 +295,7 @@ func (h *HandlerV1) ListUsers(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param request query models.Pagination true "request"
+// @Param request query models.FieldValues true "request"
 // @Success 200 {object} pbu.ListUsersRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
@@ -300,6 +316,14 @@ func (h *HandlerV1) ListDeletedUsers(c *gin.Context) {
 		})
 		return
 	}
+
+	columnQ := c.Query("column")
+	valueQ := c.Query("value")
+
+	if columnQ == "" {
+		columnQ = "email"
+	}
+
 	var jsonMarshal protojson.MarshalOptions
 	jsonMarshal.UseProtoNames = true
 
@@ -308,6 +332,10 @@ func (h *HandlerV1) ListDeletedUsers(c *gin.Context) {
 		ctx, &pbu.ListUsersReq{
 			Limit: params.Limit,
 			Offset:  (params.Page-1)*params.Limit,
+			Fv: &pbu.FV{
+				Field:                columnQ,
+				Value:                valueQ,
+			},
 		})
 
 	if err != nil {

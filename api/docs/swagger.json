@@ -745,6 +745,55 @@
                 }
             }
         },
+        "/v1/token/{refresh}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Api for updated acces token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "TOKEN"
+                ],
+                "summary": "UPDATE TOKEN",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Refresh Token",
+                        "name": "refresh",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.TokenResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/users/code": {
             "get": {
                 "security": [
@@ -925,6 +974,16 @@
                         "type": "integer",
                         "name": "page",
                         "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "column",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "value",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -976,6 +1035,16 @@
                     {
                         "type": "integer",
                         "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "column",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "value",
                         "in": "query"
                     }
                 ],
@@ -1156,7 +1225,7 @@
                 }
             }
         },
-        "/v1/users/set/{id}": {
+        "/v1/users/set/{email}": {
             "get": {
                 "security": [
                     {
@@ -1789,6 +1858,23 @@
             "properties": {
                 "error": {
                     "$ref": "#/definitions/models.Error"
+                }
+            }
+        },
+        "models.TokenResp": {
+            "type": "object",
+            "properties": {
+                "access_token": {
+                    "type": "string"
+                },
+                "refresh_token": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
                 }
             }
         },

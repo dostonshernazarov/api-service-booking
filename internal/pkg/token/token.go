@@ -4,7 +4,7 @@
 package tokens
 
 import (
-	"Booking/api-service-booking/internal/pkg/config"
+	// "Booking/api-service-booking/internal/pkg/config"
 	"Booking/api-service-booking/internal/pkg/logger"
 	"fmt"
 	"time"
@@ -41,22 +41,28 @@ func (jwtHandler *JwtHandler) GenerateJwt() (access, refresh string, err error) 
 	claims["exp"] = time.Now().Add(time.Hour * 24).Unix()
 	claims["iat"] = time.Now().Unix()
 	claims["role"] = jwtHandler.Role
-	claims["aud"] = jwtHandler.Aud
 
-	cfg, err := config.NewConfig()
+	// cfg, err := config.NewConfig()
+	// if err != nil {
+	// 	logger.Error(err)
+	// 	return
+	// }
+
+	access, err = accessToken.SignedString([]byte(jwtHandler.SigninKey))
 	if err != nil {
-		logger.Error(err)
+		jwtHandler.Log.Error("error generating access token", logger.Error(err))
+		// logger.Error(err)
 		return
 	}
 
-	access, err = accessToken.SignedString([]byte(cfg.Token.Secret))
-	if err != nil {
-		// jwtHandler.Log.Error("error generating access token", logger.Error(err))
-		logger.Error(err)
-		return
-	}
 
-	refresh, err = refreshToken.SignedString([]byte(cfg.Token.Secret))
+	rtClaims := refreshToken.Claims.(jwt.MapClaims)
+	rtClaims["sub"] = jwtHandler.Sub
+	rtClaims["exp"] = time.Now().Add(time.Hour * 48).Unix()
+	rtClaims["iat"] = time.Now().Unix()
+	rtClaims["role"] = jwtHandler.Role
+
+	refresh, err = refreshToken.SignedString([]byte(jwtHandler.SigninKey))
 	if err != nil {
 		// jwtHandler.Log.Error("error generating refresh token", logger.Error(err))
 		logger.Error(err)

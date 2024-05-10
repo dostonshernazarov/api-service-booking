@@ -1601,3 +1601,350 @@ net/http.(*conn).serve
 2024-05-10T16:43:06.689+0500	INFO	app/main.go:41	api gateway service stops
 2024-05-10T16:46:55.272+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
 2024-05-10T16:47:15.194+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-10T17:47:09.740+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-10T17:48:33.551+0500	ERROR	v1/user.go:392	Incorrect Email. Try again, error while in update user
+Booking/api-service-booking/api/handlers/v1.(*HandlerV1).Update
+	/home/doston/project/go/src/Booking/api-service-booking/api/handlers/v1/user.go:392
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-10T17:48:46.604+0500	ERROR	v1/user.go:404	Incorrect Password. Try again, error while in update user
+Booking/api-service-booking/api/handlers/v1.(*HandlerV1).Update
+	/home/doston/project/go/src/Booking/api-service-booking/api/handlers/v1/user.go:404
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-10T17:49:24.508+0500	ERROR	v1/user.go:519	failed to get user in delete	{"error": "rpc error: code = Unknown desc = failed to get user: no rows in result set"}
+Booking/api-service-booking/api/handlers/v1.(*HandlerV1).Delete
+	/home/doston/project/go/src/Booking/api-service-booking/api/handlers/v1/user.go:519
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-10T17:49:40.352+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-10T17:55:42.747+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-10T17:56:08.554+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-10T17:56:39.108+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-10T17:57:29.154+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-10T17:57:31.765+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-10T17:58:06.621+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-10T17:59:36.755+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-10T18:00:51.750+0500	ERROR	v1/user.go:63	Incorrect Email. Try again, error while in Create
+Booking/api-service-booking/api/handlers/v1.(*HandlerV1).Create
+	/home/doston/project/go/src/Booking/api-service-booking/api/handlers/v1/user.go:63
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-10T18:03:56.783+0500	ERROR	v1/user.go:73	Incorrect Password. Try again, error while in Create
+Booking/api-service-booking/api/handlers/v1.(*HandlerV1).Create
+	/home/doston/project/go/src/Booking/api-service-booking/api/handlers/v1/user.go:73
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-10T18:04:56.749+0500	ERROR	v1/user.go:431	Incorrect Password. Try again, error while in update user
+Booking/api-service-booking/api/handlers/v1.(*HandlerV1).Update
+	/home/doston/project/go/src/Booking/api-service-booking/api/handlers/v1/user.go:431
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-10T18:07:44.215+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-10T18:49:27.383+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-10T18:51:01.305+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-10T18:51:28.547+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-10T18:52:34.993+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-10T18:52:37.330+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-10T18:52:39.024+0500	ERROR	v1/register.go:666	Failed to extract tokein update token	{"error": "signature is invalid"}
+Booking/api-service-booking/api/handlers/v1.HandlerV1.UpdateToken
+	/home/doston/project/go/src/Booking/api-service-booking/api/handlers/v1/register.go:666
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-10T18:53:01.218+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-10T18:53:03.584+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-10T18:53:04.778+0500	ERROR	v1/register.go:666	Failed to extract tokein update token	{"error": "signature is invalid"}
+Booking/api-service-booking/api/handlers/v1.HandlerV1.UpdateToken
+	/home/doston/project/go/src/Booking/api-service-booking/api/handlers/v1/register.go:666
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-10T18:53:13.042+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-10T19:02:55.964+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-10T19:04:16.279+0500	ERROR	v1/register.go:666	Failed to extract token update token	{"error": "signature is invalid"}
+Booking/api-service-booking/api/handlers/v1.HandlerV1.UpdateToken
+	/home/doston/project/go/src/Booking/api-service-booking/api/handlers/v1/register.go:666
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-10T19:05:12.548+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-10T19:17:36.585+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-10T19:24:44.053+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-10T19:25:48.933+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-10T19:27:41.993+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-10T19:28:41.236+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-10T19:30:49.902+0500	ERROR	v1/register.go:104	failed to check email unique
+Booking/api-service-booking/api/handlers/v1.HandlerV1.RegisterUser
+	/home/doston/project/go/src/Booking/api-service-booking/api/handlers/v1/register.go:104
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-10T19:31:45.681+0500	ERROR	v1/register.go:666	Failed to extract token update token	{"error": "illegal base64 data at input byte 41"}
+Booking/api-service-booking/api/handlers/v1.HandlerV1.UpdateToken
+	/home/doston/project/go/src/Booking/api-service-booking/api/handlers/v1/register.go:666
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-10T19:33:00.280+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-10T19:51:59.286+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-10T19:54:54.376+0500	ERROR	v1/register.go:666	Failed to extract token update token	{"error": "signature is invalid"}
+Booking/api-service-booking/api/handlers/v1.HandlerV1.UpdateToken
+	/home/doston/project/go/src/Booking/api-service-booking/api/handlers/v1/register.go:666
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-10T19:55:01.252+0500	ERROR	v1/register.go:666	Failed to extract token update token	{"error": "signature is invalid"}
+Booking/api-service-booking/api/handlers/v1.HandlerV1.UpdateToken
+	/home/doston/project/go/src/Booking/api-service-booking/api/handlers/v1/register.go:666
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-10T19:55:04.910+0500	ERROR	v1/register.go:666	Failed to extract token update token	{"error": "signature is invalid"}
+Booking/api-service-booking/api/handlers/v1.HandlerV1.UpdateToken
+	/home/doston/project/go/src/Booking/api-service-booking/api/handlers/v1/register.go:666
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-10T19:55:57.415+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-10T19:56:26.347+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-10T19:58:36.987+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-10T19:59:23.479+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-10T19:59:54.193+0500	ERROR	v1/register.go:659	Failed to get user in update token	{"error": "rpc error: code = Unknown desc = failed to get user: no rows in result set"}
+Booking/api-service-booking/api/handlers/v1.HandlerV1.UpdateToken
+	/home/doston/project/go/src/Booking/api-service-booking/api/handlers/v1/register.go:659
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-10T20:00:00.872+0500	INFO	app/main.go:41	api gateway service stops

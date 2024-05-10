@@ -27,7 +27,7 @@ import (
 	"Booking/api-service-booking/internal/pkg/redis"
 	"Booking/api-service-booking/internal/usecase/app_version"
 	"Booking/api-service-booking/internal/usecase/event"
-	"Booking/api-service-booking/internal/usecase/refresh_token"
+	// "Booking/api-service-booking/internal/usecase/refresh_token"
 	// "Booking/api-service-booking/internal/usecase/refresh_token"
 )
 
@@ -121,10 +121,10 @@ func (a *App) Run() error {
 	// initialize cache
 	// cache := redisrepo.NewCache(a.RedisDB)
 
-	tokenRepo := postgresql.NewRefreshTokenRepo(a.DB)
+	// tokenRepo := postgresql.NewRefreshTokenRepo(a.DB)
 
 	// initialize token service
-	refreshTokenService := refresh_token.NewRefreshTokenService(contextTimeout, tokenRepo)
+	// refreshTokenService := refresh_token.NewRefreshTokenService(contextTimeout, tokenRepo)
 
 	// api init
 	handler := api.NewRoute(api.RouteOption{
@@ -133,7 +133,6 @@ func (a *App) Run() error {
 		ContextTimeout: contextTimeout,
 		// Cache:          cache,
 		Enforcer:       a.Enforcer,
-		RefreshToken:   refreshTokenService,
 		Service:        clients,
 		BrokerProducer: a.BrokerProducer,
 		AppVersion:     a.appVersion,

@@ -12,16 +12,15 @@ import (
 
 	appV "Booking/api-service-booking/internal/usecase/app_version"
 	"Booking/api-service-booking/internal/usecase/event"
-	"Booking/api-service-booking/internal/usecase/refresh_token"
+	// "Booking/api-service-booking/internal/usecase/refresh_token"
 )
 
 type HandlerV1 struct {
 	Config         *config.Config
 	Logger         *zap.Logger
 	ContextTimeout time.Duration
-	jwtHandler     tokens.JwtHandler
+	JwtHandler     tokens.JwtHandler
 	Service        grpcClients.ServiceClient
-	RefreshToken   refresh_token.RefreshToken
 	AppVersion     appV.AppVersion
 	BrokerProducer event.BrokerProducer
 	Enforcer       *casbin.Enforcer
@@ -31,8 +30,8 @@ type HandlerV1Config struct {
 	Config         *config.Config
 	Logger         *zap.Logger
 	ContextTimeout time.Duration
+	JwtHandler     tokens.JwtHandler
 	Service        grpcClients.ServiceClient
-	RefreshToken   refresh_token.RefreshToken
 	AppVersion     appV.AppVersion
 	BrokerProducer event.BrokerProducer
 	Enforcer       *casbin.Enforcer
@@ -44,7 +43,7 @@ func New(c *HandlerV1Config) *HandlerV1 {
 		Logger:         c.Logger,
 		ContextTimeout: c.ContextTimeout,
 		Service:        c.Service,
-		RefreshToken:   c.RefreshToken,
+		JwtHandler: c.JwtHandler,
 		AppVersion:     c.AppVersion,
 		BrokerProducer: c.BrokerProducer,
 		Enforcer:       c.Enforcer,

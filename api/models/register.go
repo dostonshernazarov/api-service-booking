@@ -20,6 +20,13 @@ type Verify struct {
 	Code string `json:"code"`
 }
 
+type TokenResp struct {
+	ID      string `json:"user_id"`
+	Access  string `json:"access_token"`
+	Refresh string `json:"refresh_token"`
+	Role    string `json:"role"`
+}
+
 type UserResCreate struct {
 	Id           string `json:"id"`
 	FullName     string `json:"full_name"`
