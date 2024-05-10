@@ -6,7 +6,10 @@ import (
 
 	_ "Booking/api-service-booking/api/docs"
 	v1 "Booking/api-service-booking/api/handlers/v1"
+	// "Booking/api-service-booking/api/middleware"
 
+	"github.com/casbin/casbin/v2"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -28,6 +31,7 @@ type RouteOption struct {
 	RefreshToken   refresh_token.RefreshToken
 	BrokerProducer event.BrokerProducer
 	AppVersion     app_version.AppVersion
+	Enforcer       *casbin.Enforcer
 }
 
 // @title welcome to Booking API
@@ -52,11 +56,24 @@ func NewRoute(option RouteOption) http.Handler {
 		RefreshToken:   option.RefreshToken,
 		AppVersion:     option.AppVersion,
 		BrokerProducer: option.BrokerProducer,
+		Enforcer:       option.Enforcer,
 	})
+
+	corsConfig := cors.DefaultConfig()
+	corsConfig.AllowAllOrigins = true
+	corsConfig.AllowCredentials = true
+	corsConfig.AllowHeaders = []string{"*"}
+	corsConfig.AllowBrowserExtensions = true
+	corsConfig.AllowMethods = []string{"*"}
+	router.Use(cors.New(corsConfig))
+
+	// router.Use(middleware.Tracing)
+	// router.Use(middleware.CheckCasbinPermission(option.Enforcer, *option.Config))
+
+	router.Static("/media", "./media")
 
 	api := router.Group("/v1")
 	apiUser := api.Group("/users")
-
 
 	// USER METHODS
 	apiUser.POST("/create", HandlerV1.Create)
@@ -80,7 +97,7 @@ func NewRoute(option RouteOption) http.Handler {
 	api.PATCH("/hotel/update", HandlerV1.UpdateHotel)
 	api.DELETE("/hotel/delete", HandlerV1.DeleteHotel)
 
-	// REGITER METHODS
+	// REGISTER METHODS
 	api.POST("/users/register", HandlerV1.RegisterUser)
 	api.GET("/users/verify", HandlerV1.Verification)
 	api.GET("/users/login", HandlerV1.Login)
@@ -94,8 +111,6 @@ func NewRoute(option RouteOption) http.Handler {
 	api.GET("/admins/list", HandlerV1.ListAdmins)
 	api.PUT("/admins", HandlerV1.UpdateAdmin)
 	api.DELETE("/admins/:id", HandlerV1.DeleteAdmin)
-
-
 
 	url := ginSwagger.URL("swagger/doc.json")
 	api.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))

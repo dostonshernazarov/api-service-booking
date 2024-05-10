@@ -47,6 +47,7 @@ type Config struct {
 		Secret     string
 		AccessTTL  time.Duration
 		RefreshTTL time.Duration
+		SignInKey string
 	}
 	Minio struct {
 		Endpoint              string
@@ -123,6 +124,7 @@ func NewConfig() (*Config, error) {
 	}
 	config.Token.AccessTTL = accessTTl
 	config.Token.RefreshTTL = refreshTTL
+	config.Token.SignInKey = getEnv("TOKEN_SIGNIN_KEY", "debug_booking")
 
 	// otlp collector configuration
 	config.OTLPCollector.Host = getEnv("OTLP_COLLECTOR_HOST", "localhost")

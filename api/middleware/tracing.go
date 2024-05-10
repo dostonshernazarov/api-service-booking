@@ -1,29 +1,71 @@
 package middleware
 
-import (
-	"net/http"
+// import (
+// 	"bufio"
+// 	"errors"
+// 	"net"
+// 	"net/http"
 
-	"go.opentelemetry.io/otel/attribute"
+// 	"github.com/gin-gonic/gin"
+// 	"go.opencensus.io/trace"
+// 	"go.opentelemetry.io/otel"
+// 	"go.opentelemetry.io/otel/attribute"
 
-	"Booking/api-service-booking/api/response"
-	"Booking/api-service-booking/internal/pkg/otlp"
-)
+// 	// "Booking/api-service-booking/api/response"
+// 	// "Booking/api-service-booking/internal/pkg/otlp"
+// )
 
-func Tracing(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		rw := response.NewResponseWriter(w, http.StatusOK)
-		// tracing
-		ctx, span := otlp.Start(r.Context(), "", r.URL.Path)
-		// add request id to header
-		w.Header().Add(RequestIDHeader, span.SpanContext().TraceID().String())
-		next.ServeHTTP(rw, r.WithContext(ctx))
-		// add attributes
-		span.SetAttributes(
-			attribute.Key("http.method").String(r.Method),
-			attribute.Key("http.url").String(r.URL.Path),
-			attribute.Key("http.status_code").Int(rw.StatusCode()),
-		)
-		// end completes the span
-		span.End()
-	})
-}
+// // Tracing middleware function
+// func Tracing(c *gin.Context) {
+// 	ctx := c.Request.Context()
+// 	tracer := otel.GetTracerProvider().Tracer("api-service-booking")
+// 	ctx, span := tracer.Start(ctx, "HTTP "+c.Request.Method+" "+c.FullPath(), trace.WithSpanKind(trace.SpanKindServer))
+// 	defer span.End()
+
+// 	c.Writer.Header().Add("TraceID", span.SpanContext().TraceID().String())
+
+// 	rw := &responseWriter{c.Writer, http.StatusOK}
+
+// 	c.Writer = rw
+// 	c.Request = c.Request.WithContext(ctx)
+
+// 	c.Next()
+
+// 	span.SetAttributes(
+// 		attribute.String("http.method", c.Request.Method),
+// 		attribute.String("http.url", c.FullPath()),
+// 		attribute.Int("http.status_code", rw.statusCode),
+// 	)
+// }
+
+// type responseWriter struct {
+// 	gin.ResponseWriter
+// 	statusCode int
+// }
+
+// func (rw *responseWriter) WriteHeader(statusCode int) {
+// 	rw.statusCode = statusCode
+// 	rw.ResponseWriter.WriteHeader(statusCode)
+// }
+
+// func (rw *responseWriter) Write(data []byte) (int, error) {
+// 	return rw.ResponseWriter.Write(data)
+// }
+
+// func (rw *responseWriter) WriteString(s string) (int, error) {
+// 	return rw.ResponseWriter.WriteString(s)
+// }
+
+// func (rw *responseWriter) Hijack() (net.Conn, *bufio.ReadWriter, error) {
+// 	if hijacker, ok := rw.ResponseWriter.(http.Hijacker); ok {
+// 		return hijacker.Hijack()
+// 	}
+// 	return nil, nil, errors.New("response writer does not support hijacking")
+// }
+
+// func (rw *responseWriter) CloseNotify() <-chan bool {
+// 	if notifier, ok := rw.ResponseWriter.(http.CloseNotifier); ok {
+// 		return notifier.CloseNotify()
+// 	}
+// 	return make(chan bool)
+// }

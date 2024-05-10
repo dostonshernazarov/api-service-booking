@@ -372,7 +372,7 @@ func (h HandlerV1) Login(c *gin.Context) {
 
 // FORGET PASSWORD ...
 // @Security ApiKeyAuth
-// @Router /v1/users/set/{id} [GET]
+// @Router /v1/users/set/{email} [GET]
 // @Summary FORGET PASSWORD
 // @Description Api for set new password
 // @Tags SET-PASSWORD

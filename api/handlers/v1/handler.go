@@ -3,6 +3,7 @@ package v1
 import (
 	"time"
 
+	"github.com/casbin/casbin/v2"
 	"go.uber.org/zap"
 
 	grpcClients "Booking/api-service-booking/internal/infrastructure/grpc_service_client"
@@ -18,11 +19,12 @@ type HandlerV1 struct {
 	Config         *config.Config
 	Logger         *zap.Logger
 	ContextTimeout time.Duration
-	jwtHandler tokens.JwtHandler
+	jwtHandler     tokens.JwtHandler
 	Service        grpcClients.ServiceClient
 	RefreshToken   refresh_token.RefreshToken
 	AppVersion     appV.AppVersion
 	BrokerProducer event.BrokerProducer
+	Enforcer       *casbin.Enforcer
 }
 
 type HandlerV1Config struct {
@@ -33,6 +35,7 @@ type HandlerV1Config struct {
 	RefreshToken   refresh_token.RefreshToken
 	AppVersion     appV.AppVersion
 	BrokerProducer event.BrokerProducer
+	Enforcer       *casbin.Enforcer
 }
 
 func New(c *HandlerV1Config) *HandlerV1 {
@@ -44,5 +47,6 @@ func New(c *HandlerV1Config) *HandlerV1 {
 		RefreshToken:   c.RefreshToken,
 		AppVersion:     c.AppVersion,
 		BrokerProducer: c.BrokerProducer,
+		Enforcer:       c.Enforcer,
 	}
 }
