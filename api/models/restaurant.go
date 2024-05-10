@@ -30,6 +30,7 @@ type RestaurantModel struct {
 
 type ListRestaurantsModel struct {
 	Restaurants []*RestaurantModel `json:"restaurants"`
+	Overall        uint64        `json:"overall"`
 }
 
 type UpdateRestaurant struct {
@@ -42,5 +43,3 @@ type UpdateRestaurant struct {
 	WebsiteUrl     string         `json:"website_url" default:"updated website url"`
 	Location       UpdateLocation `json:"location"`
 }
-
-

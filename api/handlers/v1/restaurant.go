@@ -331,7 +331,12 @@ func (h HandlerV1) ListRestaurants(c *gin.Context) {
 		respRestaurants = append(respRestaurants, &restaurant)
 	}
 
-	c.JSON(200, respRestaurants)
+	listModel := models.ListRestaurantsModel{
+		Restaurants: respRestaurants,
+		Overall:     response.Overall,
+	}
+
+	c.JSON(200, listModel)
 }
 
 // UPDATE RESTAURANT

@@ -1,35 +1,4 @@
 definitions:
-  models.Attraction:
-    properties:
-      attraction_id:
-        type: string
-      attraction_name:
-        type: string
-      contact_number:
-        type: string
-      created_at:
-        type: string
-      deleted_at:
-        type: string
-      description:
-        type: string
-      images:
-        items:
-          $ref: '#/definitions/models.Image'
-        type: array
-      licence_url:
-        type: string
-      location:
-        $ref: '#/definitions/models.Location'
-      owner_id:
-        type: string
-      rating:
-        type: number
-      updated_at:
-        type: string
-      website_url:
-        type: string
-    type: object
   models.AttractionModel:
     properties:
       attraction_id:
@@ -170,6 +139,15 @@ definitions:
         default: https://creativecommons.org/licenses/by/3.3/
         type: string
     type: object
+  models.CreateReview:
+    properties:
+      comment:
+        default: very good!
+        type: string
+      rating:
+        default: 4.7
+        type: number
+    type: object
   models.DeleteResponse:
     properties:
       success:
@@ -178,6 +156,19 @@ definitions:
   models.Error:
     properties:
       message:
+        type: string
+    type: object
+  models.FavouriteModel:
+    properties:
+      created_at:
+        type: string
+      establishment_id:
+        type: string
+      favourite_id:
+        type: string
+      updated_at:
+        type: string
+      user_id:
         type: string
     type: object
   models.HotelModel:
@@ -209,21 +200,6 @@ definitions:
       website_url:
         type: string
     type: object
-  models.Image:
-    properties:
-      created_at:
-        type: string
-      deleted_at:
-        type: string
-      establishment_id:
-        type: string
-      image_id:
-        type: string
-      image_url:
-        type: string
-      updated_at:
-        type: string
-    type: object
   models.ImageModel:
     properties:
       created_at:
@@ -241,7 +217,16 @@ definitions:
     properties:
       attractions:
         items:
-          $ref: '#/definitions/models.Attraction'
+          $ref: '#/definitions/models.AttractionModel'
+        type: array
+      overall:
+        type: integer
+    type: object
+  models.ListFavouritesModel:
+    properties:
+      favourites:
+        items:
+          $ref: '#/definitions/models.FavouriteModel'
         type: array
     type: object
   models.ListHotelsModel:
@@ -250,38 +235,26 @@ definitions:
         items:
           $ref: '#/definitions/models.HotelModel'
         type: array
+      overall:
+        type: integer
     type: object
   models.ListRestaurantsModel:
     properties:
+      overall:
+        type: integer
       restaurants:
         items:
           $ref: '#/definitions/models.RestaurantModel'
         type: array
     type: object
-  models.Location:
+  models.ListReviews:
     properties:
-      address:
-        type: string
-      city:
-        type: string
-      country:
-        type: string
-      created_at:
-        type: string
-      deleted_at:
-        type: string
-      establishment_id:
-        type: string
-      latitude:
-        type: number
-      location_id:
-        type: string
-      longitude:
-        type: number
-      state_province:
-        type: string
-      updated_at:
-        type: string
+      count:
+        type: integer
+      reviews:
+        items:
+          $ref: '#/definitions/models.ReviewModel'
+        type: array
     type: object
   models.LocationModel:
     properties:
@@ -305,6 +278,11 @@ definitions:
         type: string
       updated_at:
         type: string
+    type: object
+  models.RemoveResponse:
+    properties:
+      success:
+        type: boolean
     type: object
   models.RestaurantModel:
     properties:
@@ -335,6 +313,23 @@ definitions:
       updated_at:
         type: string
       website_url:
+        type: string
+    type: object
+  models.ReviewModel:
+    properties:
+      comment:
+        type: string
+      created_at:
+        type: string
+      establishment_id:
+        type: string
+      rating:
+        type: number
+      review_id:
+        type: string
+      updated_at:
+        type: string
+      user_id:
         type: string
     type: object
   models.StandartError:
@@ -565,6 +560,55 @@ paths:
       summary: LIST ATTRACTIONS BY PAGE AND LIMIT
       tags:
       - ATTRACTION
+  /v1/attraction/listbylocation:
+    get:
+      consumes:
+      - application/json
+      description: Api for listing attractions by page, limit, country, city and state_province
+      parameters:
+      - description: page
+        in: query
+        name: page
+        required: true
+        type: string
+      - description: limit
+        in: query
+        name: limit
+        required: true
+        type: string
+      - description: country
+        in: query
+        name: country
+        required: true
+        type: string
+      - description: city
+        in: query
+        name: city
+        required: true
+        type: string
+      - description: state_province
+        in: query
+        name: state_province
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ListAttractionModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      summary: LIST ATTRACTIONS BY PAGE, LIMIT, COUNTRY, CITY AND STATE_PROVINCE
+      tags:
+      - ATTRACTION
   /v1/attraction/update:
     patch:
       consumes:
@@ -600,6 +644,98 @@ paths:
       summary: UPDATE ATTRACTION
       tags:
       - ATTRACTION
+  /v1/favourite/add:
+    post:
+      consumes:
+      - application/json
+      description: Api for adding establishment to favourites
+      parameters:
+      - description: establishment_id
+        in: query
+        name: establishment_id
+        required: true
+        type: string
+      - description: user_id
+        in: query
+        name: user_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.FavouriteModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      summary: ADD ESTABLISHMENT TO FAVOURITES
+      tags:
+      - FAVOURITE
+  /v1/favourite/list:
+    get:
+      consumes:
+      - application/json
+      description: Api for listing favourites by favourite_id
+      parameters:
+      - description: user_id
+        in: query
+        name: user_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ListFavouritesModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      summary: LIST FAVOURITES BY USER_ID
+      tags:
+      - FAVOURITE
+  /v1/favourite/remove:
+    delete:
+      consumes:
+      - application/json
+      description: Api for removing favourite by favourite_id
+      parameters:
+      - description: favourite_id
+        in: query
+        name: favourite_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.RemoveResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      summary: REMOVE FROM FAVOURITES BY FAVOURITE_ID
+      tags:
+      - FAVOURITE
   /v1/hotel/create:
     post:
       consumes:
@@ -924,4 +1060,102 @@ paths:
       summary: UPDATE RESTAURANT
       tags:
       - RESTAURANT
+  /v1/review/create:
+    post:
+      consumes:
+      - application/json
+      description: Api for creating review
+      parameters:
+      - description: establishment_id
+        in: query
+        name: establishment_id
+        required: true
+        type: string
+      - description: user_id
+        in: query
+        name: user_id
+        required: true
+        type: string
+      - description: Review
+        in: body
+        name: Review
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateReview'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ReviewModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      summary: CREATE REVIEW
+      tags:
+      - REVIEW
+  /v1/review/delete:
+    delete:
+      consumes:
+      - application/json
+      description: Api for deleting review by review_id
+      parameters:
+      - description: review_id
+        in: query
+        name: review_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DeleteResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      summary: DELETE REVIEW BY REVIEW_ID
+      tags:
+      - REVIEW
+  /v1/review/list:
+    get:
+      consumes:
+      - application/json
+      description: Api for listing reviews by establishment_id
+      parameters:
+      - description: establishment_id
+        in: query
+        name: establishment_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ListReviews'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      summary: LIST REVIEWS BY ESTABLISHMENT_ID
+      tags:
+      - REVIEW
 swagger: "2.0"

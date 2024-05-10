@@ -327,7 +327,12 @@ func (h HandlerV1) ListAttractions(c *gin.Context) {
 		respAttractions = append(respAttractions, &attraction)
 	}
 
-	c.JSON(200, respAttractions)
+	listModel := models.ListAttractionModel{
+		Attractions: respAttractions,
+		Overall:     response.Overall,
+	}
+
+	c.JSON(200, listModel)
 }
 
 // UPDATE ATTRACTION
@@ -486,4 +491,124 @@ func (h HandlerV1) DeleteAttraction(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"message": "successfuly deleted",
 	})
+}
+
+// LIST ATTRACTIONS BY PAGE, LIMIT, COUNTRY, CITY AND STATE_PROVINCE
+// @Summary LIST ATTRACTIONS BY PAGE, LIMIT, COUNTRY, CITY AND STATE_PROVINCE
+// @Description Api for listing attractions by page, limit, country, city and state_province
+// @Tags ATTRACTION
+// @Accept json
+// @Produce json
+// @Param page query string true "page"
+// @Param limit query string true "limit"
+// @Param country query string true "country"
+// @Param city query string true "city"
+// @Param state_province query string true "state_province"
+// @Success 200 {object} models.ListAttractionModel
+// @Failure 404 {object} models.StandartError
+// @Failure 500 {object} models.StandartError
+// @Router /v1/attraction/listbylocation [GET]
+func (h HandlerV1) ListAttractionsByLocation(c *gin.Context) {
+	var (
+		jspbMarshal protojson.MarshalOptions
+	)
+
+	jspbMarshal.UseProtoNames = true
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+	defer cancel()
+
+	ctx, span := otlp.Start(ctx, "api", "ListAttractions")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+
+	page := c.Query("page")
+	pageInt, err := strconv.Atoi(page)
+	if err != nil {
+		c.JSON(404, gin.H{
+			"error": err.Error(),
+		})
+		h.Logger.Error(err.Error())
+		return
+	}
+
+	limit := c.Query("limit")
+	limitInt, err := strconv.Atoi(limit)
+	if err != nil {
+		c.JSON(404, gin.H{
+			"error": err.Error(),
+		})
+		h.Logger.Error(err.Error())
+		return
+	}
+
+	offset := (pageInt - 1) * limitInt
+
+	country := c.Query("country")
+	city := c.Query("city")
+	state_province := c.Query("state_province")
+
+	response, err := h.Service.EstablishmentService().ListAttractionsByLocation(ctx, &pbe.ListAttractionsByLocationRequest{
+		Offset:        uint64(offset),
+		Limit:         uint64(limitInt),
+		Country:       country,
+		City:          city,
+		StateProvince: state_province,
+	})
+	if err != nil {
+		c.JSON(500, gin.H{
+			"error": err.Error(),
+		})
+		h.Logger.Error(err.Error())
+		return
+	}
+
+	var respAttractions []*models.AttractionModel
+
+	for _, respAttraction := range response.Attractions {
+
+		var respImages []*models.ImageModel
+
+		for _, respImage := range respAttraction.Images {
+			image := models.ImageModel{
+				ImageId:         respImage.ImageId,
+				EstablishmentId: respImage.EstablishmentId,
+				ImageUrl:        respImage.ImageUrl,
+				CreatedAt:       respImage.CreatedAt,
+				UpdatedAt:       respImage.UpdatedAt,
+			}
+			respImages = append(respImages, &image)
+		}
+
+		attraction := models.AttractionModel{
+			AttractionId:   respAttraction.AttractionId,
+			OwnerId:        respAttraction.OwnerId,
+			AttractionName: respAttraction.AttractionName,
+			Description:    respAttraction.Description,
+			Rating:         respAttraction.Rating,
+			ContactNumber:  respAttraction.ContactNumber,
+			LicenceUrl:     respAttraction.LicenceUrl,
+			WebsiteUrl:     respAttraction.WebsiteUrl,
+			Images:         respImages,
+			Location: models.LocationModel{
+				LocationId:      respAttraction.Location.LocationId,
+				EstablishmentId: respAttraction.Location.EstablishmentId,
+				Address:         respAttraction.Location.Address,
+				Latitude:        float64(respAttraction.Location.Latitude),
+				Longitude:       float64(respAttraction.Location.Longitude),
+				Country:         respAttraction.Location.Country,
+				City:            respAttraction.Location.City,
+				StateProvince:   respAttraction.Location.StateProvince,
+				CreatedAt:       respAttraction.Location.CreatedAt,
+				UpdatedAt:       respAttraction.Location.UpdatedAt,
+			},
+			CreatedAt: respAttraction.CreatedAt,
+			UpdatedAt: respAttraction.UpdatedAt,
+		}
+
+		respAttractions = append(respAttractions, &attraction)
+	}
+
+	c.JSON(200, respAttractions)
 }

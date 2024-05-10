@@ -55,6 +55,7 @@ func NewRoute(option RouteOption) http.Handler {
 	api.GET("/attraction/list", HandlerV1.ListAttractions)
 	api.PATCH("/attraction/update", HandlerV1.UpdateAttraction)
 	api.DELETE("/attraction/delete", HandlerV1.DeleteAttraction)
+	api.GET("/attraction/listbylocation", HandlerV1.ListAttractionsByLocation)
 
 	// HOTEL METHODS
 	api.POST("/hotel/create", HandlerV1.CreateHotel)
@@ -69,6 +70,16 @@ func NewRoute(option RouteOption) http.Handler {
 	api.GET("/restaurant/list", HandlerV1.ListRestaurants)
 	api.PATCH("/restaurant/update", HandlerV1.UpdateRestaurant)
 	api.DELETE("/restaurant/delete", HandlerV1.DeleteRestaurant)
+
+	// FAVOURITE METHODS
+	api.POST("/favourite/add", HandlerV1.AddToFavourites)
+	api.DELETE("/favourite/remove", HandlerV1.RemoveFromFavourites)
+	api.GET("/favourite/list", HandlerV1.ListFavouritesByUserId)
+
+	// REVIEW METHODS
+	api.POST("/review/create", HandlerV1.CreateReview)
+	api.GET("/review/list", HandlerV1.ListReviews)
+	api.DELETE("/review/delete", HandlerV1.DeleteReview)
 
 	url := ginSwagger.URL("swagger/doc.json")
 	api.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))

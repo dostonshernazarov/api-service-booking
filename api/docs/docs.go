@@ -207,6 +207,78 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/attraction/listbylocation": {
+            "get": {
+                "description": "Api for listing attractions by page, limit, country, city and state_province",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ATTRACTION"
+                ],
+                "summary": "LIST ATTRACTIONS BY PAGE, LIMIT, COUNTRY, CITY AND STATE_PROVINCE",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "page",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "limit",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "country",
+                        "name": "country",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "city",
+                        "name": "city",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "state_province",
+                        "name": "state_province",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ListAttractionModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/attraction/update": {
             "patch": {
                 "description": "Api for updating attraction by attraction_id",
@@ -243,6 +315,145 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.AttractionModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/favourite/add": {
+            "post": {
+                "description": "Api for adding establishment to favourites",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "FAVOURITE"
+                ],
+                "summary": "ADD ESTABLISHMENT TO FAVOURITES",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "establishment_id",
+                        "name": "establishment_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "user_id",
+                        "name": "user_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.FavouriteModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/favourite/list": {
+            "get": {
+                "description": "Api for listing favourites by favourite_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "FAVOURITE"
+                ],
+                "summary": "LIST FAVOURITES BY USER_ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "user_id",
+                        "name": "user_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ListFavouritesModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/favourite/remove": {
+            "delete": {
+                "description": "Api for removing favourite by favourite_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "FAVOURITE"
+                ],
+                "summary": "REMOVE FROM FAVOURITES BY FAVOURITE_ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "favourite_id",
+                        "name": "favourite_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.RemoveResponse"
                         }
                     },
                     "404": {
@@ -749,56 +960,157 @@ const docTemplate = `{
                     }
                 }
             }
-        }
-    },
-    "definitions": {
-        "models.Attraction": {
-            "type": "object",
-            "properties": {
-                "attraction_id": {
-                    "type": "string"
-                },
-                "attraction_name": {
-                    "type": "string"
-                },
-                "contact_number": {
-                    "type": "string"
-                },
-                "created_at": {
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "type": "string"
-                },
-                "description": {
-                    "type": "string"
-                },
-                "images": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/models.Image"
+        },
+        "/v1/review/create": {
+            "post": {
+                "description": "Api for creating review",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "REVIEW"
+                ],
+                "summary": "CREATE REVIEW",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "establishment_id",
+                        "name": "establishment_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "user_id",
+                        "name": "user_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "description": "Review",
+                        "name": "Review",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CreateReview"
+                        }
                     }
-                },
-                "licence_url": {
-                    "type": "string"
-                },
-                "location": {
-                    "$ref": "#/definitions/models.Location"
-                },
-                "owner_id": {
-                    "type": "string"
-                },
-                "rating": {
-                    "type": "number"
-                },
-                "updated_at": {
-                    "type": "string"
-                },
-                "website_url": {
-                    "type": "string"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ReviewModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
                 }
             }
         },
+        "/v1/review/delete": {
+            "delete": {
+                "description": "Api for deleting review by review_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "REVIEW"
+                ],
+                "summary": "DELETE REVIEW BY REVIEW_ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "review_id",
+                        "name": "review_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.DeleteResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/review/list": {
+            "get": {
+                "description": "Api for listing reviews by establishment_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "REVIEW"
+                ],
+                "summary": "LIST REVIEWS BY ESTABLISHMENT_ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "establishment_id",
+                        "name": "establishment_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ListReviews"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
         "models.AttractionModel": {
             "type": "object",
             "properties": {
@@ -999,6 +1311,19 @@ const docTemplate = `{
                 }
             }
         },
+        "models.CreateReview": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "type": "string",
+                    "default": "very good!"
+                },
+                "rating": {
+                    "type": "number",
+                    "default": 4.7
+                }
+            }
+        },
         "models.DeleteResponse": {
             "type": "object",
             "properties": {
@@ -1011,6 +1336,26 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.FavouriteModel": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "establishment_id": {
+                    "type": "string"
+                },
+                "favourite_id": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "user_id": {
                     "type": "string"
                 }
             }
@@ -1059,29 +1404,6 @@ const docTemplate = `{
                 }
             }
         },
-        "models.Image": {
-            "type": "object",
-            "properties": {
-                "created_at": {
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "type": "string"
-                },
-                "establishment_id": {
-                    "type": "string"
-                },
-                "image_id": {
-                    "type": "string"
-                },
-                "image_url": {
-                    "type": "string"
-                },
-                "updated_at": {
-                    "type": "string"
-                }
-            }
-        },
         "models.ImageModel": {
             "type": "object",
             "properties": {
@@ -1108,7 +1430,21 @@ const docTemplate = `{
                 "attractions": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/models.Attraction"
+                        "$ref": "#/definitions/models.AttractionModel"
+                    }
+                },
+                "overall": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.ListFavouritesModel": {
+            "type": "object",
+            "properties": {
+                "favourites": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.FavouriteModel"
                     }
                 }
             }
@@ -1121,12 +1457,18 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/models.HotelModel"
                     }
+                },
+                "overall": {
+                    "type": "integer"
                 }
             }
         },
         "models.ListRestaurantsModel": {
             "type": "object",
             "properties": {
+                "overall": {
+                    "type": "integer"
+                },
                 "restaurants": {
                     "type": "array",
                     "items": {
@@ -1135,41 +1477,17 @@ const docTemplate = `{
                 }
             }
         },
-        "models.Location": {
+        "models.ListReviews": {
             "type": "object",
             "properties": {
-                "address": {
-                    "type": "string"
+                "count": {
+                    "type": "integer"
                 },
-                "city": {
-                    "type": "string"
-                },
-                "country": {
-                    "type": "string"
-                },
-                "created_at": {
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "type": "string"
-                },
-                "establishment_id": {
-                    "type": "string"
-                },
-                "latitude": {
-                    "type": "number"
-                },
-                "location_id": {
-                    "type": "string"
-                },
-                "longitude": {
-                    "type": "number"
-                },
-                "state_province": {
-                    "type": "string"
-                },
-                "updated_at": {
-                    "type": "string"
+                "reviews": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.ReviewModel"
+                    }
                 }
             }
         },
@@ -1205,6 +1523,14 @@ const docTemplate = `{
                 },
                 "updated_at": {
                     "type": "string"
+                }
+            }
+        },
+        "models.RemoveResponse": {
+            "type": "object",
+            "properties": {
+                "success": {
+                    "type": "boolean"
                 }
             }
         },
@@ -1251,6 +1577,32 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "website_url": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.ReviewModel": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "establishment_id": {
+                    "type": "string"
+                },
+                "rating": {
+                    "type": "number"
+                },
+                "review_id": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "user_id": {
                     "type": "string"
                 }
             }
