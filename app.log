@@ -1,4 +1,6 @@
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 2024-05-07T20:43:13.947+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
 2024-05-07T20:44:18.321+0500	INFO	app/main.go:41	api gateway service stops
 2024-05-07T20:44:26.944+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
@@ -1948,3 +1950,4 @@ net/http.serverHandler.ServeHTTP
 net/http.(*conn).serve
 	/usr/local/go/src/net/http/server.go:2039
 2024-05-10T20:00:00.872+0500	INFO	app/main.go:41	api gateway service stops
+>>>>>>> a6b5ab42fd42bee25233776a305dd1b76687b890

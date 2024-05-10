@@ -327,7 +327,12 @@ func (h HandlerV1) ListHotels(c *gin.Context) {
 		respHotels = append(respHotels, &hotel)
 	}
 
-	c.JSON(200, respHotels)
+	listModel := models.ListHotelsModel{
+		Hotels:  respHotels,
+		Overall: response.Overall,
+	}
+
+	c.JSON(200, listModel)
 }
 
 // UPDATE HOTEL

@@ -91,6 +91,7 @@ func NewRoute(option RouteOption) http.Handler {
 	api.GET("/attraction/list", HandlerV1.ListAttractions)
 	api.PATCH("/attraction/update", HandlerV1.UpdateAttraction)
 	api.DELETE("/attraction/delete", HandlerV1.DeleteAttraction)
+	api.GET("/attraction/listbylocation", HandlerV1.ListAttractionsByLocation)
 
 	// HOTEL METHODS
 	api.POST("/hotel/create", HandlerV1.CreateHotel)
@@ -98,6 +99,23 @@ func NewRoute(option RouteOption) http.Handler {
 	api.GET("/hotel/list", HandlerV1.ListHotels)
 	api.PATCH("/hotel/update", HandlerV1.UpdateHotel)
 	api.DELETE("/hotel/delete", HandlerV1.DeleteHotel)
+
+	// RESTAURANT METHODS
+	api.POST("/restaurant/create", HandlerV1.CreateRestaurant)
+	api.GET("/restaurant/get", HandlerV1.GetRestaurant)
+	api.GET("/restaurant/list", HandlerV1.ListRestaurants)
+	api.PATCH("/restaurant/update", HandlerV1.UpdateRestaurant)
+	api.DELETE("/restaurant/delete", HandlerV1.DeleteRestaurant)
+
+	// FAVOURITE METHODS
+	api.POST("/favourite/add", HandlerV1.AddToFavourites)
+	api.DELETE("/favourite/remove", HandlerV1.RemoveFromFavourites)
+	api.GET("/favourite/list", HandlerV1.ListFavouritesByUserId)
+
+	// REVIEW METHODS
+	api.POST("/review/create", HandlerV1.CreateReview)
+	api.GET("/review/list", HandlerV1.ListReviews)
+	api.DELETE("/review/delete", HandlerV1.DeleteReview)
 
 	// REGISTER METHODS
 	api.POST("/users/register", HandlerV1.RegisterUser)

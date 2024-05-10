@@ -455,6 +455,78 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/attraction/listbylocation": {
+            "get": {
+                "description": "Api for listing attractions by page, limit, country, city and state_province",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ATTRACTION"
+                ],
+                "summary": "LIST ATTRACTIONS BY PAGE, LIMIT, COUNTRY, CITY AND STATE_PROVINCE",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "page",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "limit",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "country",
+                        "name": "country",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "city",
+                        "name": "city",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "state_province",
+                        "name": "state_province",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ListAttractionModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/attraction/update": {
             "patch": {
                 "description": "Api for updating attraction by attraction_id",
@@ -491,6 +563,145 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.AttractionModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/favourite/add": {
+            "post": {
+                "description": "Api for adding establishment to favourites",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "FAVOURITE"
+                ],
+                "summary": "ADD ESTABLISHMENT TO FAVOURITES",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "establishment_id",
+                        "name": "establishment_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "user_id",
+                        "name": "user_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.FavouriteModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/favourite/list": {
+            "get": {
+                "description": "Api for listing favourites by favourite_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "FAVOURITE"
+                ],
+                "summary": "LIST FAVOURITES BY USER_ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "user_id",
+                        "name": "user_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ListFavouritesModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/favourite/remove": {
+            "delete": {
+                "description": "Api for removing favourite by favourite_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "FAVOURITE"
+                ],
+                "summary": "REMOVE FROM FAVOURITES BY FAVOURITE_ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "favourite_id",
+                        "name": "favourite_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.RemoveResponse"
                         }
                     },
                     "404": {
@@ -753,6 +964,11 @@ const docTemplate = `{
                 }
             }
         },
+
+        "/v1/restaurant/create": {
+            "post": {
+                "description": "Api for creating restaurant",
+
         "/v1/token/{refresh}": {
             "get": {
                 "security": [
@@ -768,6 +984,25 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
+                    "RESTAURANT"
+                ],
+                "summary": "CREATE RESTAURANT",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "owner_id",
+                        "name": "owner_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "description": "Restaurant",
+                        "name": "Restaurant",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CreateRestaurant"
+                        }
                     "TOKEN"
                 ],
                 "summary": "UPDATE TOKEN",
@@ -784,6 +1019,11 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
+                            "$ref": "#/definitions/models.RestaurantModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
                             "$ref": "#/definitions/models.TokenResp"
                         }
                     },
@@ -1462,27 +1702,351 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/models.Image"
                     }
-                },
-                "licence_url": {
-                    "type": "string"
-                },
-                "location": {
-                    "$ref": "#/definitions/models.Location"
-                },
-                "owner_id": {
-                    "type": "string"
-                },
-                "rating": {
-                    "type": "number"
-                },
-                "updated_at": {
-                    "type": "string"
-                },
-                "website_url": {
-                    "type": "string"
                 }
             }
         },
+        "/v1/restaurant/delete": {
+            "delete": {
+                "description": "Api for deleting restaurant by restaurant_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "RESTAURANT"
+                ],
+                "summary": "DELETE RESTAURANT BY RESTAURANT_ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "restaurant_id",
+                        "name": "restaurant_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.DeleteResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/restaurant/get": {
+            "get": {
+                "description": "Api for getting restaurant by restaurant_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "RESTAURANT"
+                ],
+                "summary": "GET RESTAURANT BY RESTAURANT_ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "restaurant_id",
+                        "name": "restaurant_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.RestaurantModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/restaurant/list": {
+            "get": {
+                "description": "Api for listing restaurants by page and limit",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "RESTAURANT"
+                ],
+                "summary": "LIST RESTAURANTS BY PAGE AND LIMIT",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "page",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "limit",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ListRestaurantsModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/restaurant/update": {
+            "patch": {
+                "description": "Api for updating restaurant by restaurant_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "RESTAURANT"
+                ],
+                "summary": "UPDATE RESTAURANT",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "restaurant_id",
+                        "name": "restaurant_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "description": "UpdatingRestaurant",
+                        "name": "UpdatingRestaurant",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UpdateRestaurant"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.RestaurantModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/review/create": {
+            "post": {
+                "description": "Api for creating review",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "REVIEW"
+                ],
+                "summary": "CREATE REVIEW",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "establishment_id",
+                        "name": "establishment_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "user_id",
+                        "name": "user_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "description": "Review",
+                        "name": "Review",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CreateReview"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ReviewModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/review/delete": {
+            "delete": {
+                "description": "Api for deleting review by review_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "REVIEW"
+                ],
+                "summary": "DELETE REVIEW BY REVIEW_ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "review_id",
+                        "name": "review_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.DeleteResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/review/list": {
+            "get": {
+                "description": "Api for listing reviews by establishment_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "REVIEW"
+                ],
+                "summary": "LIST REVIEWS BY ESTABLISHMENT_ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "establishment_id",
+                        "name": "establishment_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ListReviews"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
         "models.AttractionModel": {
             "type": "object",
             "properties": {
@@ -1641,6 +2205,61 @@ const docTemplate = `{
                 }
             }
         },
+        "models.CreateRestaurant": {
+            "type": "object",
+            "properties": {
+                "contact_number": {
+                    "type": "string",
+                    "default": "+(99891)-234-56-78"
+                },
+                "description": {
+                    "type": "string",
+                    "default": "uzbek national cousine"
+                },
+                "images": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.CreateImage"
+                    }
+                },
+                "licence_url": {
+                    "type": "string",
+                    "default": "https://creativecommons.org/licenses/by/3.2/"
+                },
+                "location": {
+                    "$ref": "#/definitions/models.CreateLocation"
+                },
+                "opening_hours": {
+                    "type": "string",
+                    "default": "06:00-22:00"
+                },
+                "rating": {
+                    "type": "number",
+                    "default": 4.1
+                },
+                "restaurant_name": {
+                    "type": "string",
+                    "default": "Kamolon Osh Markazi"
+                },
+                "website_url": {
+                    "type": "string",
+                    "default": "https://creativecommons.org/licenses/by/3.3/"
+                }
+            }
+        },
+        "models.CreateReview": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "type": "string",
+                    "default": "very good!"
+                },
+                "rating": {
+                    "type": "number",
+                    "default": 4.7
+                }
+            }
+        },
         "models.DeleteResponse": {
             "type": "object",
             "properties": {
@@ -1653,6 +2272,26 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.FavouriteModel": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "establishment_id": {
+                    "type": "string"
+                },
+                "favourite_id": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "user_id": {
                     "type": "string"
                 }
             }
@@ -1701,29 +2340,6 @@ const docTemplate = `{
                 }
             }
         },
-        "models.Image": {
-            "type": "object",
-            "properties": {
-                "created_at": {
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "type": "string"
-                },
-                "establishment_id": {
-                    "type": "string"
-                },
-                "image_id": {
-                    "type": "string"
-                },
-                "image_url": {
-                    "type": "string"
-                },
-                "updated_at": {
-                    "type": "string"
-                }
-            }
-        },
         "models.ImageModel": {
             "type": "object",
             "properties": {
@@ -1750,7 +2366,21 @@ const docTemplate = `{
                 "attractions": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/models.Attraction"
+                        "$ref": "#/definitions/models.AttractionModel"
+                    }
+                },
+                "overall": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.ListFavouritesModel": {
+            "type": "object",
+            "properties": {
+                "favourites": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.FavouriteModel"
                     }
                 }
             }
@@ -1763,44 +2393,37 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/models.HotelModel"
                     }
+                },
+                "overall": {
+                    "type": "integer"
                 }
             }
         },
-        "models.Location": {
+        "models.ListRestaurantsModel": {
             "type": "object",
             "properties": {
-                "address": {
-                    "type": "string"
+                "overall": {
+                    "type": "integer"
                 },
-                "city": {
-                    "type": "string"
+                "restaurants": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.RestaurantModel"
+                    }
+                }
+            }
+        },
+        "models.ListReviews": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer"
                 },
-                "country": {
-                    "type": "string"
-                },
-                "created_at": {
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "type": "string"
-                },
-                "establishment_id": {
-                    "type": "string"
-                },
-                "latitude": {
-                    "type": "number"
-                },
-                "location_id": {
-                    "type": "string"
-                },
-                "longitude": {
-                    "type": "number"
-                },
-                "state_province": {
-                    "type": "string"
-                },
-                "updated_at": {
-                    "type": "string"
+                "reviews": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.ReviewModel"
+                    }
                 }
             }
         },
@@ -1839,6 +2462,57 @@ const docTemplate = `{
                 }
             }
         },
+        "models.RemoveResponse": {
+            "type": "object",
+            "properties": {
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "models.RestaurantModel": {
+            "type": "object",
+            "properties": {
+                "contact_number": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "images": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.ImageModel"
+                    }
+                },
+                "licence_url": {
+                    "type": "string"
+                },
+                "location": {
+                    "$ref": "#/definitions/models.LocationModel"
+                },
+                "opening_hours": {
+                    "type": "string"
+                },
+                "owner_id": {
+                    "type": "string"
+                },
+                "rating": {
+                    "type": "number"
+                },
+                "restaurant_id": {
+                    "type": "string"
+                },
+                "restaurant_name": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "website_url": {
         "models.RegisterReq": {
             "type": "object",
             "properties": {
@@ -1853,6 +2527,28 @@ const docTemplate = `{
                 }
             }
         },
+        "models.ReviewModel": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "establishment_id": {
+                    "type": "string"
+                },
+                "rating": {
+                    "type": "number"
+                },
+                "review_id": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "user_id": {
         "models.RegisterRes": {
             "type": "object",
             "properties": {
@@ -1979,6 +2675,41 @@ const docTemplate = `{
                 }
             }
         },
+        "models.UpdateRestaurant": {
+            "type": "object",
+            "properties": {
+                "contact_number": {
+                    "type": "string",
+                    "default": "updated contact number"
+                },
+                "description": {
+                    "type": "string",
+                    "default": "updated description"
+                },
+                "licence_url": {
+                    "type": "string",
+                    "default": "updated licence url"
+                },
+                "location": {
+                    "$ref": "#/definitions/models.UpdateLocation"
+                },
+                "opening_hours": {
+                    "type": "string",
+                    "default": "09:00-00:00"
+                },
+                "rating": {
+                    "type": "number",
+                    "default": 4.9
+                },
+                "restaurant_name": {
+                    "type": "string",
+                    "default": "updated restaurant name"
+                },
+                "website_url": {
+                    "type": "string",
+                    "default": "updated website url"
+                }
+            }
         "models.UserCreate": {
             "type": "object",
             "properties": {
