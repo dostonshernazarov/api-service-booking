@@ -1,0 +1,38 @@
+p, unauthorized, /v1/swagger/*,  GET
+p, unauthorized, /v1/users/register, POST
+p, unauthorized, /v1/users/verify, GET
+p, unauthorized, /v1/users/login, GET
+p, unauthorized, /v1/users/set/{id}, GET
+p, unauthorized, /v1/users/code, GET
+p, unauthorized, /v1/users/password, PUT
+
+p, user, /v1/users/{id}, GET
+p, user, /v1/users/update, PUT
+
+p, admin, /v1/users/v1/users, POST
+p, admin, /v1/users/list/users, GET
+p, admin, /v1/users/list/deleted, GET
+p, admin, /v1/delete/{id}, DELETE
+p, admin, /v1/attraction/create, POST
+p, admin, /v1/attraction/get, GET
+p, admin, /v1/attraction/list, GET
+p, admin, /v1/attraction/update, PUT
+p, admin, /v1/attraction/delete, DELETE
+p, admin, /v1/hotel/create, POST
+p, admin, /v1/hotel/get, GET
+p, admin, /v1/hotel/list, GET
+p, admin, /v1/hotel/update, PUT
+p, admin, /v1/hotel/delete, DELETE
+
+p, sudo, /v1/admins, POST
+p, sudo, /v1/admins/{id}, GET
+p, sudo, /v1/admins/list, GET
+p, sudo, /v1/admins, PUT
+p, sudo, /v1/admins, DELETE
+
+g, admin, user, *
+g, admin, unauthorized, *
+g, sudo, admin, *
+
+
+

@@ -31,3 +31,4 @@ type RemoveResponse struct {
 type ListFavouritesModel struct {
 	Favourites []*FavouriteModel `json:"favourites"`
 }
+

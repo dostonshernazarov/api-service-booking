@@ -7,6 +7,10 @@ import (
 	_ "Booking/api-service-booking/api/docs"
 	v1 "Booking/api-service-booking/api/handlers/v1"
 
+	// "Booking/api-service-booking/api/middleware"
+
+	"github.com/casbin/casbin/v2"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -15,9 +19,10 @@ import (
 
 	grpcClients "Booking/api-service-booking/internal/infrastructure/grpc_service_client"
 	"Booking/api-service-booking/internal/pkg/config"
+	tokens "Booking/api-service-booking/internal/pkg/token"
 	"Booking/api-service-booking/internal/usecase/app_version"
 	"Booking/api-service-booking/internal/usecase/event"
-	"Booking/api-service-booking/internal/usecase/refresh_token"
+	// "Booking/api-service-booking/internal/usecase/refresh_token"
 )
 
 type RouteOption struct {
@@ -25,11 +30,19 @@ type RouteOption struct {
 	Logger         *zap.Logger
 	ContextTimeout time.Duration
 	Service        grpcClients.ServiceClient
-	RefreshToken   refresh_token.RefreshToken
+	JwtHandler   tokens.JwtHandler
 	BrokerProducer event.BrokerProducer
 	AppVersion     app_version.AppVersion
+	Enforcer       *casbin.Enforcer
 }
 
+// @title welcome to Booking API
+// @version 1.7
+// @host localhost:8080
+
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
 func NewRoute(option RouteOption) http.Handler {
 
 	router := gin.New()
@@ -42,12 +55,35 @@ func NewRoute(option RouteOption) http.Handler {
 		Logger:         option.Logger,
 		ContextTimeout: option.ContextTimeout,
 		Service:        option.Service,
-		RefreshToken:   option.RefreshToken,
+		JwtHandler:   option.JwtHandler,
 		AppVersion:     option.AppVersion,
 		BrokerProducer: option.BrokerProducer,
+		Enforcer:       option.Enforcer,
 	})
 
+	corsConfig := cors.DefaultConfig()
+	corsConfig.AllowAllOrigins = true
+	corsConfig.AllowCredentials = true
+	corsConfig.AllowHeaders = []string{"*"}
+	corsConfig.AllowBrowserExtensions = true
+	corsConfig.AllowMethods = []string{"*"}
+	router.Use(cors.New(corsConfig))
+
+	// router.Use(middleware.Tracing)
+	// router.Use(middleware.CheckCasbinPermission(option.Enforcer, *option.Config))
+
+	router.Static("/media", "./media")
+
 	api := router.Group("/v1")
+	apiUser := api.Group("/users")
+
+	// USER METHODS
+	apiUser.POST("/create", HandlerV1.Create)
+	apiUser.GET("/:id", HandlerV1.Get)
+	apiUser.GET("/list/users", HandlerV1.ListUsers)
+	apiUser.GET("/list/deleted", HandlerV1.ListDeletedUsers)
+	apiUser.PUT("/update", HandlerV1.Update)
+	apiUser.DELETE("/delete/:id", HandlerV1.Delete)
 
 	// ATTRACTION METHODS
 	api.POST("/attraction/create", HandlerV1.CreateAttraction)
@@ -80,6 +116,23 @@ func NewRoute(option RouteOption) http.Handler {
 	api.POST("/review/create", HandlerV1.CreateReview)
 	api.GET("/review/list", HandlerV1.ListReviews)
 	api.DELETE("/review/delete", HandlerV1.DeleteReview)
+
+	// REGISTER METHODS
+	api.POST("/users/register", HandlerV1.RegisterUser)
+	api.GET("/users/verify", HandlerV1.Verification)
+	api.GET("/users/login", HandlerV1.Login)
+	api.GET("/users/set/:id", HandlerV1.ForgetPassword)
+	api.GET("/users/code", HandlerV1.ForgetPasswordVerify)
+	api.PUT("/users/password", HandlerV1.SetNewPassword)
+
+	api.GET("/token/:refresh", HandlerV1.UpdateToken)
+
+	// ADMIN METHODS
+	api.POST("/admins", HandlerV1.CreateAdmin)
+	api.GET("/admins/:id", HandlerV1.GetAdmin)
+	api.GET("/admins/list", HandlerV1.ListAdmins)
+	api.PUT("/admins", HandlerV1.UpdateAdmin)
+	api.DELETE("/admins/:id", HandlerV1.DeleteAdmin)
 
 	url := ginSwagger.URL("swagger/doc.json")
 	api.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))

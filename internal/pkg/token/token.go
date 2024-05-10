@@ -1,77 +1,121 @@
-package token
+// 
+
+
+package tokens
 
 import (
-	"errors"
+	// "Booking/api-service-booking/internal/pkg/config"
+	"Booking/api-service-booking/internal/pkg/logger"
 	"fmt"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
+	"go.uber.org/zap"
 )
 
-var (
-	ErrValidationErrorMalformed  = errors.New("Token is malformed")
-	ErrTokenExpiredOrNotValidYet = errors.New("Token is either expired or not active yet")
-)
-
-func GenerateJwtToken(jwtsecret string, claims *jwt.MapClaims) (string, error) {
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	// Sign and get the complete encoded token as a string using the secret
-	return token.SignedString([]byte(jwtsecret))
+type JwtHandler struct {
+	Sub       string
+	Iss       string
+	Exp       string
+	Iat       string
+	Aud       []string
+	Role      string
+	Token     string
+	SigninKey string
+	Log       *zap.Logger
+	Timeout   int
 }
 
-func GenerateToken(sub, token_type, jwtsecret string, access_ttl, refresh_ttl time.Duration, optionalFields ...map[string]interface{}) (string, string, error) {
-	accessClaims := jwt.MapClaims{
-		"sub":  sub,
-		"type": token_type,
-		"exp":  time.Now().Add(access_ttl).Unix(),
-	}
+func (jwtHandler *JwtHandler) GenerateJwt() (access, refresh string, err error) {
+	var (
+		accessToken, refreshToken *jwt.Token
+		claims                    jwt.MapClaims
+	)
 
-	for _, fields := range optionalFields {
-		for key, value := range fields {
-			accessClaims[key] = value
-		}
-	}
+	accessToken = jwt.New(jwt.SigningMethodHS256)
+	refreshToken = jwt.New(jwt.SigningMethodHS256)
 
-	// generate access token
-	access_token, err := GenerateJwtToken(jwtsecret, &accessClaims)
+	claims = accessToken.Claims.(jwt.MapClaims)
+	claims["sub"] = jwtHandler.Sub
+	claims["iss"] = jwtHandler.Iss
+	claims["exp"] = time.Now().Add(time.Hour * 24).Unix()
+	claims["iat"] = time.Now().Unix()
+	claims["role"] = jwtHandler.Role
+
+	// cfg, err := config.NewConfig()
+	// if err != nil {
+	// 	logger.Error(err)
+	// 	return
+	// }
+
+	access, err = accessToken.SignedString([]byte(jwtHandler.SigninKey))
 	if err != nil {
-		return "", "", err
+		jwtHandler.Log.Error("error generating access token", logger.Error(err))
+		// logger.Error(err)
+		return
 	}
 
-	// generate refresh token
-	refresh_token, err := GenerateJwtToken(jwtsecret, &jwt.MapClaims{
-		"exp": time.Now().Add(refresh_ttl).Unix(),
-		"sub": sub,
-	})
+
+	rtClaims := refreshToken.Claims.(jwt.MapClaims)
+	rtClaims["sub"] = jwtHandler.Sub
+	rtClaims["exp"] = time.Now().Add(time.Hour * 48).Unix()
+	rtClaims["iat"] = time.Now().Unix()
+	rtClaims["role"] = jwtHandler.Role
+
+	refresh, err = refreshToken.SignedString([]byte(jwtHandler.SigninKey))
 	if err != nil {
-		return "", "", err
+		// jwtHandler.Log.Error("error generating refresh token", logger.Error(err))
+		logger.Error(err)
+		return
 	}
-	return access_token, refresh_token, err
+
+	return access, refresh, nil
 }
 
-func ParseJwtToken(tokenStr, jwtsecret string) (map[string]interface{}, error) {
-	var claims map[string]interface{}
-	token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
-		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
-		}
-		return []byte(jwtsecret), nil
-	})
+//// ExtractClaims ...
+//func (jwtHandler *JwtHandler) ExtractClaims() (jwt.MapClaims, error) {
+//	var (
+//		token *jwt.Token
+//		err   error
+//	)
+//
+//	token, err = jwt.Parse(jwtHandler.Token, func(t *jwt.Token) (interface{}, error) {
+//		return []byte(jwtHandler.SigninKey), nil
+//	})
+//
+//	if err != nil {
+//		return nil, err
+//	}
+//
+//	claims, ok := token.Claims.(jwt.MapClaims)
+//	if !(ok && token.Valid) {
+//		jwtHandler.Log.Error("invalid jwt token")
+//		return nil, err
+//	}
+//
+//	return claims, nil
+//}
 
+// ExtractClaim extracts claims from given token
+func ExtractClaim(tokenStr string, signingKey []byte) (jwt.MapClaims, error) {
+	var (
+		token *jwt.Token
+		err   error
+	)
+
+	token, err = jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
+		// check token signing method etc
+		return signingKey, nil
+	})
 	if err != nil {
-		if ve, ok := err.(*jwt.ValidationError); ok {
-			if ve.Errors&jwt.ValidationErrorMalformed != 0 {
-				return claims, ErrValidationErrorMalformed
-			}
-			if ve.Errors&(jwt.ValidationErrorExpired|jwt.ValidationErrorNotValidYet) != 0 {
-				return claims, ErrTokenExpiredOrNotValidYet
-			}
-		}
-		return claims, fmt.Errorf("Couldn't handle this token: %w", err)
+		return nil, err
 	}
-	// get claims
-	if mapClaims, ok := token.Claims.(jwt.MapClaims); ok {
-		claims = mapClaims
+
+	claims, ok := token.Claims.(jwt.MapClaims)
+	if !(ok && token.Valid) {
+		err = fmt.Errorf("invalid JWT Token")
+		return nil, err
 	}
+
 	return claims, nil
 }

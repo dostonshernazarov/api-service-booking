@@ -279,6 +279,7 @@ definitions:
       updated_at:
         type: string
     type: object
+<<<<<<< HEAD
   models.RemoveResponse:
     properties:
       success:
@@ -330,12 +331,37 @@ definitions:
       updated_at:
         type: string
       user_id:
+=======
+  models.RegisterReq:
+    properties:
+      email:
+        type: string
+      full_name:
+        type: string
+      password:
+        type: string
+    type: object
+  models.RegisterRes:
+    properties:
+      content:
+>>>>>>> a6b5ab42fd42bee25233776a305dd1b76687b890
         type: string
     type: object
   models.StandartError:
     properties:
       error:
         $ref: '#/definitions/models.Error'
+    type: object
+  models.TokenResp:
+    properties:
+      access_token:
+        type: string
+      refresh_token:
+        type: string
+      role:
+        type: string
+      user_id:
+        type: string
     type: object
   models.UpdateAttraction:
     properties:
@@ -404,6 +430,7 @@ definitions:
         default: updated state or province
         type: string
     type: object
+<<<<<<< HEAD
   models.UpdateRestaurant:
     properties:
       contact_number:
@@ -430,9 +457,304 @@ definitions:
         default: updated website url
         type: string
     type: object
+=======
+  models.UserCreate:
+    properties:
+      card:
+        type: string
+      date_of_birth:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      gender:
+        type: string
+      password:
+        type: string
+      phone_number:
+        type: string
+      profile_img:
+        type: string
+    type: object
+  models.UserReq:
+    properties:
+      card:
+        type: string
+      date_of_birth:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      gender:
+        type: string
+      id:
+        type: string
+      password:
+        type: string
+      phone_number:
+        type: string
+      profile_img:
+        type: string
+    type: object
+  models.UserRes:
+    properties:
+      card:
+        type: string
+      created_at:
+        type: string
+      date_of_birth:
+        type: string
+      deleted_at:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      gender:
+        type: string
+      id:
+        type: string
+      phone_number:
+        type: string
+      profile_img:
+        type: string
+      refresh_token:
+        type: string
+      role:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.UserResCreate:
+    properties:
+      access_token:
+        type: string
+      birthday:
+        type: string
+      card:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      gender:
+        type: string
+      id:
+        type: string
+      image_url:
+        type: string
+      phone_num:
+        type: string
+      refresh_token:
+        type: string
+      role:
+        type: string
+    type: object
+  user.ListUsersRes:
+    properties:
+      count:
+        type: integer
+      users:
+        items:
+          $ref: '#/definitions/user.User'
+        type: array
+    type: object
+  user.User:
+    properties:
+      card:
+        type: string
+      created_at:
+        type: string
+      date_of_birth:
+        type: string
+      deleted_at:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      gender:
+        type: string
+      id:
+        type: string
+      password:
+        type: string
+      phone_number:
+        type: string
+      profile_img:
+        type: string
+      refresh_token:
+        type: string
+      role:
+        type: string
+      updated_at:
+        type: string
+    type: object
+host: localhost:8080
+>>>>>>> a6b5ab42fd42bee25233776a305dd1b76687b890
 info:
   contact: {}
+  title: welcome to Booking API
+  version: "1.7"
 paths:
+  /v1/admins:
+    post:
+      consumes:
+      - application/json
+      description: Api for Create admin
+      parameters:
+      - description: createModel
+        in: body
+        name: Admin
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: CREATE ADMIN
+      tags:
+      - ADMIN
+    put:
+      consumes:
+      - application/json
+      description: Api for Update
+      parameters:
+      - description: createModel
+        in: body
+        name: Admin
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: UPDATE ADMIN
+      tags:
+      - ADMIN
+  /v1/admins/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Api for Delete
+      parameters:
+      - description: ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.RegisterRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: DELETE ADMIN
+      tags:
+      - ADMIN
+    get:
+      consumes:
+      - application/json
+      description: Api for Get
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: GET ADMIN
+      tags:
+      - ADMIN
+  /v1/admins/list:
+    get:
+      consumes:
+      - application/json
+      description: Api for ListAdmins
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.ListUsersRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: LIST ADMINS
+      tags:
+      - ADMIN
   /v1/attraction/create:
     post:
       consumes:
@@ -898,6 +1220,7 @@ paths:
       summary: UPDATE HOTEL
       tags:
       - HOTEL
+<<<<<<< HEAD
   /v1/restaurant/create:
     post:
       consumes:
@@ -915,21 +1238,136 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/models.CreateRestaurant'
+=======
+  /v1/token/{refresh}:
+    get:
+      consumes:
+      - application/json
+      description: Api for updated acces token
+      parameters:
+      - description: Refresh Token
+        in: path
+        name: refresh
+        required: true
+        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.RestaurantModel'
-        "404":
-          description: Not Found
+            $ref: '#/definitions/models.TokenResp'
+        "400":
+          description: Bad Request
           schema:
             $ref: '#/definitions/models.StandartError'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: UPDATE TOKEN
+      tags:
+      - TOKEN
+  /v1/users/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Api for Get
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: GET
+      tags:
+      - USER
+  /v1/users/code:
+    get:
+      consumes:
+      - application/json
+      description: Api for verify new password code
+      parameters:
+      - in: query
+        name: code
+        type: string
+      - in: query
+        name: email
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.RegisterRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: FORGET PASSWORD CODE
+      tags:
+      - SET-PASSWORD
+  /v1/users/create:
+    post:
+      consumes:
+      - application/json
+      description: Api for Create
+      parameters:
+      - description: createModel
+        in: body
+        name: User
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserCreate'
+>>>>>>> a6b5ab42fd42bee25233776a305dd1b76687b890
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+<<<<<<< HEAD
+            $ref: '#/definitions/models.RestaurantModel'
+        "404":
+          description: Not Found
+=======
+            $ref: '#/definitions/models.UserRes'
+        "400":
+          description: Bad Request
+>>>>>>> a6b5ab42fd42bee25233776a305dd1b76687b890
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+<<<<<<< HEAD
       summary: CREATE RESTAURANT
       tags:
       - RESTAURANT
@@ -942,6 +1380,22 @@ paths:
       - description: restaurant_id
         in: query
         name: restaurant_id
+=======
+      security:
+      - ApiKeyAuth: []
+      summary: CREATE
+      tags:
+      - USER
+  /v1/users/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Api for Delete
+      parameters:
+      - description: ID
+        in: query
+        name: id
+>>>>>>> a6b5ab42fd42bee25233776a305dd1b76687b890
         required: true
         type: string
       produces:
@@ -950,15 +1404,22 @@ paths:
         "200":
           description: OK
           schema:
+<<<<<<< HEAD
             $ref: '#/definitions/models.DeleteResponse'
         "404":
           description: Not Found
+=======
+            $ref: '#/definitions/models.RegisterRes'
+        "400":
+          description: Bad Request
+>>>>>>> a6b5ab42fd42bee25233776a305dd1b76687b890
           schema:
             $ref: '#/definitions/models.StandartError'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+<<<<<<< HEAD
       summary: DELETE RESTAURANT BY RESTAURANT_ID
       tags:
       - RESTAURANT
@@ -1006,6 +1467,30 @@ paths:
         in: query
         name: limit
         required: true
+=======
+      security:
+      - ApiKeyAuth: []
+      summary: DELETE
+      tags:
+      - USER
+  /v1/users/list/deleted:
+    get:
+      consumes:
+      - application/json
+      description: Api for ListDeletedUsers
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: column
+        type: string
+      - in: query
+        name: value
+>>>>>>> a6b5ab42fd42bee25233776a305dd1b76687b890
         type: string
       produces:
       - application/json
@@ -1013,15 +1498,22 @@ paths:
         "200":
           description: OK
           schema:
+<<<<<<< HEAD
             $ref: '#/definitions/models.ListRestaurantsModel'
         "404":
           description: Not Found
+=======
+            $ref: '#/definitions/user.ListUsersRes'
+        "400":
+          description: Bad Request
+>>>>>>> a6b5ab42fd42bee25233776a305dd1b76687b890
           schema:
             $ref: '#/definitions/models.StandartError'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+<<<<<<< HEAD
       summary: LIST RESTAURANTS BY PAGE AND LIMIT
       tags:
       - RESTAURANT
@@ -1138,6 +1630,156 @@ paths:
       - description: establishment_id
         in: query
         name: establishment_id
+=======
+      security:
+      - ApiKeyAuth: []
+      summary: LIST DELETED USERS
+      tags:
+      - USER
+  /v1/users/list/users:
+    get:
+      consumes:
+      - application/json
+      description: Api for ListUsers
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: column
+        type: string
+      - in: query
+        name: value
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.ListUsersRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: LIST USERS
+      tags:
+      - USER
+  /v1/users/login:
+    get:
+      consumes:
+      - application/json
+      description: Api for login user
+      parameters:
+      - in: query
+        name: email
+        type: string
+      - in: query
+        name: password
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserResCreate'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: LOGIN
+      tags:
+      - LOGIN
+  /v1/users/password:
+    put:
+      consumes:
+      - application/json
+      description: Api for update new password
+      parameters:
+      - in: query
+        name: email
+        type: string
+      - in: query
+        name: password
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserResCreate'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: SET NEW PASSWORD
+      tags:
+      - SET-PASSWORD
+  /v1/users/register:
+    post:
+      consumes:
+      - application/json
+      description: Api for register a new user
+      parameters:
+      - description: RegisterUser
+        in: body
+        name: User
+        required: true
+        schema:
+          $ref: '#/definitions/models.RegisterReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.RegisterRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: REGISTER USER
+      tags:
+      - SIGNUP
+  /v1/users/set/{email}:
+    get:
+      consumes:
+      - application/json
+      description: Api for set new password
+      parameters:
+      - description: EMAIL
+        in: query
+        name: email
+>>>>>>> a6b5ab42fd42bee25233776a305dd1b76687b890
         required: true
         type: string
       produces:
@@ -1146,16 +1788,99 @@ paths:
         "200":
           description: OK
           schema:
+<<<<<<< HEAD
             $ref: '#/definitions/models.ListReviews'
         "404":
           description: Not Found
+=======
+            $ref: '#/definitions/models.RegisterRes'
+        "400":
+          description: Bad Request
+>>>>>>> a6b5ab42fd42bee25233776a305dd1b76687b890
           schema:
             $ref: '#/definitions/models.StandartError'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+<<<<<<< HEAD
       summary: LIST REVIEWS BY ESTABLISHMENT_ID
       tags:
       - REVIEW
+=======
+      security:
+      - ApiKeyAuth: []
+      summary: FORGET PASSWORD
+      tags:
+      - SET-PASSWORD
+  /v1/users/update:
+    put:
+      consumes:
+      - application/json
+      description: Api for Update
+      parameters:
+      - description: createModel
+        in: body
+        name: User
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: UPDATE
+      tags:
+      - USER
+  /v1/users/verify:
+    get:
+      consumes:
+      - application/json
+      description: Api for verify a new user
+      parameters:
+      - in: query
+        name: code
+        type: string
+      - in: query
+        name: email
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserResCreate'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: VERIFICATION
+      tags:
+      - SIGNUP
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+>>>>>>> a6b5ab42fd42bee25233776a305dd1b76687b890
 swagger: "2.0"

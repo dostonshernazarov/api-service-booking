@@ -197,3 +197,4 @@ func (h HandlerV1) DeleteReview(c *gin.Context) {
 		"message": "successfully deleted",
 	})
 }
+

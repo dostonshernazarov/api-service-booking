@@ -32,3 +32,4 @@ type ListReviews struct {
 	Reviews []*ReviewModel `json:"reviews"`
 	Count   uint64         `json:"count"`
 }
+
