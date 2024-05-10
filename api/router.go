@@ -58,6 +58,7 @@ func NewRoute(option RouteOption) http.Handler {
 	apiUser := api.Group("/users")
 
 
+	// USER METHODS
 	apiUser.POST("/create", HandlerV1.Create)
 	apiUser.GET("/:id", HandlerV1.Get)
 	apiUser.GET("/list/users", HandlerV1.ListUsers)
@@ -86,6 +87,14 @@ func NewRoute(option RouteOption) http.Handler {
 	api.GET("/users/set/:id", HandlerV1.ForgetPassword)
 	api.GET("/users/code", HandlerV1.ForgetPasswordVerify)
 	api.PUT("/users/password", HandlerV1.SetNewPassword)
+
+	// ADMIN METHODS
+	api.POST("/admins", HandlerV1.CreateAdmin)
+	api.GET("/admins/:id", HandlerV1.GetAdmin)
+	api.GET("/admins/list", HandlerV1.ListAdmins)
+	api.PUT("/admins", HandlerV1.UpdateAdmin)
+	api.DELETE("/admins/:id", HandlerV1.DeleteAdmin)
+
 
 
 	url := ginSwagger.URL("swagger/doc.json")

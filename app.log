@@ -1493,3 +1493,103 @@ net/http.serverHandler.ServeHTTP
 net/http.(*conn).serve
 	/usr/local/go/src/net/http/server.go:2039
 2024-05-09T19:39:47.306+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-10T14:41:36.135+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-10T14:42:05.417+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-10T14:51:28.583+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-10T14:52:35.748+0500	ERROR	v1/admin.go:64	Incorrect Email. Try again, error while in Create
+Booking/api-service-booking/api/handlers/v1.(*HandlerV1).CreateAdmin
+	/home/doston/project/go/src/Booking/api-service-booking/api/handlers/v1/admin.go:64
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-10T14:53:35.082+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-10T14:54:02.796+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-10T14:57:08.783+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-10T15:01:36.027+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-10T15:01:59.068+0500	ERROR	v1/admin.go:471	failed to get admin in delete admin	{"error": "rpc error: code = Unknown desc = failed to get user: no rows in result set"}
+Booking/api-service-booking/api/handlers/v1.(*HandlerV1).DeleteAdmin
+	/home/doston/project/go/src/Booking/api-service-booking/api/handlers/v1/admin.go:471
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-10T15:02:18.769+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-10T15:07:08.828+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-10T15:07:45.336+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-10T15:10:18.790+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-10T15:10:26.476+0500	ERROR	v1/admin.go:345	Incorrect Password. Try again, error while in update
+Booking/api-service-booking/api/handlers/v1.(*HandlerV1).UpdateAdmin
+	/home/doston/project/go/src/Booking/api-service-booking/api/handlers/v1/admin.go:345
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-10T15:10:34.819+0500	ERROR	v1/admin.go:438	failed to update user	{"error": "rpc error: code = Unknown desc = failed to execute SQL query for updating user: ERROR: duplicate key value violates unique constraint \"users_email_key\" (SQLSTATE 23505)"}
+Booking/api-service-booking/api/handlers/v1.(*HandlerV1).UpdateAdmin
+	/home/doston/project/go/src/Booking/api-service-booking/api/handlers/v1/admin.go:438
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-10T15:11:09.701+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-10T15:11:17.245+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-10T15:11:47.899+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-10T15:12:08.862+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-10T15:15:18.960+0500	INFO	app/main.go:41	api gateway service stops

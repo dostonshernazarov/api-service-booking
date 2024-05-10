@@ -9,6 +9,7 @@ import (
 	tokens "Booking/api-service-booking/internal/pkg/token"
 	"Booking/api-service-booking/internal/pkg/utils"
 	valid "Booking/api-service-booking/internal/pkg/validation"
+
 	// "context"
 	"net/http"
 	// "time"
@@ -19,26 +20,26 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
-// CREATE
-// @Summary CREATE
+// CREATE ADMIN
+// @Summary CREATE ADMIN
 // @Security ApiKeyAuth
-// @Description Api for Create
-// @Tags USER
+// @Description Api for Create admin
+// @Tags ADMIN
 // @Accept json
 // @Produce json
-// @Param User body models.UserCreate true "createModel"
+// @Param Admin body models.UserCreate true "createModel"
 // @Success 200 {object} models.UserRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/users/create [post]
-func (h *HandlerV1) Create(c *gin.Context) {
-	ctx, span := otlp.Start(c, "api", "CreateUser")
+// @Router /v1/admins [post]
+func (h *HandlerV1) CreateAdmin(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "CreateAdmin")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 		attribute.Key("host").String(c.Request.Host),
 	)
 	defer span.End()
-	
+
 	var (
 		body        models.UserCreate
 		jsonMarshal protojson.MarshalOptions
@@ -75,8 +76,8 @@ func (h *HandlerV1) Create(c *gin.Context) {
 	}
 
 	isEmail, err := h.Service.UserService().CheckUniquess(ctx, &pbu.FV{
-		Field:                "email",
-		Value:                body.Email,
+		Field: "email",
+		Value: body.Email,
 	})
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -95,8 +96,7 @@ func (h *HandlerV1) Create(c *gin.Context) {
 		return
 	}
 
-
-	password, err  := etc.HashPassword(body.Password)
+	password, err := etc.HashPassword(body.Password)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "Went wrong",
@@ -111,7 +111,7 @@ func (h *HandlerV1) Create(c *gin.Context) {
 	h.jwtHandler = tokens.JwtHandler{
 		Sub:  newId,
 		Iss:  "client",
-		Role: "user",
+		Role: "admin",
 		Log:  h.Logger,
 	}
 
@@ -125,19 +125,19 @@ func (h *HandlerV1) Create(c *gin.Context) {
 	}
 
 	response, err := h.Service.UserService().Create(ctx, &pbu.User{
-		Id:                   newId,
-		FullName:             body.FullName,
-		Email:                body.Email,
-		Password:             password,
-		DateOfBirth:          body.DateOfBirth,
-		ProfileImg:           body.ProfileImg,
-		Card:                 body.Card,
-		Gender:               body.Gender,
-		PhoneNumber:          body.PhoneNumber,
-		Role:                 "user",
-		RefreshToken:         refresh,
+		Id:           newId,
+		FullName:     body.FullName,
+		Email:        body.Email,
+		Password:     password,
+		DateOfBirth:  body.DateOfBirth,
+		ProfileImg:   body.ProfileImg,
+		Card:         body.Card,
+		Gender:       body.Gender,
+		PhoneNumber:  body.PhoneNumber,
+		Role:         "admin",
+		RefreshToken: refresh,
 	})
-	
+
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
@@ -161,20 +161,20 @@ func (h *HandlerV1) Create(c *gin.Context) {
 	})
 }
 
-// GET
-// @Summary GET
+// GET ADMIN
+// @Summary GET ADMIN
 // @Security ApiKeyAuth
 // @Description Api for Get
-// @Tags USER
+// @Tags ADMIN
 // @Accept json
 // @Produce json
 // @Param id path string true "ID"
 // @Success 200 {object} models.UserRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/users/{id} [get]
-func (h *HandlerV1) Get(c *gin.Context) {
-	ctx, span := otlp.Start(c, "api", "GetUser")
+// @Router /v1/admins/{id} [get]
+func (h *HandlerV1) GetAdmin(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "GetAdmin")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 		attribute.Key("host").String(c.Request.Host),
@@ -198,7 +198,7 @@ func (h *HandlerV1) Get(c *gin.Context) {
 		return
 	}
 
-	if response.User.Role != "user" {
+	if response.User.Role != "admin" {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"message": "Can't get",
 		})
@@ -222,26 +222,25 @@ func (h *HandlerV1) Get(c *gin.Context) {
 	})
 }
 
-// LIST USERS
-// @Summary LIST USERS
+// LIST ADMINS
+// @Summary LIST ADMINS
 // @Security ApiKeyAuth
-// @Description Api for ListUsers
-// @Tags USER
+// @Description Api for ListAdmins
+// @Tags ADMIN
 // @Accept json
 // @Produce json
 // @Param request query models.Pagination true "request"
 // @Success 200 {object} pbu.ListUsersRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/users/list/users [get]
-func (h *HandlerV1) ListUsers(c *gin.Context) {
-	ctx, span := otlp.Start(c, "api", "ListUser")
+// @Router /v1/admins/list [get]
+func (h *HandlerV1) ListAdmins(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "ListAdmins")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 		attribute.Key("host").String(c.Request.Host),
 	)
 	defer span.End()
-
 
 	queryParams := c.Request.URL.Query()
 	params, errStr := utils.ParseQueryParam(queryParams)
@@ -253,12 +252,15 @@ func (h *HandlerV1) ListUsers(c *gin.Context) {
 	}
 	var jsonMarshal protojson.MarshalOptions
 	jsonMarshal.UseProtoNames = true
-
 
 	response, err := h.Service.UserService().ListUsers(
 		ctx, &pbu.ListUsersReq{
-			Limit: params.Limit,
-			Offset:  (params.Page-1)*params.Limit,
+			Limit:  params.Limit,
+			Offset: (params.Page - 1) * params.Limit,
+			Fv: &pbu.FV{
+				Field: "role",
+				Value: "admin",
+			},
 		})
 
 	if err != nil {
@@ -272,69 +274,20 @@ func (h *HandlerV1) ListUsers(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
-// LIST DELETED USERS
-// @Summary LIST DELETED USERS
-// @Security ApiKeyAuth
-// @Description Api for ListDeletedUsers
-// @Tags USER
-// @Accept json
-// @Produce json
-// @Param request query models.Pagination true "request"
-// @Success 200 {object} pbu.ListUsersRes
-// @Failure 400 {object} models.StandartError
-// @Failure 500 {object} models.StandartError
-// @Router /v1/users/list/deleted [get]
-func (h *HandlerV1) ListDeletedUsers(c *gin.Context) {
-	ctx, span := otlp.Start(c, "api", "ListDeletedUser")
-	span.SetAttributes(
-		attribute.Key("method").String(c.Request.Method),
-		attribute.Key("host").String(c.Request.Host),
-	)
-	defer span.End()
-
-	queryParams := c.Request.URL.Query()
-	params, errStr := utils.ParseQueryParam(queryParams)
-	if errStr != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": errStr[0],
-		})
-		return
-	}
-	var jsonMarshal protojson.MarshalOptions
-	jsonMarshal.UseProtoNames = true
-
-
-	response, err := h.Service.UserService().ListDeletedUsers(
-		ctx, &pbu.ListUsersReq{
-			Limit: params.Limit,
-			Offset:  (params.Page-1)*params.Limit,
-		})
-
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": err.Error(),
-		})
-		l.Error(err)
-		return
-	}
-
-	c.JSON(http.StatusOK, response)
-}
-
-// UPDATE
-// @Summary UPDATE
+// UPDATE ADMIN
+// @Summary UPDATE ADMIN
 // @Security ApiKeyAuth
 // @Description Api for Update
-// @Tags USER
+// @Tags ADMIN
 // @Accept json
 // @Produce json
-// @Param User body models.UserReq true "createModel"
+// @Param Admin body models.UserReq true "createModel"
 // @Success 200 {object} models.UserRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/users/update [put]
-func (h *HandlerV1) Update(c *gin.Context) {
-	ctx, span := otlp.Start(c, "api", "UpdateUser")
+// @Router /v1/admins [put]
+func (h *HandlerV1) UpdateAdmin(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "UpdateAdmin")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 		attribute.Key("host").String(c.Request.Host),
@@ -364,8 +317,8 @@ func (h *HandlerV1) Update(c *gin.Context) {
 		return
 	}
 
-	getUser ,err := h.Service.UserService().Get(ctx, &pbu.Filter{
-		Filter:               map[string]string{"id":body.Id},
+	getUser, err := h.Service.UserService().Get(ctx, &pbu.Filter{
+		Filter: map[string]string{"id": body.Id},
 	})
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -375,41 +328,62 @@ func (h *HandlerV1) Update(c *gin.Context) {
 		return
 	}
 
-	if getUser.User.Role != "user" {
+	if getUser.User.Role != "admin" {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "Can't update",
 		})
 		return
 	}
 
-	if body.Email != "" {
-		emailVal := valid.IsValidEmail(body.Email)
-		if !emailVal {
-			c.JSON(http.StatusBadRequest, gin.H{
-				"error": "Incorrect Email. Try again",
-			})
-	
-			h.Logger.Error("Incorrect Email. Try again, error while in update user")
-			return
-		}
-	}
-
 	if body.Password != "" {
-		validpas := valid.IsValidPassword(body.Password) 
-		if !validpas {
+		resPass := valid.IsValidPassword(body.Email)
+		if !resPass {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"error": "Incorrect Password. Try again",
 			})
-	
-			h.Logger.Error("Incorrect Password. Try again, error while in update user")
+
+			h.Logger.Error("Incorrect Password. Try again, error while in update")
 			return
 		}
-		body.Password, err =  etc.HashPassword(body.Password)
+		body.Password, err = etc.HashPassword(body.Password)
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"error": "Went wrong",
 			})
 			h.Logger.Error("failed to hash password in update", l.Error(err))
+			return
+		}
+	}
+
+	if body.Email != "" {
+		checkEmail, err := h.Service.UserService().CheckUniquess(ctx, &pbu.FV{
+			Field:                "email",
+			Value:                body.Email,
+		})
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": "Went wrong",
+			})
+	
+			h.Logger.Error("Error while check unique email in update admin")
+			return
+		}
+	
+		if checkEmail.Code != 0 {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"message": "Email already in use",
+			})
+	
+			return
+		}
+
+		res := valid.IsValidEmail(body.Email)
+		if !res {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": "Incorrect Email. Try again",
+			})
+
+			h.Logger.Error("Incorrect Email. Try again, error while in update")
 			return
 		}
 	}
@@ -446,18 +420,16 @@ func (h *HandlerV1) Update(c *gin.Context) {
 		body.PhoneNumber = getUser.User.PhoneNumber
 	}
 
-	
-
 	response, err := h.Service.UserService().Update(ctx, &pbu.User{
-		Id:                   body.Id,
-		FullName:             body.FullName,
-		Email:                body.Email,
-		Password:             body.Password,
-		DateOfBirth:          body.DateOfBirth,
-		ProfileImg:           body.ProfileImg,
-		Card:                 body.Card,
-		Gender:               body.Gender,
-		PhoneNumber:          body.PhoneNumber,
+		Id:          body.Id,
+		FullName:    body.FullName,
+		Email:       body.Email,
+		Password:    body.Password,
+		DateOfBirth: body.DateOfBirth,
+		ProfileImg:  body.ProfileImg,
+		Card:        body.Card,
+		Gender:      body.Gender,
+		PhoneNumber: body.PhoneNumber,
 	})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
@@ -484,20 +456,20 @@ func (h *HandlerV1) Update(c *gin.Context) {
 	})
 }
 
-// DELETE
-// @Summary DELETE
+// DELETE ADMIN
+// @Summary DELETE ADMIN
 // @Security ApiKeyAuth
 // @Description Api for Delete
-// @Tags USER
+// @Tags ADMIN
 // @Accept json
 // @Produce json
 // @Param id query string true "ID"
 // @Success 200 {object} models.RegisterRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/users/delete/{id} [delete]
-func (h *HandlerV1) Delete(c *gin.Context) {
-	ctx, span := otlp.Start(c, "api", "DeleteUser")
+// @Router /v1/admins/{id} [delete]
+func (h *HandlerV1) DeleteAdmin(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "DeleteAdmin")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 		attribute.Key("host").String(c.Request.Host),
@@ -510,17 +482,17 @@ func (h *HandlerV1) Delete(c *gin.Context) {
 	id := c.Query("id")
 
 	user, err := h.Service.UserService().Get(ctx, &pbu.Filter{
-		Filter:               map[string]string{"id":id},
+		Filter: map[string]string{"id": id},
 	})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "Went wrong, error",
 		})
-		h.Logger.Error("failed to get user in delete", l.Error(err))
+		h.Logger.Error("failed to get admin in delete admin", l.Error(err))
 		return
 	}
 
-	if user.User.Role != "user" {
+	if user.User.Role != "admin" {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"message": "Can't delete",
 		})

@@ -413,8 +413,6 @@ definitions:
         type: string
       id:
         type: string
-      password:
-        type: string
       phone_number:
         type: string
       profile_img:
@@ -453,6 +451,8 @@ definitions:
     type: object
   user.ListUsersRes:
     properties:
+      count:
+        type: integer
       users:
         items:
           $ref: '#/definitions/user.User'
@@ -495,6 +495,162 @@ info:
   title: welcome to Booking API
   version: "1.7"
 paths:
+  /v1/admins:
+    post:
+      consumes:
+      - application/json
+      description: Api for Create admin
+      parameters:
+      - description: createModel
+        in: body
+        name: Admin
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: CREATE ADMIN
+      tags:
+      - ADMIN
+    put:
+      consumes:
+      - application/json
+      description: Api for Update
+      parameters:
+      - description: createModel
+        in: body
+        name: Admin
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: UPDATE ADMIN
+      tags:
+      - ADMIN
+  /v1/admins/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Api for Delete
+      parameters:
+      - description: ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.RegisterRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: DELETE ADMIN
+      tags:
+      - ADMIN
+    get:
+      consumes:
+      - application/json
+      description: Api for Get
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: GET ADMIN
+      tags:
+      - ADMIN
+  /v1/admins/list:
+    get:
+      consumes:
+      - application/json
+      description: Api for ListAdmins
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.ListUsersRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - ApiKeyAuth: []
+      summary: LIST ADMINS
+      tags:
+      - ADMIN
   /v1/attraction/create:
     post:
       consumes:
