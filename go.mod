@@ -1,6 +1,6 @@
 module Booking/api-service-booking
 
-go 1.21.6
+go 1.22.1
 
 require (
 	github.com/Masterminds/squirrel v1.5.4

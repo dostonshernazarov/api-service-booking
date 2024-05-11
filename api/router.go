@@ -134,6 +134,7 @@ func NewRoute(option RouteOption) http.Handler {
 	api.PUT("/admins", HandlerV1.UpdateAdmin)
 	api.DELETE("/admins/:id", HandlerV1.DeleteAdmin)
 
+	
 	url := ginSwagger.URL("swagger/doc.json")
 	api.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 	return router
