@@ -1,7 +1,7 @@
 package api
 
 import (
-	"net/http"
+	// "net/http"
 	"time"
 
 	_ "Booking/api-service-booking/api/docs"
@@ -36,14 +36,14 @@ type RouteOption struct {
 	Enforcer       *casbin.Enforcer
 }
 
-// @title welcome to Booking API
+// @title Welcome To Booking API
 // @version 1.7
 // @host localhost:8080
 
 // @securityDefinitions.apikey ApiKeyAuth
 // @in header
 // @name Authorization
-func NewRoute(option RouteOption) http.Handler {
+func NewRoute(option RouteOption) *gin.Engine {
 
 	router := gin.New()
 
@@ -134,7 +134,7 @@ func NewRoute(option RouteOption) http.Handler {
 	api.PUT("/admins", HandlerV1.UpdateAdmin)
 	api.DELETE("/admins/:id", HandlerV1.DeleteAdmin)
 
-	
+
 	url := ginSwagger.URL("swagger/doc.json")
 	api.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 	return router
