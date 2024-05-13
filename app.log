@@ -1955,3 +1955,20 @@ net/http.(*conn).serve
 2024-05-11T10:44:52.335+0500	INFO	app/main.go:41	api gateway service stops
 2024-05-11T10:45:04.163+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
 2024-05-11T10:45:11.368+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-13T12:39:54.666+0500	INFO	app/main.go:30	Listen: 	{"address": "api-service:8080"}
+2024-05-13T12:39:54.667+0500	ERROR	app/main.go:32	app run	{"error": "listen tcp: lookup api-service on 127.0.0.53:53: server misbehaving"}
+main.main.func1
+	/home/awez/projects/nt/go/src/Booking/api-service-booking/cmd/app/main.go:32
+2024-05-13T12:40:40.294+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-13T12:40:42.435+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-13T12:41:22.242+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-13T13:21:50.540+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-13T13:33:03.745+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-13T14:45:52.055+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-13T14:47:36.796+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-13T14:59:02.375+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-13T15:00:15.138+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-13T15:00:27.409+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-13T15:00:28.182+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-13T15:00:34.114+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-13T15:01:07.901+0500	INFO	app/main.go:41	api gateway service stops

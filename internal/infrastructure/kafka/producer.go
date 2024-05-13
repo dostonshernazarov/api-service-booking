@@ -47,7 +47,7 @@ func NewProducer(config *configpkg.Config, logger *zap.Logger) *Producer {
 	}
 }
 
-func (p *Producer) ProduceUserToCreate(ctx context.Context, key string, value *models.UserRes) error {
+func (p *Producer) ProduceUserToCreate(ctx context.Context, key string, value *models.CreateBookingReq) error {
 	byteValue, err := json.Marshal(&value)
 	if err != nil {
 		return err
