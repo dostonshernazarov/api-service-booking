@@ -592,7 +592,7 @@ definitions:
 host: localhost:8080
 info:
   contact: {}
-  title: welcome to Booking API
+  title: Welcome To Booking API
   version: "1.7"
 paths:
   /v1/admins:
