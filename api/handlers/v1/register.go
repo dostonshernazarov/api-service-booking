@@ -99,7 +99,7 @@ func (h HandlerV1) RegisterUser(c *gin.Context) {
 
 	if result.Code == 1 {
 		c.JSON(http.StatusConflict, gin.H{
-			"error": "This email already in use, please use another email address",
+			"error": "Email already in use, please use another email address",
 		})
 		h.Logger.Error("failed to check email unique", l.Error(err))
 		return

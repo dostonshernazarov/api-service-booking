@@ -19,10 +19,14 @@ p, unauthorized, /v1/restaurant/list, GET
 p, user, /v1/users/{id}, GET
 p, user, /v1/users/update, PUT
 
+p, user, /v1/test, GET
+
 p, admin, /v1/users/v1/users, POST
 p, admin, /v1/users/list/users, GET
 p, admin, /v1/users/list/deleted, GET
 p, admin, /v1/delete/{id}, DELETE
+
+p, admin, /v1/token/:refresh, GET
 
 p, admin, /v1/attraction/create, POST
 p, admin, /v1/attraction/update, PUT
