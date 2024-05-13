@@ -39,7 +39,7 @@ type RouteOption struct {
 // NewRouter
 // @title Welcome To Booking API
 // @Description API for Touristan
-// @securityDefinitions.apikey ApiKeyAuth
+// @securityDefinitions.apikey BearerAuth
 // @in header
 // @name Authorization
 func NewRoute(option RouteOption) *gin.Engine {
@@ -132,6 +132,9 @@ func NewRoute(option RouteOption) *gin.Engine {
 	api.GET("/admins/list", HandlerV1.ListAdmins)
 	api.PUT("/admins", HandlerV1.UpdateAdmin)
 	api.DELETE("/admins/:id", HandlerV1.DeleteAdmin)
+
+	// TEST 
+	api.GET("/test", HandlerV1.Test)
 
 
 	url := ginSwagger.URL("swagger/doc.json")

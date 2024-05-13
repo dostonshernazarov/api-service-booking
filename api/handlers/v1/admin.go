@@ -22,7 +22,7 @@ import (
 
 // CREATE ADMIN
 // @Summary CREATE ADMIN
-// @Security ApiKeyAuth
+// @Security BearerAuth
 // @Description Api for Create admin
 // @Tags ADMIN
 // @Accept json
@@ -164,7 +164,7 @@ func (h *HandlerV1) CreateAdmin(c *gin.Context) {
 
 // GET ADMIN
 // @Summary GET ADMIN
-// @Security ApiKeyAuth
+// @Security BearerAuth
 // @Description Api for Get
 // @Tags ADMIN
 // @Accept json
@@ -225,7 +225,7 @@ func (h *HandlerV1) GetAdmin(c *gin.Context) {
 
 // LIST ADMINS
 // @Summary LIST ADMINS
-// @Security ApiKeyAuth
+// @Security BearerAuth
 // @Description Api for ListAdmins
 // @Tags ADMIN
 // @Accept json
@@ -277,7 +277,7 @@ func (h *HandlerV1) ListAdmins(c *gin.Context) {
 
 // UPDATE ADMIN
 // @Summary UPDATE ADMIN
-// @Security ApiKeyAuth
+// @Security BearerAuth
 // @Description Api for Update
 // @Tags ADMIN
 // @Accept json
@@ -459,7 +459,7 @@ func (h *HandlerV1) UpdateAdmin(c *gin.Context) {
 
 // DELETE ADMIN
 // @Summary DELETE ADMIN
-// @Security ApiKeyAuth
+// @Security BearerAuth
 // @Description Api for Delete
 // @Tags ADMIN
 // @Accept json

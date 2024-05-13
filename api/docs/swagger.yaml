@@ -589,11 +589,10 @@ definitions:
       updated_at:
         type: string
     type: object
-host: localhost:8080
 info:
   contact: {}
+  description: API for Touristan
   title: Welcome To Booking API
-  version: "1.7"
 paths:
   /v1/admins:
     post:
@@ -623,7 +622,7 @@ paths:
           schema:
             $ref: '#/definitions/models.StandartError'
       security:
-      - ApiKeyAuth: []
+      - BearerAuth: []
       summary: CREATE ADMIN
       tags:
       - ADMIN
@@ -654,7 +653,7 @@ paths:
           schema:
             $ref: '#/definitions/models.StandartError'
       security:
-      - ApiKeyAuth: []
+      - BearerAuth: []
       summary: UPDATE ADMIN
       tags:
       - ADMIN
@@ -685,7 +684,7 @@ paths:
           schema:
             $ref: '#/definitions/models.StandartError'
       security:
-      - ApiKeyAuth: []
+      - BearerAuth: []
       summary: DELETE ADMIN
       tags:
       - ADMIN
@@ -715,7 +714,7 @@ paths:
           schema:
             $ref: '#/definitions/models.StandartError'
       security:
-      - ApiKeyAuth: []
+      - BearerAuth: []
       summary: GET ADMIN
       tags:
       - ADMIN
@@ -747,7 +746,7 @@ paths:
           schema:
             $ref: '#/definitions/models.StandartError'
       security:
-      - ApiKeyAuth: []
+      - BearerAuth: []
       summary: LIST ADMINS
       tags:
       - ADMIN
@@ -783,6 +782,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
       summary: CREATE ATTRACTION
       tags:
       - ATTRACTION
@@ -812,6 +813,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
       summary: DELETE ATTRACTION BY ATTRACTION_ID
       tags:
       - ATTRACTION
@@ -841,6 +844,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
       summary: GET ATTRACTION BY ATTRACTION_ID
       tags:
       - ATTRACTION
@@ -875,6 +880,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
       summary: LIST ATTRACTIONS BY PAGE AND LIMIT
       tags:
       - ATTRACTION
@@ -924,6 +931,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
       summary: LIST ATTRACTIONS BY PAGE, LIMIT, COUNTRY, CITY AND STATE_PROVINCE
       tags:
       - ATTRACTION
@@ -959,6 +968,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
       summary: UPDATE ATTRACTION
       tags:
       - ATTRACTION
@@ -993,6 +1004,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
       summary: ADD ESTABLISHMENT TO FAVOURITES
       tags:
       - FAVOURITE
@@ -1022,6 +1035,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
       summary: LIST FAVOURITES BY USER_ID
       tags:
       - FAVOURITE
@@ -1051,6 +1066,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
       summary: REMOVE FROM FAVOURITES BY FAVOURITE_ID
       tags:
       - FAVOURITE
@@ -1086,6 +1103,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
       summary: CREATE HOTEL
       tags:
       - HOTEL
@@ -1115,6 +1134,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
       summary: DELETE HOTEL BY HOTEL_ID
       tags:
       - HOTEL
@@ -1144,6 +1165,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
       summary: GET HOTEL BY HOTEL_ID
       tags:
       - HOTEL
@@ -1178,6 +1201,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
       summary: LIST HOTELS BY PAGE AND LIMIT
       tags:
       - HOTEL
@@ -1213,6 +1238,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
       summary: UPDATE HOTEL
       tags:
       - HOTEL
@@ -1248,6 +1275,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
       summary: CREATE RESTAURANT
       tags:
       - RESTAURANT
@@ -1277,6 +1306,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
       summary: DELETE RESTAURANT BY RESTAURANT_ID
       tags:
       - RESTAURANT
@@ -1306,6 +1337,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
       summary: GET RESTAURANT BY RESTAURANT_ID
       tags:
       - RESTAURANT
@@ -1340,6 +1373,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
       summary: LIST RESTAURANTS BY PAGE AND LIMIT
       tags:
       - RESTAURANT
@@ -1375,6 +1410,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
       summary: UPDATE RESTAURANT
       tags:
       - RESTAURANT
@@ -1415,6 +1452,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
       summary: CREATE REVIEW
       tags:
       - REVIEW
@@ -1444,6 +1483,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
       summary: DELETE REVIEW BY REVIEW_ID
       tags:
       - REVIEW
@@ -1473,9 +1514,32 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
       summary: LIST REVIEWS BY ESTABLISHMENT_ID
       tags:
       - REVIEW
+  /v1/test:
+    get:
+      consumes:
+      - application/json
+      description: API get user_id
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: Test
+      tags:
+      - test
   /v1/token/{refresh}:
     get:
       consumes:
@@ -1503,7 +1567,7 @@ paths:
           schema:
             $ref: '#/definitions/models.StandartError'
       security:
-      - ApiKeyAuth: []
+      - BearerAuth: []
       summary: UPDATE TOKEN
       tags:
       - TOKEN
@@ -1534,7 +1598,7 @@ paths:
           schema:
             $ref: '#/definitions/models.StandartError'
       security:
-      - ApiKeyAuth: []
+      - BearerAuth: []
       summary: GET
       tags:
       - USER
@@ -1566,7 +1630,7 @@ paths:
           schema:
             $ref: '#/definitions/models.StandartError'
       security:
-      - ApiKeyAuth: []
+      - BearerAuth: []
       summary: FORGET PASSWORD CODE
       tags:
       - SET-PASSWORD
@@ -1598,7 +1662,7 @@ paths:
           schema:
             $ref: '#/definitions/models.StandartError'
       security:
-      - ApiKeyAuth: []
+      - BearerAuth: []
       summary: CREATE
       tags:
       - USER
@@ -1629,7 +1693,7 @@ paths:
           schema:
             $ref: '#/definitions/models.StandartError'
       security:
-      - ApiKeyAuth: []
+      - BearerAuth: []
       summary: DELETE
       tags:
       - USER
@@ -1667,7 +1731,7 @@ paths:
           schema:
             $ref: '#/definitions/models.StandartError'
       security:
-      - ApiKeyAuth: []
+      - BearerAuth: []
       summary: LIST DELETED USERS
       tags:
       - USER
@@ -1705,7 +1769,7 @@ paths:
           schema:
             $ref: '#/definitions/models.StandartError'
       security:
-      - ApiKeyAuth: []
+      - BearerAuth: []
       summary: LIST USERS
       tags:
       - USER
@@ -1737,7 +1801,7 @@ paths:
           schema:
             $ref: '#/definitions/models.StandartError'
       security:
-      - ApiKeyAuth: []
+      - BearerAuth: []
       summary: LOGIN
       tags:
       - LOGIN
@@ -1769,7 +1833,7 @@ paths:
           schema:
             $ref: '#/definitions/models.StandartError'
       security:
-      - ApiKeyAuth: []
+      - BearerAuth: []
       summary: SET NEW PASSWORD
       tags:
       - SET-PASSWORD
@@ -1801,7 +1865,7 @@ paths:
           schema:
             $ref: '#/definitions/models.StandartError'
       security:
-      - ApiKeyAuth: []
+      - BearerAuth: []
       summary: REGISTER USER
       tags:
       - SIGNUP
@@ -1832,7 +1896,7 @@ paths:
           schema:
             $ref: '#/definitions/models.StandartError'
       security:
-      - ApiKeyAuth: []
+      - BearerAuth: []
       summary: FORGET PASSWORD
       tags:
       - SET-PASSWORD
@@ -1864,7 +1928,7 @@ paths:
           schema:
             $ref: '#/definitions/models.StandartError'
       security:
-      - ApiKeyAuth: []
+      - BearerAuth: []
       summary: UPDATE
       tags:
       - USER
@@ -1896,12 +1960,12 @@ paths:
           schema:
             $ref: '#/definitions/models.StandartError'
       security:
-      - ApiKeyAuth: []
+      - BearerAuth: []
       summary: VERIFICATION
       tags:
       - SIGNUP
 securityDefinitions:
-  ApiKeyAuth:
+  BearerAuth:
     in: header
     name: Authorization
     type: apiKey

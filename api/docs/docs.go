@@ -19,7 +19,7 @@ const docTemplate = `{
             "put": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "Api for Update",
@@ -68,7 +68,7 @@ const docTemplate = `{
             "post": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "Api for Create admin",
@@ -119,7 +119,7 @@ const docTemplate = `{
             "get": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "Api for ListAdmins",
@@ -171,7 +171,7 @@ const docTemplate = `{
             "get": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "Api for Get",
@@ -218,7 +218,7 @@ const docTemplate = `{
             "delete": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "Api for Delete",
@@ -265,6 +265,11 @@ const docTemplate = `{
         },
         "/v1/attraction/create": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Api for creating attraction",
                 "consumes": [
                     "application/json"
@@ -318,6 +323,11 @@ const docTemplate = `{
         },
         "/v1/attraction/delete": {
             "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Api for deleting attraction by attraction_id",
                 "consumes": [
                     "application/json"
@@ -362,6 +372,11 @@ const docTemplate = `{
         },
         "/v1/attraction/get": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Api for getting attraction by attraction_id",
                 "consumes": [
                     "application/json"
@@ -406,6 +421,11 @@ const docTemplate = `{
         },
         "/v1/attraction/list": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Api for listing attractions by page and limit",
                 "consumes": [
                     "application/json"
@@ -457,6 +477,11 @@ const docTemplate = `{
         },
         "/v1/attraction/listbylocation": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Api for listing attractions by page, limit, country, city and state_province",
                 "consumes": [
                     "application/json"
@@ -529,6 +554,11 @@ const docTemplate = `{
         },
         "/v1/attraction/update": {
             "patch": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Api for updating attraction by attraction_id",
                 "consumes": [
                     "application/json"
@@ -582,6 +612,11 @@ const docTemplate = `{
         },
         "/v1/favourite/add": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Api for adding establishment to favourites",
                 "consumes": [
                     "application/json"
@@ -633,6 +668,11 @@ const docTemplate = `{
         },
         "/v1/favourite/list": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Api for listing favourites by favourite_id",
                 "consumes": [
                     "application/json"
@@ -677,6 +717,11 @@ const docTemplate = `{
         },
         "/v1/favourite/remove": {
             "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Api for removing favourite by favourite_id",
                 "consumes": [
                     "application/json"
@@ -721,6 +766,11 @@ const docTemplate = `{
         },
         "/v1/hotel/create": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Api for creating hotel",
                 "consumes": [
                     "application/json"
@@ -774,6 +824,11 @@ const docTemplate = `{
         },
         "/v1/hotel/delete": {
             "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Api for deleting hotel by hotel_id",
                 "consumes": [
                     "application/json"
@@ -818,6 +873,11 @@ const docTemplate = `{
         },
         "/v1/hotel/get": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Api for getting hotel by hotel_id",
                 "consumes": [
                     "application/json"
@@ -862,6 +922,11 @@ const docTemplate = `{
         },
         "/v1/hotel/list": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Api for listing hotels by page and limit",
                 "consumes": [
                     "application/json"
@@ -913,6 +978,11 @@ const docTemplate = `{
         },
         "/v1/hotel/update": {
             "patch": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Api for updating hotel by hotel_id",
                 "consumes": [
                     "application/json"
@@ -966,6 +1036,11 @@ const docTemplate = `{
         },
         "/v1/restaurant/create": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Api for creating restaurant",
                 "consumes": [
                     "application/json"
@@ -1019,6 +1094,11 @@ const docTemplate = `{
         },
         "/v1/restaurant/delete": {
             "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Api for deleting restaurant by restaurant_id",
                 "consumes": [
                     "application/json"
@@ -1063,6 +1143,11 @@ const docTemplate = `{
         },
         "/v1/restaurant/get": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Api for getting restaurant by restaurant_id",
                 "consumes": [
                     "application/json"
@@ -1107,6 +1192,11 @@ const docTemplate = `{
         },
         "/v1/restaurant/list": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Api for listing restaurants by page and limit",
                 "consumes": [
                     "application/json"
@@ -1158,6 +1248,11 @@ const docTemplate = `{
         },
         "/v1/restaurant/update": {
             "patch": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Api for updating restaurant by restaurant_id",
                 "consumes": [
                     "application/json"
@@ -1211,6 +1306,11 @@ const docTemplate = `{
         },
         "/v1/review/create": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Api for creating review",
                 "consumes": [
                     "application/json"
@@ -1271,6 +1371,11 @@ const docTemplate = `{
         },
         "/v1/review/delete": {
             "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Api for deleting review by review_id",
                 "consumes": [
                     "application/json"
@@ -1315,6 +1420,11 @@ const docTemplate = `{
         },
         "/v1/review/list": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Api for listing reviews by establishment_id",
                 "consumes": [
                     "application/json"
@@ -1357,11 +1467,45 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/test": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "API get user_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "test"
+                ],
+                "summary": "Test",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/token/{refresh}": {
             "get": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "Api for updated acces token",
@@ -1410,7 +1554,7 @@ const docTemplate = `{
             "get": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "Api for verify new password code",
@@ -1462,7 +1606,7 @@ const docTemplate = `{
             "post": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "Api for Create",
@@ -1513,7 +1657,7 @@ const docTemplate = `{
             "delete": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "Api for Delete",
@@ -1562,7 +1706,7 @@ const docTemplate = `{
             "get": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "Api for ListDeletedUsers",
@@ -1624,7 +1768,7 @@ const docTemplate = `{
             "get": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "Api for ListUsers",
@@ -1686,7 +1830,7 @@ const docTemplate = `{
             "get": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "Api for login user",
@@ -1738,7 +1882,7 @@ const docTemplate = `{
             "put": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "Api for update new password",
@@ -1790,7 +1934,7 @@ const docTemplate = `{
             "post": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "Api for register a new user",
@@ -1841,7 +1985,7 @@ const docTemplate = `{
             "get": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "Api for set new password",
@@ -1890,7 +2034,7 @@ const docTemplate = `{
             "put": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "Api for Update",
@@ -1941,7 +2085,7 @@ const docTemplate = `{
             "get": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "Api for verify a new user",
@@ -1993,7 +2137,7 @@ const docTemplate = `{
             "get": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "Api for Get",
@@ -2918,7 +3062,7 @@ const docTemplate = `{
         }
     },
     "securityDefinitions": {
-        "ApiKeyAuth": {
+        "BearerAuth": {
             "type": "apiKey",
             "name": "Authorization",
             "in": "header"
@@ -2928,12 +3072,12 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "1.7",
-	Host:             "localhost:8080",
+	Version:          "",
+	Host:             "",
 	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "Welcome To Booking API",
-	Description:      "",
+	Description:      "API for Touristan",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

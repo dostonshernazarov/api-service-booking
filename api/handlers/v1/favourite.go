@@ -15,6 +15,7 @@ import (
 
 // ADD ESTABLISHMENT TO FAVOURITES
 // @Summary ADD ESTABLISHMENT TO FAVOURITES
+// @Security BearerAuth
 // @Description Api for adding establishment to favourites
 // @Tags FAVOURITE
 // @Accept json
@@ -72,6 +73,7 @@ func (h HandlerV1) AddToFavourites(c *gin.Context) {
 
 // REMOVE FROM FAVOURITES BY FAVOURITE_ID
 // @Summary REMOVE FROM FAVOURITES BY FAVOURITE_ID
+// @Security BearerAuth
 // @Description Api for removing favourite by favourite_id
 // @Tags FAVOURITE
 // @Accept json
@@ -124,6 +126,7 @@ func (h HandlerV1) RemoveFromFavourites(c *gin.Context) {
 
 // LIST FAVOURITES BY USER_ID
 // @Summary LIST FAVOURITES BY USER_ID
+// @Security BearerAuth
 // @Description Api for listing favourites by favourite_id
 // @Tags FAVOURITE
 // @Accept json

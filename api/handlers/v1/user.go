@@ -21,7 +21,7 @@ import (
 
 // CREATE
 // @Summary CREATE
-// @Security ApiKeyAuth
+// @Security BearerAuth
 // @Description Api for Create
 // @Tags USER
 // @Accept json
@@ -164,7 +164,7 @@ func (h *HandlerV1) Create(c *gin.Context) {
 
 // GET
 // @Summary GET
-// @Security ApiKeyAuth
+// @Security BearerAuth
 // @Description Api for Get
 // @Tags USER
 // @Accept json
@@ -225,7 +225,7 @@ func (h *HandlerV1) Get(c *gin.Context) {
 
 // LIST USERS
 // @Summary LIST USERS
-// @Security ApiKeyAuth
+// @Security BearerAuth
 // @Description Api for ListUsers
 // @Tags USER
 // @Accept json
@@ -289,7 +289,7 @@ func (h *HandlerV1) ListUsers(c *gin.Context) {
 
 // LIST DELETED USERS
 // @Summary LIST DELETED USERS
-// @Security ApiKeyAuth
+// @Security BearerAuth
 // @Description Api for ListDeletedUsers
 // @Tags USER
 // @Accept json
@@ -351,7 +351,7 @@ func (h *HandlerV1) ListDeletedUsers(c *gin.Context) {
 
 // UPDATE
 // @Summary UPDATE
-// @Security ApiKeyAuth
+// @Security BearerAuth
 // @Description Api for Update
 // @Tags USER
 // @Accept json
@@ -514,7 +514,7 @@ func (h *HandlerV1) Update(c *gin.Context) {
 
 // DELETE
 // @Summary DELETE
-// @Security ApiKeyAuth
+// @Security BearerAuth
 // @Description Api for Delete
 // @Tags USER
 // @Accept json
@@ -578,4 +578,26 @@ func (h *HandlerV1) Delete(c *gin.Context) {
 	c.JSON(http.StatusOK, &models.RegisterRes{
 		Content: "User has been deleted",
 	})
+}
+
+// @Security BearerAuth
+// @Summary Test
+// @Description API get user_id
+// @Tags test
+// @Accept json
+// @Produce json
+// @Success 200 {object} string
+// @Failure 400 {object} models.StandartError
+// @Router /v1/test [GET]
+func (h *HandlerV1) Test(c *gin.Context) {
+	userID, statusCode := GetIdFromToken(c.Request, h.Config)
+
+	if statusCode == 401 {
+		c.JSON(http.StatusBadRequest, models.Error{
+			Message: "Access token expired",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, userID)
 }

@@ -16,6 +16,7 @@ import (
 
 // CREATE RESTAURANT
 // @Summary CREATE RESTAURANT
+// @Security BearerAuth
 // @Description Api for creating restaurant
 // @Tags RESTAURANT
 // @Accept json
@@ -143,6 +144,7 @@ func (h HandlerV1) CreateRestaurant(c *gin.Context) {
 
 // GET RESTAURANT BY RESTAURANT_ID
 // @Summary GET RESTAURANT BY RESTAURANT_ID
+// @Security BearerAuth
 // @Description Api for getting restaurant by restaurant_id
 // @Tags RESTAURANT
 // @Accept json
@@ -225,6 +227,7 @@ func (h HandlerV1) GetRestaurant(c *gin.Context) {
 
 // LIST RESTAURANTS BY PAGE AND LIMIT
 // @Summary LIST RESTAURANTS BY PAGE AND LIMIT
+// @Security BearerAuth
 // @Description Api for listing restaurants by page and limit
 // @Tags RESTAURANT
 // @Accept json
@@ -341,6 +344,7 @@ func (h HandlerV1) ListRestaurants(c *gin.Context) {
 
 // UPDATE RESTAURANT
 // @Summary UPDATE RESTAURANT
+// @Security BearerAuth
 // @Description Api for updating restaurant by restaurant_id
 // @Tags RESTAURANT
 // @Accept json
@@ -449,6 +453,7 @@ func (h HandlerV1) UpdateRestaurant(c *gin.Context) {
 
 // DELETE RESTAURANT BY RESTAURANT_ID
 // @Summary DELETE RESTAURANT BY RESTAURANT_ID
+// @Security BearerAuth
 // @Description Api for deleting restaurant by restaurant_id
 // @Tags RESTAURANT
 // @Accept json

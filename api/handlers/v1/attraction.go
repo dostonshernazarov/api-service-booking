@@ -16,6 +16,7 @@ import (
 
 // CREATE ATTRACTION
 // @Summary CREATE ATTRACTION
+// @Security BearerAuth
 // @Description Api for creating attraction
 // @Tags ATTRACTION
 // @Accept json
@@ -141,6 +142,7 @@ func (h HandlerV1) CreateAttraction(c *gin.Context) {
 
 // GET ATTRACTION BY ATTRACTION_ID
 // @Summary GET ATTRACTION BY ATTRACTION_ID
+// @Security BearerAuth
 // @Description Api for getting attraction by attraction_id
 // @Tags ATTRACTION
 // @Accept json
@@ -222,6 +224,7 @@ func (h HandlerV1) GetAttraction(c *gin.Context) {
 
 // LIST ATTRACTIONS BY PAGE AND LIMIT
 // @Summary LIST ATTRACTIONS BY PAGE AND LIMIT
+// @Security BearerAuth
 // @Description Api for listing attractions by page and limit
 // @Tags ATTRACTION
 // @Accept json
@@ -337,6 +340,7 @@ func (h HandlerV1) ListAttractions(c *gin.Context) {
 
 // UPDATE ATTRACTION
 // @Summary UPDATE ATTRACTION
+// @Security BearerAuth
 // @Description Api for updating attraction by attraction_id
 // @Tags ATTRACTION
 // @Accept json
@@ -443,6 +447,7 @@ func (h HandlerV1) UpdateAttraction(c *gin.Context) {
 
 // DELETE ATTRACTION BY ATTRACTION_ID
 // @Summary DELETE ATTRACTION BY ATTRACTION_ID
+// @Security BearerAuth
 // @Description Api for deleting attraction by attraction_id
 // @Tags ATTRACTION
 // @Accept json
@@ -495,6 +500,7 @@ func (h HandlerV1) DeleteAttraction(c *gin.Context) {
 
 // LIST ATTRACTIONS BY PAGE, LIMIT, COUNTRY, CITY AND STATE_PROVINCE
 // @Summary LIST ATTRACTIONS BY PAGE, LIMIT, COUNTRY, CITY AND STATE_PROVINCE
+// @Security BearerAuth
 // @Description Api for listing attractions by page, limit, country, city and state_province
 // @Tags ATTRACTION
 // @Accept json

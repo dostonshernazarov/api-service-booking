@@ -29,7 +29,7 @@ import (
 )
 
 // REGISTER USER ...
-// @Security ApiKeyAuth
+// @Security BearerAuth
 // @Router /v1/users/register [POST]
 // @Summary REGISTER USER
 // @Description Api for register a new user
@@ -148,7 +148,7 @@ func (h HandlerV1) RegisterUser(c *gin.Context) {
 }
 
 // VERIFICATION ...
-// @Security ApiKeyAuth
+// @Security BearerAuth
 // @Router /v1/users/verify [GET]
 // @Summary VERIFICATION
 // @Description Api for verify a new user
@@ -274,7 +274,7 @@ func (h HandlerV1) Verification(c *gin.Context) {
 }
 
 // LOGIN ...
-// @Security ApiKeyAuth
+// @Security BearerAuth
 // @Router /v1/users/login [GET]
 // @Summary LOGIN
 // @Description Api for login user
@@ -370,7 +370,7 @@ func (h HandlerV1) Login(c *gin.Context) {
 }
 
 // FORGET PASSWORD ...
-// @Security ApiKeyAuth
+// @Security BearerAuth
 // @Router /v1/users/set/{email} [GET]
 // @Summary FORGET PASSWORD
 // @Description Api for set new password
@@ -457,7 +457,7 @@ func (h HandlerV1) ForgetPassword(c *gin.Context) {
 }
 
 // FORGET PASSWORD CODE ...
-// @Security ApiKeyAuth
+// @Security BearerAuth
 // @Router /v1/users/code [GET]
 // @Summary FORGET PASSWORD CODE
 // @Description Api for verify new password code
@@ -520,7 +520,7 @@ func (h HandlerV1) ForgetPasswordVerify(c *gin.Context) {
 }
 
 // SET NEW PASSWORD ...
-// @Security ApiKeyAuth
+// @Security BearerAuth
 // @Router /v1/users/password [PUT]
 // @Summary SET NEW PASSWORD
 // @Description Api for update new password
@@ -626,7 +626,7 @@ func (h HandlerV1) SetNewPassword(c *gin.Context) {
 }
 
 // UPDATE TOKEN
-// @Security ApiKeyAuth
+// @Security BearerAuth
 // @Router /v1/token/{refresh} [GET]
 // @Summary UPDATE TOKEN
 // @Description Api for updated acces token

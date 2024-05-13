@@ -15,6 +15,7 @@ import (
 
 // CREATE REVIEW
 // @Summary CREATE REVIEW
+// @Security BearerAuth
 // @Description Api for creating review
 // @Tags REVIEW
 // @Accept json
@@ -86,6 +87,7 @@ func (h HandlerV1) CreateReview(c *gin.Context) {
 
 // LIST REVIEWS BY ESTABLISHMENT_ID
 // @Summary LIST REVIEWS BY ESTABLISHMENT_ID
+// @Security BearerAuth
 // @Description Api for listing reviews by establishment_id
 // @Tags REVIEW
 // @Accept json
@@ -149,6 +151,7 @@ func (h HandlerV1) ListReviews(c *gin.Context) {
 
 // DELETE REVIEW BY REVIEW_ID
 // @Summary DELETE REVIEW BY REVIEW_ID
+// @Security BearerAuth
 // @Description Api for deleting review by review_id
 // @Tags REVIEW
 // @Accept json

@@ -16,6 +16,7 @@ import (
 
 // CREATE HOTEL
 // @Summary CREATE HOTEL
+// @Security BearerAuth
 // @Description Api for creating hotel
 // @Tags HOTEL
 // @Accept json
@@ -141,6 +142,7 @@ func (h HandlerV1) CreateHotel(c *gin.Context) {
 
 // GET HOTEL BY HOTEL_ID
 // @Summary GET HOTEL BY HOTEL_ID
+// @Security BearerAuth
 // @Description Api for getting hotel by hotel_id
 // @Tags HOTEL
 // @Accept json
@@ -222,6 +224,7 @@ func (h HandlerV1) GetHotel(c *gin.Context) {
 
 // LIST HOTELS BY PAGE AND LIMIT
 // @Summary LIST HOTELS BY PAGE AND LIMIT
+// @Security BearerAuth
 // @Description Api for listing hotels by page and limit
 // @Tags HOTEL
 // @Accept json
@@ -337,6 +340,7 @@ func (h HandlerV1) ListHotels(c *gin.Context) {
 
 // UPDATE HOTEL
 // @Summary UPDATE HOTEL
+// @Security BearerAuth
 // @Description Api for updating hotel by hotel_id
 // @Tags HOTEL
 // @Accept json
@@ -443,6 +447,7 @@ func (h HandlerV1) UpdateHotel(c *gin.Context) {
 
 // DELETE HOTEL BY HOTEL_ID
 // @Summary DELETE HOTEL BY HOTEL_ID
+// @Security BearerAuth
 // @Description Api for deleting hotel by hotel_id
 // @Tags HOTEL
 // @Accept json
