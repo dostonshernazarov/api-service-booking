@@ -36,10 +36,9 @@ type RouteOption struct {
 	Enforcer       *casbin.Enforcer
 }
 
+// NewRouter
 // @title Welcome To Booking API
-// @version 1.7
-// @host localhost:8080
-
+// @Description API for Touristan
 // @securityDefinitions.apikey ApiKeyAuth
 // @in header
 // @name Authorization
