@@ -6,6 +6,16 @@ p, unauthorized, /v1/users/set/{id}, GET
 p, unauthorized, /v1/users/code, GET
 p, unauthorized, /v1/users/password, PUT
 
+p, unauthorized, /v1/attraction/get, GET
+p, unauthorized, /v1/attraction/list, GET
+
+p, unauthorized, /v1/hotel/get, GET
+p, unauthorized, /v1/hotel/list, GET
+
+p, unauthorized, /v1/restaurant/get, GET
+p, unauthorized, /v1/restaurant/list, GET
+
+
 p, user, /v1/users/{id}, GET
 p, user, /v1/users/update, PUT
 
@@ -13,16 +23,18 @@ p, admin, /v1/users/v1/users, POST
 p, admin, /v1/users/list/users, GET
 p, admin, /v1/users/list/deleted, GET
 p, admin, /v1/delete/{id}, DELETE
+
 p, admin, /v1/attraction/create, POST
-p, admin, /v1/attraction/get, GET
-p, admin, /v1/attraction/list, GET
 p, admin, /v1/attraction/update, PUT
 p, admin, /v1/attraction/delete, DELETE
+
 p, admin, /v1/hotel/create, POST
-p, admin, /v1/hotel/get, GET
-p, admin, /v1/hotel/list, GET
 p, admin, /v1/hotel/update, PUT
 p, admin, /v1/hotel/delete, DELETE
+
+p, admin, /v1/restaurant/create, POST
+p, admin, /v1/restaurant/update, PUT
+p, admin, /v1/restaurant/delete, DELETE
 
 p, sudo, /v1/admins, POST
 p, sudo, /v1/admins/{id}, GET

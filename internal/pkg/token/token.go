@@ -38,7 +38,7 @@ func (jwtHandler *JwtHandler) GenerateJwt() (access, refresh string, err error) 
 	claims = accessToken.Claims.(jwt.MapClaims)
 	claims["sub"] = jwtHandler.Sub
 	claims["iss"] = jwtHandler.Iss
-	claims["exp"] = time.Now().Add(time.Hour * 24).Unix()
+	claims["exp"] = time.Now().Add(time.Hour * 200).Unix()
 	claims["iat"] = time.Now().Unix()
 	claims["role"] = jwtHandler.Role
 
@@ -58,7 +58,7 @@ func (jwtHandler *JwtHandler) GenerateJwt() (access, refresh string, err error) 
 
 	rtClaims := refreshToken.Claims.(jwt.MapClaims)
 	rtClaims["sub"] = jwtHandler.Sub
-	rtClaims["exp"] = time.Now().Add(time.Hour * 48).Unix()
+	rtClaims["exp"] = time.Now().Add(time.Hour * 400).Unix()
 	rtClaims["iat"] = time.Now().Unix()
 	rtClaims["role"] = jwtHandler.Role
 
