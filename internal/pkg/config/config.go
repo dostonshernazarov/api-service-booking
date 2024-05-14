@@ -77,14 +77,14 @@ func NewConfig() (*Config, error) {
 	config.Context.Timeout = getEnv("CONTEXT_TIMEOUT", "30s")
 
 	// server configuration
-	config.Server.Host = getEnv("SERVER_HOST", "api-service")
+	config.Server.Host = getEnv("SERVER_HOST", "localhost")
 	config.Server.Port = getEnv("SERVER_PORT", ":8080")
 	config.Server.ReadTimeout = getEnv("SERVER_READ_TIMEOUT", "10s")
 	config.Server.WriteTimeout = getEnv("SERVER_WRITE_TIMEOUT", "10s")
 	config.Server.IdleTimeout = getEnv("SERVER_IDLE_TIMEOUT", "120s")
 
 	// db configuration
-	config.DB.Host = getEnv("POSTGRES_HOST", "postgres")
+	config.DB.Host = getEnv("POSTGRES_HOST", "localhost")
 	config.DB.Port = getEnv("POSTGRES_PORT", "5432")
 	config.DB.Name = getEnv("POSTGRES_DATABASE", "touristandb")
 	config.DB.User = getEnv("POSTGRES_USER", "postgres")
@@ -101,13 +101,13 @@ func NewConfig() (*Config, error) {
 	config.EstablishmentService.Host = getEnv("ESTABLISHMENT_SERVICE_GRPC_HOST", "establishment-service")
 	config.EstablishmentService.Port = getEnv("ESTABLISHMENT_SERVICE_GRPC_PORT", ":50024")
 
-	config.UserService.Host = getEnv("USER_SERVICE_GRPC_HOST", "user-service")
-	config.UserService.Port = getEnv("USER_SERVICE_GRPC_PORT", ":50025")
+	// config.UserService.Host = getEnv("USER_SERVICE_GRPC_HOST", "user-service")
+	// config.UserService.Port = getEnv("USER_SERVICE_GRPC_PORT", ":50025")
 
 
 	// user configuration
-	// config.UserService.Host = getEnv("USER_SERVICE_GRPC_HOST", "localhost")
-	// config.UserService.Port = getEnv("USER_SERVICE_GRPC_PORT", ":50025")
+	config.UserService.Host = getEnv("USER_SERVICE_GRPC_HOST", "localhost")
+	config.UserService.Port = getEnv("USER_SERVICE_GRPC_PORT", ":50025")
 
 	// token configuration
 	config.Token.Secret = getEnv("TOKEN_SECRET", "token_secret")

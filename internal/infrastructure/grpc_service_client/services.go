@@ -15,6 +15,7 @@ import (
 type ServiceClient interface {
 	EstablishmentService() pbe.EstablishmentServiceClient
 	UserService() pbu.UserServiceClient
+	MediaService() pbu.MediaServiceClient
 	Close()
 }
 
@@ -22,6 +23,7 @@ type serviceClient struct {
 	connections          []*grpc.ClientConn
 	establishmentService pbe.EstablishmentServiceClient
 	userService pbu.UserServiceClient
+	mediaService pbu.MediaServiceClient
 }
 
 func New(cfg *config.Config) (ServiceClient, error) {
@@ -52,6 +54,7 @@ func New(cfg *config.Config) (ServiceClient, error) {
 	return &serviceClient{
 		establishmentService: pbe.NewEstablishmentServiceClient(connEstablishmentService),
 		userService: pbu.NewUserServiceClient(connUserService),
+		mediaService: pbu.NewMediaServiceClient(connUserService),
 		connections: []*grpc.ClientConn{
 			connEstablishmentService,
 			connUserService,
@@ -65,6 +68,10 @@ func (s *serviceClient) EstablishmentService() pbe.EstablishmentServiceClient {
 
 func (s *serviceClient) UserService() pbu.UserServiceClient {
 	return s.userService
+}
+
+func (s *serviceClient) MediaService() pbu.MediaServiceClient {
+	return s.mediaService
 }
 
 func (s *serviceClient) Close() {

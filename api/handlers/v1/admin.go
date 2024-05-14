@@ -131,7 +131,7 @@ func (h *HandlerV1) CreateAdmin(c *gin.Context) {
 		Email:        body.Email,
 		Password:     password,
 		DateOfBirth:  body.DateOfBirth,
-		ProfileImg:   body.ProfileImg,
+		// ProfileImg:   body.ProfileImg,
 		Card:         body.Card,
 		Gender:       body.Gender,
 		PhoneNumber:  body.PhoneNumber,

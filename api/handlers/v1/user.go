@@ -9,9 +9,7 @@ import (
 	tokens "Booking/api-service-booking/internal/pkg/token"
 	"Booking/api-service-booking/internal/pkg/utils"
 	valid "Booking/api-service-booking/internal/pkg/validation"
-	// "context"
 	"net/http"
-	// "time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -27,6 +25,7 @@ import (
 // @Accept json
 // @Produce json
 // @Param User body models.UserCreate true "createModel"
+// @Param file formData file true "File"
 // @Success 200 {object} models.UserRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
@@ -48,7 +47,7 @@ func (h *HandlerV1) Create(c *gin.Context) {
 	err := c.ShouldBindJSON(&body)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
+			"error": "Error binding JSON",
 		})
 		l.Error(err)
 		return
@@ -94,7 +93,6 @@ func (h *HandlerV1) Create(c *gin.Context) {
 
 		return
 	}
-
 
 	password, err  := etc.HashPassword(body.Password)
 	if err != nil {

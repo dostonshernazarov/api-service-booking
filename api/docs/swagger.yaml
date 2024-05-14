@@ -1243,6 +1243,38 @@ paths:
       summary: UPDATE HOTEL
       tags:
       - HOTEL
+  /v1/media/upload-photo:
+    post:
+      consumes:
+      - application/json
+      description: Through this api frontent can upload photo and get the link to
+        the media.
+      parameters:
+      - description: Image
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Error'
+      security:
+      - BearerAuth: []
+      summary: Upload media
+      tags:
+      - IMAGE_URL
   /v1/restaurant/create:
     post:
       consumes:
@@ -1646,6 +1678,11 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/models.UserCreate'
+      - description: File
+        in: formData
+        name: file
+        required: true
+        type: file
       produces:
       - application/json
       responses:

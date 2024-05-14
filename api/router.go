@@ -136,6 +136,7 @@ func NewRoute(option RouteOption) *gin.Engine {
 	// TEST 
 	api.GET("/test", HandlerV1.Test)
 
+	api.POST("/media/upload-photo", HandlerV1.UploadMedia)
 
 	url := ginSwagger.URL("swagger/doc.json")
 	api.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
