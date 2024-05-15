@@ -26,7 +26,7 @@ import (
 // @Success     200 {object} string
 // @Failure     400 {object} models.Error
 // @Failure     500 {object} models.Error
-// @Router      /v1/media/upload-photo [POST]
+// @Router      /v1/media/user-photo [POST]
 func (h *HandlerV1) UploadMedia(c *gin.Context) {
     duration, err := time.ParseDuration(h.Config.Context.Timeout)
     if err != nil {

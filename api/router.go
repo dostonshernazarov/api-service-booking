@@ -120,7 +120,7 @@ func NewRoute(option RouteOption) *gin.Engine {
 	api.POST("/users/register", HandlerV1.RegisterUser)
 	api.GET("/users/verify", HandlerV1.Verification)
 	api.GET("/users/login", HandlerV1.Login)
-	api.GET("/users/set/:id", HandlerV1.ForgetPassword)
+	api.GET("/users/set/:email", HandlerV1.ForgetPassword)
 	api.GET("/users/code", HandlerV1.ForgetPasswordVerify)
 	api.PUT("/users/password", HandlerV1.SetNewPassword)
 
@@ -133,10 +133,8 @@ func NewRoute(option RouteOption) *gin.Engine {
 	api.PUT("/admins", HandlerV1.UpdateAdmin)
 	api.DELETE("/admins/:id", HandlerV1.DeleteAdmin)
 
-	// TEST 
-	api.GET("/test", HandlerV1.Test)
 
-	api.POST("/media/upload-photo", HandlerV1.UploadMedia)
+	api.POST("/media/user-photo", HandlerV1.UploadMedia)
 
 	url := ginSwagger.URL("swagger/doc.json")
 	api.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
