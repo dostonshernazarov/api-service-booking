@@ -77,12 +77,12 @@ func NewRoute(option RouteOption) *gin.Engine {
 	apiUser := api.Group("/users")
 
 	// USER METHODS
-	apiUser.POST("/create", HandlerV1.Create)
+	apiUser.POST("", HandlerV1.Create)
 	apiUser.GET("/:id", HandlerV1.Get)
-	apiUser.GET("/list/users", HandlerV1.ListUsers)
+	apiUser.GET("/list", HandlerV1.ListUsers)
 	apiUser.GET("/list/deleted", HandlerV1.ListDeletedUsers)
-	apiUser.PUT("/update", HandlerV1.Update)
-	apiUser.DELETE("/delete/:id", HandlerV1.Delete)
+	apiUser.PUT("", HandlerV1.Update)
+	apiUser.DELETE("/:id", HandlerV1.Delete)
 
 	// ATTRACTION METHODS
 	api.POST("/attraction/create", HandlerV1.CreateAttraction)

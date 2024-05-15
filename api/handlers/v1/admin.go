@@ -27,7 +27,7 @@ import (
 // @Tags ADMIN
 // @Accept json
 // @Produce json
-// @Param Admin body models.UserCreate true "createModel"
+// @Param Admin body models.UserReq true "createModel"
 // @Success 200 {object} models.UserRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
@@ -41,7 +41,7 @@ func (h *HandlerV1) CreateAdmin(c *gin.Context) {
 	defer span.End()
 
 	var (
-		body        models.UserCreate
+		body        models.UserReq
 		jsonMarshal protojson.MarshalOptions
 	)
 	jsonMarshal.UseProtoNames = true
@@ -310,16 +310,16 @@ func (h *HandlerV1) UpdateAdmin(c *gin.Context) {
 		return
 	}
 
-	if body.Id == "" {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Went wrong",
-		})
-		h.Logger.Error("Id required:", l.Error(err))
-		return
-	}
+    userID, statusCode := GetIdFromToken(c.Request, h.Config)
+	if statusCode != http.StatusOK {
+		c.JSON(statusCode, gin.H{
+            "error": "Can't get",
+        })
+        return
+    }
 
 	getUser, err := h.Service.UserService().Get(ctx, &pbu.Filter{
-		Filter: map[string]string{"id": body.Id},
+		Filter: map[string]string{"id": userID},
 	})
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -405,10 +405,6 @@ func (h *HandlerV1) UpdateAdmin(c *gin.Context) {
 		body.DateOfBirth = getUser.User.DateOfBirth
 	}
 
-	if body.ProfileImg == "" {
-		body.ProfileImg = getUser.User.ProfileImg
-	}
-
 	if body.Card == "" {
 		body.Card = getUser.User.Card
 	}
@@ -422,12 +418,12 @@ func (h *HandlerV1) UpdateAdmin(c *gin.Context) {
 	}
 
 	response, err := h.Service.UserService().Update(ctx, &pbu.User{
-		Id:          body.Id,
+		Id:          userID,
 		FullName:    body.FullName,
 		Email:       body.Email,
 		Password:    body.Password,
 		DateOfBirth: body.DateOfBirth,
-		ProfileImg:  body.ProfileImg,
+		ProfileImg:  "",
 		Card:        body.Card,
 		Gender:      body.Gender,
 		PhoneNumber: body.PhoneNumber,

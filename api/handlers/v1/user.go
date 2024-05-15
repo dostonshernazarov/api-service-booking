@@ -24,12 +24,11 @@ import (
 // @Tags USER
 // @Accept json
 // @Produce json
-// @Param User body models.UserCreate true "createModel"
-// @Param file formData file true "File"
+// @Param User body models.UserReq true "createModel"
 // @Success 200 {object} models.UserRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/users/create [post]
+// @Router /v1/users [post]
 func (h *HandlerV1) Create(c *gin.Context) {
 	ctx, span := otlp.Start(c, "api", "CreateUser")
 	span.SetAttributes(
@@ -39,7 +38,7 @@ func (h *HandlerV1) Create(c *gin.Context) {
 	defer span.End()
 	
 	var (
-		body        models.UserCreate
+		body        models.UserReq
 		jsonMarshal protojson.MarshalOptions
 	)
 	jsonMarshal.UseProtoNames = true
@@ -129,7 +128,7 @@ func (h *HandlerV1) Create(c *gin.Context) {
 		Email:                body.Email,
 		Password:             password,
 		DateOfBirth:          body.DateOfBirth,
-		ProfileImg:           body.ProfileImg,
+		ProfileImg:           "",
 		Card:                 body.Card,
 		Gender:               body.Gender,
 		PhoneNumber:          body.PhoneNumber,
@@ -233,7 +232,7 @@ func (h *HandlerV1) Get(c *gin.Context) {
 // @Success 200 {object} pbu.ListUsersRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/users/list/users [get]
+// @Router /v1/users/list [get]
 func (h *HandlerV1) ListUsers(c *gin.Context) {
 	ctx, span := otlp.Start(c, "api", "ListUser")
 	span.SetAttributes(
@@ -358,7 +357,7 @@ func (h *HandlerV1) ListDeletedUsers(c *gin.Context) {
 // @Success 200 {object} models.UserRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/users/update [put]
+// @Router /v1/users [put]
 func (h *HandlerV1) Update(c *gin.Context) {
 	ctx, span := otlp.Start(c, "api", "UpdateUser")
 	span.SetAttributes(
@@ -382,16 +381,16 @@ func (h *HandlerV1) Update(c *gin.Context) {
 		return
 	}
 
-	if body.Id == "" {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Went wrong",
-		})
-		h.Logger.Error("Id required:", l.Error(err))
-		return
-	}
+    userID, statusCode := GetIdFromToken(c.Request, h.Config)
+	if statusCode != http.StatusOK {
+		c.JSON(statusCode, gin.H{
+            "error": "Can't get",
+        })
+        return
+    }
 
 	getUser ,err := h.Service.UserService().Get(ctx, &pbu.Filter{
-		Filter:               map[string]string{"id":body.Id},
+		Filter:               map[string]string{"id":userID},
 	})
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -456,10 +455,6 @@ func (h *HandlerV1) Update(c *gin.Context) {
 		body.DateOfBirth = getUser.User.DateOfBirth
 	}
 
-	if body.ProfileImg == "" {
-		body.ProfileImg = getUser.User.ProfileImg
-	}
-
 	if body.Card == "" {
 		body.Card = getUser.User.Card
 	}
@@ -475,12 +470,12 @@ func (h *HandlerV1) Update(c *gin.Context) {
 	
 
 	response, err := h.Service.UserService().Update(ctx, &pbu.User{
-		Id:                   body.Id,
+		Id:                   userID,
 		FullName:             body.FullName,
 		Email:                body.Email,
 		Password:             body.Password,
 		DateOfBirth:          body.DateOfBirth,
-		ProfileImg:           body.ProfileImg,
+		ProfileImg:           "",
 		Card:                 body.Card,
 		Gender:               body.Gender,
 		PhoneNumber:          body.PhoneNumber,
@@ -521,7 +516,7 @@ func (h *HandlerV1) Update(c *gin.Context) {
 // @Success 200 {object} models.RegisterRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/users/delete/{id} [delete]
+// @Router /v1/users/{id} [delete]
 func (h *HandlerV1) Delete(c *gin.Context) {
 	ctx, span := otlp.Start(c, "api", "DeleteUser")
 	span.SetAttributes(

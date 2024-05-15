@@ -103,8 +103,6 @@ func (h *HandlerV1) UploadMedia(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, userID)
-
     user, err := h.Service.UserService().Get(ctx, &user.Filter{
         Filter: map[string]string{
             "id": userID,
@@ -127,6 +125,6 @@ func (h *HandlerV1) UploadMedia(c *gin.Context) {
     }
 
     c.JSON(http.StatusOK, models.Error{
-        Message: "",
+        Message: minioURL,
     })
 }
