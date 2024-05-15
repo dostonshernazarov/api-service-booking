@@ -128,3 +128,4 @@ func (h *HandlerV1) UploadMedia(c *gin.Context) {
         Message: minioURL,
     })
 }
+

@@ -7,7 +7,7 @@ import (
 	_ "Booking/api-service-booking/api/docs"
 	v1 "Booking/api-service-booking/api/handlers/v1"
 
-	// "Booking/api-service-booking/api/middleware"
+	"Booking/api-service-booking/api/middleware"
 
 	"github.com/casbin/casbin/v2"
 	"github.com/gin-contrib/cors"
@@ -69,7 +69,7 @@ func NewRoute(option RouteOption) *gin.Engine {
 	router.Use(cors.New(corsConfig))
 
 	// router.Use(middleware.Tracing)
-	// router.Use(middleware.CheckCasbinPermission(option.Enforcer, *option.Config))
+	router.Use(middleware.CheckCasbinPermission(option.Enforcer, *option.Config))
 
 	router.Static("/media", "./media")
 
