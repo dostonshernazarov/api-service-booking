@@ -1220,12 +1220,12 @@ paths:
       summary: UPDATE HOTEL
       tags:
       - HOTEL
-  /v1/media/upload-photo:
+  /v1/media/user-photo:
     post:
       consumes:
       - application/json
-      description: Through this api frontent can upload photo and get the link to
-        the media.
+      description: Through this api frontent can upload user photo and get the link
+        to the media.
       parameters:
       - description: Image
         in: formData
@@ -1249,9 +1249,9 @@ paths:
             $ref: '#/definitions/models.Error'
       security:
       - BearerAuth: []
-      summary: Upload media
+      summary: Upload User photo
       tags:
-      - IMAGE_URL
+      - MEDIA
   /v1/restaurant/create:
     post:
       consumes:
@@ -1528,27 +1528,6 @@ paths:
       summary: LIST REVIEWS BY ESTABLISHMENT_ID
       tags:
       - REVIEW
-  /v1/test:
-    get:
-      consumes:
-      - application/json
-      description: API get user_id
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            type: string
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.StandartError'
-      security:
-      - BearerAuth: []
-      summary: Test
-      tags:
-      - test
   /v1/token/{refresh}:
     get:
       consumes:
@@ -1939,6 +1918,31 @@ paths:
       summary: FORGET PASSWORD
       tags:
       - SET-PASSWORD
+  /v1/users/token:
+    get:
+      consumes:
+      - application/json
+      description: Api for Get user by token
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: GET BY TOKEN
+      tags:
+      - USER
   /v1/users/verify:
     get:
       consumes:

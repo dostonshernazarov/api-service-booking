@@ -74,15 +74,15 @@ func NewRoute(option RouteOption) *gin.Engine {
 	router.Static("/media", "./media")
 
 	api := router.Group("/v1")
-	apiUser := api.Group("/users")
 
 	// USER METHODS
-	apiUser.POST("", HandlerV1.Create)
-	apiUser.GET("/:id", HandlerV1.Get)
-	apiUser.GET("/list", HandlerV1.ListUsers)
-	apiUser.GET("/list/deleted", HandlerV1.ListDeletedUsers)
-	apiUser.PUT("", HandlerV1.Update)
-	apiUser.DELETE("/:id", HandlerV1.Delete)
+
+	api.POST("/users", HandlerV1.Create)
+	api.GET("/users/:id", HandlerV1.Get)
+	api.GET("/users/list", HandlerV1.ListUsers)
+	api.GET("/users/list/deleted", HandlerV1.ListDeletedUsers)
+	api.PUT("/users", HandlerV1.Update)
+	api.DELETE("/users/:id", HandlerV1.Delete)
 
 	// ATTRACTION METHODS
 	api.POST("/attraction/create", HandlerV1.CreateAttraction)

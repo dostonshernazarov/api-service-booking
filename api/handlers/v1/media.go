@@ -16,10 +16,11 @@ import (
 	"github.com/minio/minio-go/v7/pkg/credentials"
 )
 
-// @Summary     Upload media
+
+// @Summary     Upload User photo
 // @Security    BearerAuth
-// @Description Through this api frontent can upload photo and get the link to the media.
-// @Tags        IMAGE_URL
+// @Description Through this api frontent can upload user photo and get the link to the media.
+// @Tags        MEDIA
 // @Accept      json
 // @Produce     json
 // @Param       file formData file true "Image"
@@ -127,5 +128,6 @@ func (h *HandlerV1) UploadMedia(c *gin.Context) {
     c.JSON(http.StatusOK, models.Error{
         Message: minioURL,
     })
+
 }
 

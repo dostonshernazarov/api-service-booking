@@ -29,6 +29,7 @@ p, user, /v1/review/list, GET
 
 p, admin, /v1/users, POST
 p, admin, /v1/users/list, GET
+
 p, admin, /v1/users/list/deleted, GET
 p, admin, /v1/users/{id}, DELETE
 
@@ -54,3 +55,4 @@ p, sudo, /v1/admins/:id, DELETE
 g, admin, user, *
 g, admin, unauthorized, *
 g, sudo, admin, *
+

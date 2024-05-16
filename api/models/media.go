@@ -26,5 +26,6 @@ type (
 	ProductImages struct {
 		Images []*Media `json:"images,omitempty"`
 	}
+
 )
 

@@ -1034,14 +1034,14 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/media/upload-photo": {
+        "/v1/media/user-photo": {
             "post": {
                 "security": [
                     {
                         "BearerAuth": []
                     }
                 ],
-                "description": "Through this api frontent can upload photo and get the link to the media.",
+                "description": "Through this api frontent can upload user photo and get the link to the media.",
                 "consumes": [
                     "application/json"
                 ],
@@ -1049,9 +1049,9 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "IMAGE_URL"
+                    "MEDIA"
                 ],
-                "summary": "Upload media",
+                "summary": "Upload User photo",
                 "parameters": [
                     {
                         "type": "file",
@@ -1509,40 +1509,6 @@ const docTemplate = `{
                     },
                     "500": {
                         "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/models.StandartError"
-                        }
-                    }
-                }
-            }
-        },
-        "/v1/test": {
-            "get": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
-                "description": "API get user_id",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "test"
-                ],
-                "summary": "Test",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
                         "schema": {
                             "$ref": "#/definitions/models.StandartError"
                         }
@@ -2062,6 +2028,46 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.RegisterRes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/users/token": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Api for Get user by token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "USER"
+                ],
+                "summary": "GET BY TOKEN",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.UserRes"
                         }
                     },
                     "400": {

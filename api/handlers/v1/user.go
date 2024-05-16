@@ -572,3 +572,67 @@ func (h *HandlerV1) Delete(c *gin.Context) {
 		Content: "User has been deleted",
 	})
 }
+
+// GET BY TOKEN
+// @Summary GET BY TOKEN
+// @Security BearerAuth
+// @Description Api for Get user by token
+// @Tags USER
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.UserRes
+// @Failure 400 {object} models.StandartError
+// @Failure 500 {object} models.StandartError
+// @Router /v1/users/token [get]
+func (h *HandlerV1) GetByToken(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "GetUser")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+		attribute.Key("host").String(c.Request.Host),
+	)
+	defer span.End()
+
+	var jsonMarshal protojson.MarshalOptions
+	jsonMarshal.UseProtoNames = true
+
+	// println("\n", c.Request.Header.Get("Authorization"), "\n")
+
+
+	userID, statusCode := GetIdFromToken(c.Request, h.Config)
+	if statusCode != http.StatusOK {
+		c.JSON(statusCode, gin.H{
+            "error": "Can't get",
+        })
+        return
+    }
+
+	response, err := h.Service.UserService().Get(
+		ctx, &pbu.Filter{
+			Filter: map[string]string{"id": userID},
+		})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		l.Error(err)
+		return
+	}
+
+
+	c.JSON(http.StatusOK, &models.UserRes{
+		Id:           response.User.Id,
+		FullName:     response.User.FullName,
+		Email:        response.User.Email,
+		DateOfBirth:  response.User.DateOfBirth,
+		ProfileImg:   response.User.ProfileImg,
+		Card:         response.User.Card,
+		Gender:       response.User.Gender,
+		PhoneNumber:  response.User.PhoneNumber,
+		Role:         response.User.Role,
+		RefreshToken: response.User.RefreshToken,
+		CreatedAt:    response.User.CreatedAt,
+		UpdatedAt:    response.User.UpdatedAt,
+		DeletedAt:    response.User.DeletedAt,
+	})
+}
+

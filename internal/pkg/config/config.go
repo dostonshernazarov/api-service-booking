@@ -93,16 +93,13 @@ func NewConfig() (*Config, error) {
 	config.DB.SSLMode = getEnv("POSTGRES_SSLMODE", "disable")
 
 	// redis configuration
-	config.Redis.Host = getEnv("REDIS_HOST", "redis-db")
+	config.Redis.Host = getEnv("REDIS_HOST", "localhost")
 	config.Redis.Port = getEnv("REDIS_PORT", "6379")
 	config.Redis.Password = getEnv("REDIS_PASSWORD", "")
 	config.Redis.Name = getEnv("REDIS_DATABASE", "0")
 
-	config.EstablishmentService.Host = getEnv("ESTABLISHMENT_SERVICE_GRPC_HOST", "establishment-service")
+	config.EstablishmentService.Host = getEnv("ESTABLISHMENT_SERVICE_GRPC_HOST", "localhost")
 	config.EstablishmentService.Port = getEnv("ESTABLISHMENT_SERVICE_GRPC_PORT", ":50024")
-
-	// config.UserService.Host = getEnv("USER_SERVICE_GRPC_HOST", "user-service")
-	// config.UserService.Port = getEnv("USER_SERVICE_GRPC_PORT", ":50025")
 
 
 	// user configuration

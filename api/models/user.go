@@ -1,4 +1,3 @@
-
 package models
 
 type UserReq struct {
