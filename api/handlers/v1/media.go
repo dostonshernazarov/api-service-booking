@@ -41,7 +41,7 @@ func (h *HandlerV1) UploadMedia(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(context.Background(), duration)
 	defer cancel()
 
-	endpoint := "localhost:9000"
+	endpoint := "18.185.248.114:9000"
     accessKeyID := "minioadmin"
     secretAccessKey := "minioadmin"
     bucketName := "images"
