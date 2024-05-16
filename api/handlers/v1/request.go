@@ -26,5 +26,7 @@ func GetIdFromToken(r *http.Request, cfg *config.Config) (string, int) {
 		return "unauthorized", http.StatusUnauthorized
 	}
 
-	return cast.ToString(claims["sub"]), 200
+	resp := cast.ToString(claims["sub"])
+
+	return resp, 200
 }
