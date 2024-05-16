@@ -455,25 +455,6 @@ definitions:
         default: updated website url
         type: string
     type: object
-  models.UserCreate:
-    properties:
-      card:
-        type: string
-      date_of_birth:
-        type: string
-      email:
-        type: string
-      full_name:
-        type: string
-      gender:
-        type: string
-      password:
-        type: string
-      phone_number:
-        type: string
-      profile_img:
-        type: string
-    type: object
   models.UserReq:
     properties:
       card:
@@ -486,13 +467,9 @@ definitions:
         type: string
       gender:
         type: string
-      id:
-        type: string
       password:
         type: string
       phone_number:
-        type: string
-      profile_img:
         type: string
     type: object
   models.UserRes:
@@ -605,7 +582,7 @@ paths:
         name: Admin
         required: true
         schema:
-          $ref: '#/definitions/models.UserCreate'
+          $ref: '#/definitions/models.UserReq'
       produces:
       - application/json
       responses:
@@ -1243,6 +1220,38 @@ paths:
       summary: UPDATE HOTEL
       tags:
       - HOTEL
+  /v1/media/user-photo:
+    post:
+      consumes:
+      - application/json
+      description: Through this api frontent can upload user photo and get the link
+        to the media.
+      parameters:
+      - description: Image
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Error'
+      security:
+      - BearerAuth: []
+      summary: Upload User photo
+      tags:
+      - MEDIA
   /v1/restaurant/create:
     post:
       consumes:
@@ -1519,27 +1528,6 @@ paths:
       summary: LIST REVIEWS BY ESTABLISHMENT_ID
       tags:
       - REVIEW
-  /v1/test:
-    get:
-      consumes:
-      - application/json
-      description: API get user_id
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            type: string
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.StandartError'
-      security:
-      - BearerAuth: []
-      summary: Test
-      tags:
-      - test
   /v1/token/{refresh}:
     get:
       consumes:
@@ -1571,7 +1559,100 @@ paths:
       summary: UPDATE TOKEN
       tags:
       - TOKEN
+  /v1/users:
+    post:
+      consumes:
+      - application/json
+      description: Api for Create
+      parameters:
+      - description: createModel
+        in: body
+        name: User
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: CREATE
+      tags:
+      - USER
+    put:
+      consumes:
+      - application/json
+      description: Api for Update
+      parameters:
+      - description: createModel
+        in: body
+        name: User
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: UPDATE
+      tags:
+      - USER
   /v1/users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Api for Delete
+      parameters:
+      - description: ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.RegisterRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: DELETE
+      tags:
+      - USER
     get:
       consumes:
       - application/json
@@ -1634,48 +1715,23 @@ paths:
       summary: FORGET PASSWORD CODE
       tags:
       - SET-PASSWORD
-  /v1/users/create:
-    post:
+  /v1/users/list:
+    get:
       consumes:
       - application/json
-      description: Api for Create
+      description: Api for ListUsers
       parameters:
-      - description: createModel
-        in: body
-        name: User
-        required: true
-        schema:
-          $ref: '#/definitions/models.UserCreate'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.UserRes'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.StandartError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.StandartError'
-      security:
-      - BearerAuth: []
-      summary: CREATE
-      tags:
-      - USER
-  /v1/users/delete/{id}:
-    delete:
-      consumes:
-      - application/json
-      description: Api for Delete
-      parameters:
-      - description: ID
-        in: query
-        name: id
-        required: true
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: column
+        type: string
+      - in: query
+        name: value
         type: string
       produces:
       - application/json
@@ -1683,7 +1739,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.RegisterRes'
+            $ref: '#/definitions/user.ListUsersRes'
         "400":
           description: Bad Request
           schema:
@@ -1694,7 +1750,7 @@ paths:
             $ref: '#/definitions/models.StandartError'
       security:
       - BearerAuth: []
-      summary: DELETE
+      summary: LIST USERS
       tags:
       - USER
   /v1/users/list/deleted:
@@ -1733,44 +1789,6 @@ paths:
       security:
       - BearerAuth: []
       summary: LIST DELETED USERS
-      tags:
-      - USER
-  /v1/users/list/users:
-    get:
-      consumes:
-      - application/json
-      description: Api for ListUsers
-      parameters:
-      - in: query
-        name: limit
-        type: integer
-      - in: query
-        name: page
-        type: integer
-      - in: query
-        name: column
-        type: string
-      - in: query
-        name: value
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/user.ListUsersRes'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.StandartError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.StandartError'
-      security:
-      - BearerAuth: []
-      summary: LIST USERS
       tags:
       - USER
   /v1/users/login:
@@ -1900,18 +1918,11 @@ paths:
       summary: FORGET PASSWORD
       tags:
       - SET-PASSWORD
-  /v1/users/update:
-    put:
+  /v1/users/token:
+    get:
       consumes:
       - application/json
-      description: Api for Update
-      parameters:
-      - description: createModel
-        in: body
-        name: User
-        required: true
-        schema:
-          $ref: '#/definitions/models.UserReq'
+      description: Api for Get user by token
       produces:
       - application/json
       responses:
@@ -1929,7 +1940,7 @@ paths:
             $ref: '#/definitions/models.StandartError'
       security:
       - BearerAuth: []
-      summary: UPDATE
+      summary: GET BY TOKEN
       tags:
       - USER
   /v1/users/verify:

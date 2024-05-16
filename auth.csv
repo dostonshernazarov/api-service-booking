@@ -2,31 +2,36 @@ p, unauthorized, /v1/swagger/*,  GET
 p, unauthorized, /v1/users/register, POST
 p, unauthorized, /v1/users/verify, GET
 p, unauthorized, /v1/users/login, GET
-p, unauthorized, /v1/users/set/{id}, GET
+p, unauthorized, /v1/users/set/{email}, GET
 p, unauthorized, /v1/users/code, GET
 p, unauthorized, /v1/users/password, PUT
+p, unauthorized, /v1/token/:refresh, GET
 
-p, unauthorized, /v1/attraction/get, GET
 p, unauthorized, /v1/attraction/list, GET
-
-p, unauthorized, /v1/hotel/get, GET
 p, unauthorized, /v1/hotel/list, GET
-
-p, unauthorized, /v1/restaurant/get, GET
 p, unauthorized, /v1/restaurant/list, GET
 
-
 p, user, /v1/users/{id}, GET
-p, user, /v1/users/update, PUT
+p, user, /v1/users, PUT
+p, user, /v1/media/user-photo, POST
 
-p, user, /v1/test, GET
+p, user, /v1/attraction/get, GET
+p, user, /v1/hotel/get, GET
+p, user, /v1/restaurant/get, GET
 
-p, admin, /v1/users/v1/users, POST
-p, admin, /v1/users/list/users, GET
+p, user, /v1/favourite/add, POST
+p, user, /v1/favourite/remove, DELETE
+p, user, /v1/favourite/list, GET
+
+p, user, /v1/review/create, POST
+p, user, /v1/review/delete, DELETE
+p, user, /v1/review/list, GET
+
+p, admin, /v1/users, POST
+p, admin, /v1/users/list, GET
+
 p, admin, /v1/users/list/deleted, GET
-p, admin, /v1/delete/{id}, DELETE
-
-p, admin, /v1/token/:refresh, GET
+p, admin, /v1/users/{id}, DELETE
 
 p, admin, /v1/attraction/create, POST
 p, admin, /v1/attraction/update, PUT
@@ -43,12 +48,11 @@ p, admin, /v1/restaurant/delete, DELETE
 p, sudo, /v1/admins, POST
 p, sudo, /v1/admins/{id}, GET
 p, sudo, /v1/admins/list, GET
+p, sudo, /v1/admins/list/deleted, GET
 p, sudo, /v1/admins, PUT
-p, sudo, /v1/admins, DELETE
+p, sudo, /v1/admins/:id, DELETE
 
 g, admin, user, *
 g, admin, unauthorized, *
 g, sudo, admin, *
-
-
 

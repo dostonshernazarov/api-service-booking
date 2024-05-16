@@ -101,13 +101,10 @@ func NewConfig() (*Config, error) {
 	config.EstablishmentService.Host = getEnv("ESTABLISHMENT_SERVICE_GRPC_HOST", "establishment-service")
 	config.EstablishmentService.Port = getEnv("ESTABLISHMENT_SERVICE_GRPC_PORT", ":50024")
 
-	config.UserService.Host = getEnv("USER_SERVICE_GRPC_HOST", "user-service")
-	config.UserService.Port = getEnv("USER_SERVICE_GRPC_PORT", ":50025")
-
 
 	// user configuration
-	// config.UserService.Host = getEnv("USER_SERVICE_GRPC_HOST", "localhost")
-	// config.UserService.Port = getEnv("USER_SERVICE_GRPC_PORT", ":50025")
+	config.UserService.Host = getEnv("USER_SERVICE_GRPC_HOST", "user-service")
+	config.UserService.Port = getEnv("USER_SERVICE_GRPC_PORT", ":50025")
 
 	// token configuration
 	config.Token.Secret = getEnv("TOKEN_SECRET", "token_secret")

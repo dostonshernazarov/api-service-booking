@@ -9,9 +9,7 @@ import (
 	tokens "Booking/api-service-booking/internal/pkg/token"
 	"Booking/api-service-booking/internal/pkg/utils"
 	valid "Booking/api-service-booking/internal/pkg/validation"
-	// "context"
 	"net/http"
-	// "time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -26,11 +24,11 @@ import (
 // @Tags USER
 // @Accept json
 // @Produce json
-// @Param User body models.UserCreate true "createModel"
+// @Param User body models.UserReq true "createModel"
 // @Success 200 {object} models.UserRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/users/create [post]
+// @Router /v1/users [post]
 func (h *HandlerV1) Create(c *gin.Context) {
 	ctx, span := otlp.Start(c, "api", "CreateUser")
 	span.SetAttributes(
@@ -40,7 +38,7 @@ func (h *HandlerV1) Create(c *gin.Context) {
 	defer span.End()
 	
 	var (
-		body        models.UserCreate
+		body        models.UserReq
 		jsonMarshal protojson.MarshalOptions
 	)
 	jsonMarshal.UseProtoNames = true
@@ -48,7 +46,7 @@ func (h *HandlerV1) Create(c *gin.Context) {
 	err := c.ShouldBindJSON(&body)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
+			"error": "Error binding JSON",
 		})
 		l.Error(err)
 		return
@@ -95,7 +93,6 @@ func (h *HandlerV1) Create(c *gin.Context) {
 		return
 	}
 
-
 	password, err  := etc.HashPassword(body.Password)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -131,7 +128,7 @@ func (h *HandlerV1) Create(c *gin.Context) {
 		Email:                body.Email,
 		Password:             password,
 		DateOfBirth:          body.DateOfBirth,
-		ProfileImg:           body.ProfileImg,
+		ProfileImg:           "",
 		Card:                 body.Card,
 		Gender:               body.Gender,
 		PhoneNumber:          body.PhoneNumber,
@@ -218,7 +215,7 @@ func (h *HandlerV1) Get(c *gin.Context) {
 		Role:         response.User.Role,
 		RefreshToken: response.User.RefreshToken,
 		CreatedAt:    response.User.CreatedAt,
-		UpdatedAt:    response.User.CreatedAt,
+		UpdatedAt:    response.User.UpdatedAt,
 		DeletedAt:    response.User.DeletedAt,
 	})
 }
@@ -235,7 +232,7 @@ func (h *HandlerV1) Get(c *gin.Context) {
 // @Success 200 {object} pbu.ListUsersRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/users/list/users [get]
+// @Router /v1/users/list [get]
 func (h *HandlerV1) ListUsers(c *gin.Context) {
 	ctx, span := otlp.Start(c, "api", "ListUser")
 	span.SetAttributes(
@@ -360,7 +357,7 @@ func (h *HandlerV1) ListDeletedUsers(c *gin.Context) {
 // @Success 200 {object} models.UserRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/users/update [put]
+// @Router /v1/users [put]
 func (h *HandlerV1) Update(c *gin.Context) {
 	ctx, span := otlp.Start(c, "api", "UpdateUser")
 	span.SetAttributes(
@@ -384,16 +381,16 @@ func (h *HandlerV1) Update(c *gin.Context) {
 		return
 	}
 
-	if body.Id == "" {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Went wrong",
-		})
-		h.Logger.Error("Id required:", l.Error(err))
-		return
-	}
+    userID, statusCode := GetIdFromToken(c.Request, h.Config)
+	if statusCode != http.StatusOK {
+		c.JSON(statusCode, gin.H{
+            "error": "Can't get",
+        })
+        return
+    }
 
 	getUser ,err := h.Service.UserService().Get(ctx, &pbu.Filter{
-		Filter:               map[string]string{"id":body.Id},
+		Filter:               map[string]string{"id":userID},
 	})
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -458,10 +455,6 @@ func (h *HandlerV1) Update(c *gin.Context) {
 		body.DateOfBirth = getUser.User.DateOfBirth
 	}
 
-	if body.ProfileImg == "" {
-		body.ProfileImg = getUser.User.ProfileImg
-	}
-
 	if body.Card == "" {
 		body.Card = getUser.User.Card
 	}
@@ -477,12 +470,12 @@ func (h *HandlerV1) Update(c *gin.Context) {
 	
 
 	response, err := h.Service.UserService().Update(ctx, &pbu.User{
-		Id:                   body.Id,
+		Id:                   userID,
 		FullName:             body.FullName,
 		Email:                body.Email,
 		Password:             body.Password,
 		DateOfBirth:          body.DateOfBirth,
-		ProfileImg:           body.ProfileImg,
+		ProfileImg:           "",
 		Card:                 body.Card,
 		Gender:               body.Gender,
 		PhoneNumber:          body.PhoneNumber,
@@ -523,7 +516,7 @@ func (h *HandlerV1) Update(c *gin.Context) {
 // @Success 200 {object} models.RegisterRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/users/delete/{id} [delete]
+// @Router /v1/users/{id} [delete]
 func (h *HandlerV1) Delete(c *gin.Context) {
 	ctx, span := otlp.Start(c, "api", "DeleteUser")
 	span.SetAttributes(
@@ -580,24 +573,65 @@ func (h *HandlerV1) Delete(c *gin.Context) {
 	})
 }
 
+// GET BY TOKEN
+// @Summary GET BY TOKEN
 // @Security BearerAuth
-// @Summary Test
-// @Description API get user_id
-// @Tags test
+// @Description Api for Get user by token
+// @Tags USER
 // @Accept json
 // @Produce json
-// @Success 200 {object} string
+// @Success 200 {object} models.UserRes
 // @Failure 400 {object} models.StandartError
-// @Router /v1/test [GET]
-func (h *HandlerV1) Test(c *gin.Context) {
-	userID, statusCode := GetIdFromToken(c.Request, h.Config)
+// @Failure 500 {object} models.StandartError
+// @Router /v1/users/token [get]
+func (h *HandlerV1) GetByToken(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "GetUser")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+		attribute.Key("host").String(c.Request.Host),
+	)
+	defer span.End()
 
-	if statusCode == 401 {
-		c.JSON(http.StatusBadRequest, models.Error{
-			Message: "Access token expired",
+	var jsonMarshal protojson.MarshalOptions
+	jsonMarshal.UseProtoNames = true
+
+	// println("\n", c.Request.Header.Get("Authorization"), "\n")
+
+
+	userID, statusCode := GetIdFromToken(c.Request, h.Config)
+	if statusCode != http.StatusOK {
+		c.JSON(statusCode, gin.H{
+            "error": "Can't get",
+        })
+        return
+    }
+
+	response, err := h.Service.UserService().Get(
+		ctx, &pbu.Filter{
+			Filter: map[string]string{"id": userID},
 		})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		l.Error(err)
 		return
 	}
 
-	c.JSON(http.StatusOK, userID)
+
+	c.JSON(http.StatusOK, &models.UserRes{
+		Id:           response.User.Id,
+		FullName:     response.User.FullName,
+		Email:        response.User.Email,
+		DateOfBirth:  response.User.DateOfBirth,
+		ProfileImg:   response.User.ProfileImg,
+		Card:         response.User.Card,
+		Gender:       response.User.Gender,
+		PhoneNumber:  response.User.PhoneNumber,
+		Role:         response.User.Role,
+		RefreshToken: response.User.RefreshToken,
+		CreatedAt:    response.User.CreatedAt,
+		UpdatedAt:    response.User.UpdatedAt,
+		DeletedAt:    response.User.DeletedAt,
+	})
 }

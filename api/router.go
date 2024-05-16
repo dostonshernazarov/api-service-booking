@@ -72,17 +72,17 @@ func NewRoute(option RouteOption) *gin.Engine {
 	router.Use(middleware.CheckCasbinPermission(option.Enforcer, *option.Config))
 
 	router.Static("/media", "./media")
-
 	api := router.Group("/v1")
-	apiUser := api.Group("/users")
 
 	// USER METHODS
-	apiUser.POST("/create", HandlerV1.Create)
-	apiUser.GET("/:id", HandlerV1.Get)
-	apiUser.GET("/list/users", HandlerV1.ListUsers)
-	apiUser.GET("/list/deleted", HandlerV1.ListDeletedUsers)
-	apiUser.PUT("/update", HandlerV1.Update)
-	apiUser.DELETE("/delete/:id", HandlerV1.Delete)
+
+	api.POST("/users", HandlerV1.Create)
+	api.GET("/users/:id", HandlerV1.Get)
+	api.GET("/users/list", HandlerV1.ListUsers)
+	api.GET("/users/list/deleted", HandlerV1.ListDeletedUsers)
+	api.PUT("/users", HandlerV1.Update)
+	api.DELETE("/users/:id", HandlerV1.Delete)
+	api.GET("/users/token", HandlerV1.GetByToken)
 
 	// ATTRACTION METHODS
 	api.POST("/attraction/create", HandlerV1.CreateAttraction)
@@ -120,7 +120,7 @@ func NewRoute(option RouteOption) *gin.Engine {
 	api.POST("/users/register", HandlerV1.RegisterUser)
 	api.GET("/users/verify", HandlerV1.Verification)
 	api.GET("/users/login", HandlerV1.Login)
-	api.GET("/users/set/:id", HandlerV1.ForgetPassword)
+	api.GET("/users/set/:email", HandlerV1.ForgetPassword)
 	api.GET("/users/code", HandlerV1.ForgetPasswordVerify)
 	api.PUT("/users/password", HandlerV1.SetNewPassword)
 
@@ -133,8 +133,8 @@ func NewRoute(option RouteOption) *gin.Engine {
 	api.PUT("/admins", HandlerV1.UpdateAdmin)
 	api.DELETE("/admins/:id", HandlerV1.DeleteAdmin)
 
-	// TEST 
-	api.GET("/test", HandlerV1.Test)
+	// MEDIA
+	api.POST("/media/user-photo", HandlerV1.UploadMedia)
 
 
 	url := ginSwagger.URL("swagger/doc.json")
