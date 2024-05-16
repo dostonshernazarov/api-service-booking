@@ -133,7 +133,7 @@ func NewRoute(option RouteOption) *gin.Engine {
 	api.PUT("/admins", HandlerV1.UpdateAdmin)
 	api.DELETE("/admins/:id", HandlerV1.DeleteAdmin)
 
-
+	// MEDIA
 	api.POST("/media/user-photo", HandlerV1.UploadMedia)
 
 

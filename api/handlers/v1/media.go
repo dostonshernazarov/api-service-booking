@@ -30,110 +30,7 @@ import (
 // @Failure     500 {object} models.Error
 // @Router      /v1/media/user-photo [POST]
 func (h *HandlerV1) UploadMedia(c *gin.Context) {
-    // duration, err := time.ParseDuration(h.Config.Context.Timeout)
-    // if err != nil {
-    //     c.JSON(http.StatusServiceUnavailable, models.Error{Message: "Error Timeout"})
-    //     return
-    // }
-    // ctx, cancel := context.WithTimeout(context.Background(), duration)
-    // defer cancel()
-
-    // endpoint := "localhost:9000"
-    // accessKeyID := "minioadmin"
-    // secretAccessKey := "minioadmin"
-    // bucketName := "images"
-    // minioClient, err := minio.New(endpoint, &minio.Options{
-    //     Creds:  credentials.NewStaticV4(accessKeyID, secretAccessKey, ""),
-    //     Secure: false,
-    // })
-    // if err != nil {
-    //     c.JSON(http.StatusTooManyRequests, models.Error{Message: "Error waiting"})
-    //     return
-    // }
-
-    // var file models.File
-    // if err := c.ShouldBind(&file); err != nil {
-    //     c.JSON(http.StatusTooManyRequests, models.Error{Message: "Error binding file"})
-    //     return
-    // }
-
-    // if file.File.Size > 10<<20 {
-    //     c.JSON(http.StatusRequestEntityTooLarge, models.Error{Message: "File size cannot be larger than 10 MB"})
-    //     return
-    // }
-
-    // ext := filepath.Ext(file.File.Filename)
-    // if ext != ".bmp" && ext != ".png" && ext != ".jpg" && ext != ".svg" && ext != ".jpeg" {
-    //     c.JSON(http.StatusUnsupportedMediaType, models.Error{
-    //         Message: "Only .bmp, .jpg and .png format images are accepted",
-    //     })
-    //     return
-    // }
-
-    // uploadDir := "../media"
-    // if _, err := os.Stat(uploadDir); os.IsNotExist(err) {
-    //     os.Mkdir(uploadDir, os.ModePerm)
-    // }
-
-    // userID, statusCode := GetIdFromToken(c.Request, h.Config)
-    // objectName := userID + ext
-    // contentType := "image/png"
-    // filePath := filepath.Join(uploadDir, objectName)
-
-    // if err := c.SaveUploadedFile(file.File, filePath); err != nil {
-    //     c.JSON(http.StatusBadGateway, models.Error{
-    //         Message: "Error saving uploaded file",
-    //     })
-    //     return
-    // }
-    // _, err = minioClient.FPutObject(ctx, bucketName, objectName, filePath, minio.PutObjectOptions{
-    //     ContentType: contentType,
-    // })
-    // if err != nil {
-    //     c.JSON(http.StatusBadRequest, models.Error{
-    //         Message: "Error putting image",
-    //     })
-    //     return
-    // }
-
-    // minioURL := fmt.Sprintf("%s/%s/%s", endpoint, bucketName, objectName)
-
-	// if statusCode == 401 {
-	// 	c.JSON(http.StatusUnauthorized, models.Error{
-	// 		Message: "Log In Again",
-	// 	})
-	// 	return
-	// }
-
-    // user, err := h.Service.UserService().Get(ctx, &user.Filter{
-    //     Filter: map[string]string{
-    //         "id": userID,
-    //     },
-    // })
-    // if err != nil {
-    //     c.JSON(http.StatusInternalServerError, models.Error{
-    //         Message: "Error getting user",
-    //     })
-    //     return
-    // }
-
-    // user.User.ProfileImg = minioURL
-    // user.User, err = h.Service.UserService().Update(ctx, user.User)
-    // if err != nil {
-    //     c.JSON(http.StatusInternalServerError, models.Error{
-    //         Message: "Error updating user",
-    //     })
-    //     return
-    // }
-
-    // c.JSON(http.StatusOK, models.Error{
-    //     Message: minioURL,
-    // })
-
-
-
-
-    duration, err := time.ParseDuration(h.Config.Context.Timeout)
+     duration, err := time.ParseDuration(h.Config.Context.Timeout)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, models.Error{
 			Message: err.Error(),
@@ -270,13 +167,13 @@ func (h *HandlerV1) UploadMedia(c *gin.Context) {
 	}
 
 	minioURL := fmt.Sprintf("http://%s/%s/%s", endpoint, bucketName, objectName)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, models.Error{
-			Message: err.Error(),
-		})
-		log.Println(err)
-		return
-	}
+	// if err != nil {
+	// 	c.JSON(http.StatusInternalServerError, models.Error{
+	// 		Message: err.Error(),
+	// 	})
+	// 	log.Println(err)
+	// 	return
+	// }
 
     user.User.ProfileImg = minioURL
     user.User, err = h.Service.UserService().Update(ctx, user.User)
