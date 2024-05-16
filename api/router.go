@@ -83,6 +83,7 @@ func NewRoute(option RouteOption) *gin.Engine {
 	api.GET("/users/list/deleted", HandlerV1.ListDeletedUsers)
 	api.PUT("/users", HandlerV1.Update)
 	api.DELETE("/users/:id", HandlerV1.Delete)
+	api.GET("/users/token", HandlerV1.GetByToken)
 
 	// ATTRACTION METHODS
 	api.POST("/attraction/create", HandlerV1.CreateAttraction)
