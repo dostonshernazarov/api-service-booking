@@ -72,7 +72,6 @@ func NewRoute(option RouteOption) *gin.Engine {
 	router.Use(middleware.CheckCasbinPermission(option.Enforcer, *option.Config))
 
 	router.Static("/media", "./media")
-
 	api := router.Group("/v1")
 
 	// USER METHODS
@@ -136,6 +135,7 @@ func NewRoute(option RouteOption) *gin.Engine {
 
 
 	api.POST("/media/user-photo", HandlerV1.UploadMedia)
+
 
 	url := ginSwagger.URL("swagger/doc.json")
 	api.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
