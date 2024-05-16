@@ -215,7 +215,7 @@ func (h *HandlerV1) Get(c *gin.Context) {
 		Role:         response.User.Role,
 		RefreshToken: response.User.RefreshToken,
 		CreatedAt:    response.User.CreatedAt,
-		UpdatedAt:    response.User.CreatedAt,
+		UpdatedAt:    response.User.UpdatedAt,
 		DeletedAt:    response.User.DeletedAt,
 	})
 }
@@ -635,4 +635,3 @@ func (h *HandlerV1) GetByToken(c *gin.Context) {
 		DeletedAt:    response.User.DeletedAt,
 	})
 }
-

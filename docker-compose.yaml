@@ -2,7 +2,7 @@ services:
   minio:
     image: docker.io/bitnami/minio:2022
     ports:
-      - '9090:9090'
+      - '9000:9000'
       - '9001:9001'
     networks:
       - minionetwork
