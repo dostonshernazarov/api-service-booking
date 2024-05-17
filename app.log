@@ -1,0 +1,29 @@
+2024-05-16T17:26:09.212+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-16T17:33:02.339+0500	ERROR	v1/register.go:306	error while get user in login	{"error": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 127.0.0.1:50025: connect: connection refused\""}
+Booking/api-service-booking/api/handlers/v1.HandlerV1.Login
+	/home/doston/project/go/src/github/testBooking/api-service-booking/api/handlers/v1/register.go:306
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/doston/project/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-16T17:36:32.270+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-17T14:59:13.315+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-17T15:02:27.673+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-17T15:02:44.513+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-17T15:05:07.570+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-17T15:10:01.356+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-17T15:15:25.118+0500	INFO	app/main.go:41	api gateway service stops

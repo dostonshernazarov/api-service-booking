@@ -532,10 +532,10 @@ definitions:
         type: integer
       users:
         items:
-          $ref: '#/definitions/user.User'
+          $ref: '#/definitions/user.UserList'
         type: array
     type: object
-  user.User:
+  user.UserList:
     properties:
       card:
         type: string
@@ -552,8 +552,6 @@ definitions:
       gender:
         type: string
       id:
-        type: string
-      password:
         type: string
       phone_number:
         type: string
