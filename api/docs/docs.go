@@ -3024,12 +3024,12 @@ const docTemplate = `{
                 "users": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/user.User"
+                        "$ref": "#/definitions/user.UserList"
                     }
                 }
             }
         },
-        "user.User": {
+        "user.UserList": {
             "type": "object",
             "properties": {
                 "card": {
@@ -3054,9 +3054,6 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "id": {
-                    "type": "string"
-                },
-                "password": {
                     "type": "string"
                 },
                 "phone_number": {

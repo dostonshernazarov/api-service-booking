@@ -166,7 +166,7 @@ func (h *HandlerV1) UploadMedia(c *gin.Context) {
 		return
 	}
 
-	minioURL := fmt.Sprintf("http://%s/%s/%s", endpoint, bucketName, objectName)
+	minioURL := fmt.Sprintf("https://%s/%s/%s", endpoint, bucketName, objectName)
 	// if err != nil {
 	// 	c.JSON(http.StatusInternalServerError, models.Error{
 	// 		Message: err.Error(),
