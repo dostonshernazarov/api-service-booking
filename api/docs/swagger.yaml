@@ -28,6 +28,31 @@ definitions:
       website_url:
         type: string
     type: object
+  models.BookingRes:
+    properties:
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      hra_id:
+        type: string
+      id:
+        type: string
+      is_canceled:
+        type: boolean
+      number_of_people:
+        type: integer
+      reason:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: string
+      will_arrive:
+        type: string
+      will_leave:
+        type: string
+    type: object
   models.CreateAttraction:
     properties:
       attraction_name:
@@ -53,6 +78,21 @@ definitions:
         type: number
       website_url:
         default: https://creativecommons.org/licenses/by/4.1/
+        type: string
+    type: object
+  models.CreateBookingReq:
+    properties:
+      hra_id:
+        type: string
+      is_canceled:
+        type: boolean
+      number_of_people:
+        type: integer
+      reason:
+        type: string
+      will_arrive:
+        type: string
+      will_leave:
         type: string
     type: object
   models.CreateHotel:
@@ -171,6 +211,20 @@ definitions:
       user_id:
         type: string
     type: object
+  models.GetAllByHRAIdRes:
+    properties:
+      user_id:
+        items:
+          $ref: '#/definitions/models.UserId'
+        type: array
+    type: object
+  models.GetAllByUIdRes:
+    properties:
+      bookings:
+        items:
+          $ref: '#/definitions/models.BookingRes'
+        type: array
+    type: object
   models.HotelModel:
     properties:
       contact_number:
@@ -212,6 +266,13 @@ definitions:
         type: string
       updated_at:
         type: string
+    type: object
+  models.List:
+    properties:
+      bookings:
+        items:
+          $ref: '#/definitions/models.BookingRes'
+        type: array
     type: object
   models.ListAttractionModel:
     properties:
@@ -385,6 +446,25 @@ definitions:
         default: updated website url
         type: string
     type: object
+  models.UpdateBookingReq:
+    properties:
+      hra_id:
+        type: string
+      id:
+        type: string
+      is_canceled:
+        type: boolean
+      number_of_people:
+        type: integer
+      reason:
+        type: string
+      user_id:
+        type: string
+      will_arrive:
+        type: string
+      will_leave:
+        type: string
+    type: object
   models.UpdateHotel:
     properties:
       contact_number:
@@ -453,6 +533,11 @@ definitions:
         type: string
       website_url:
         default: updated website url
+        type: string
+    type: object
+  models.UserId:
+    properties:
+      id:
         type: string
     type: object
   models.UserReq:
@@ -948,6 +1033,660 @@ paths:
       summary: UPDATE ATTRACTION
       tags:
       - ATTRACTION
+  /v1/booking/attractions:
+    get:
+      consumes:
+      - application/json
+      description: Api for List Attractions
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.List'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: List Attractions
+      tags:
+      - BOOKING_ATTRACTION
+    post:
+      consumes:
+      - application/json
+      description: Api for Create Attraction Booking
+      parameters:
+      - description: createModel
+        in: body
+        name: CreateBookingReq
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateBookingReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.BookingRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: Create Attraction Booking
+      tags:
+      - BOOKING_ATTRACTION
+    put:
+      consumes:
+      - application/json
+      description: Api for Update Booked Attraction
+      parameters:
+      - description: createModel
+        in: body
+        name: models.UpdateBookingReq
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateBookingReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.BookingRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: Update Booked Attraction
+      tags:
+      - BOOKING_ATTRACTION
+  /v1/booking/attractions/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Api for Delete Attraction
+      parameters:
+      - description: ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: Delete Attraction
+      tags:
+      - BOOKING_ATTRACTION
+    get:
+      consumes:
+      - application/json
+      description: Api for Get All Attractions By User Id
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetAllByUIdRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: Get All Attractions By User Id
+      tags:
+      - BOOKING_ATTRACTION
+  /v1/booking/attractions/deleted:
+    get:
+      consumes:
+      - application/json
+      description: Api for List Deleted Attractions
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.List'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: List Deleted Attractions
+      tags:
+      - BOOKING_ATTRACTION
+  /v1/booking/hotels:
+    get:
+      consumes:
+      - application/json
+      description: Api for List Hotels
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.List'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: List Hotels
+      tags:
+      - BOOKING_HOTEL
+    post:
+      consumes:
+      - application/json
+      description: Api for Create Hotel Booking
+      parameters:
+      - description: createModel
+        in: body
+        name: CreateBookingReq
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateBookingReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.BookingRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: Create Hotel Booking
+      tags:
+      - BOOKING_HOTEL
+    put:
+      consumes:
+      - application/json
+      description: Api for Update Booked Hotel
+      parameters:
+      - description: createModel
+        in: body
+        name: models.UpdateBookingReq
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateBookingReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.BookingRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: Update Booked Hotel
+      tags:
+      - BOOKING_HOTEL
+  /v1/booking/hotels/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Api for Delete Hotel
+      parameters:
+      - description: ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: Delete Hotel
+      tags:
+      - BOOKING_HOTEL
+    get:
+      consumes:
+      - application/json
+      description: Api for Get All Hotels By User Id
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetAllByUIdRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: Get All Hotels By User Id
+      tags:
+      - BOOKING_HOTEL
+  /v1/booking/hotels/deleted:
+    get:
+      consumes:
+      - application/json
+      description: Api for List Deleted Hotels
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.List'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: List Deleted Hotels
+      tags:
+      - BOOKING_HOTEL
+  /v1/booking/restaurants:
+    get:
+      consumes:
+      - application/json
+      description: Api for List Restaurants
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.List'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: List Restaurants
+      tags:
+      - BOOKING_RESTAURANT
+    post:
+      consumes:
+      - application/json
+      description: Api for Create Restaurant Booking
+      parameters:
+      - description: createModel
+        in: body
+        name: CreateBookingReq
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateBookingReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.BookingRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: Create Restaurant Booking
+      tags:
+      - BOOKING_RESTAURANT
+    put:
+      consumes:
+      - application/json
+      description: Api for Update Booked Restaurant
+      parameters:
+      - description: createModel
+        in: body
+        name: models.UpdateBookingReq
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateBookingReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.BookingRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: Update Booked Restaurant
+      tags:
+      - BOOKING_RESTAURANT
+  /v1/booking/restaurants/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Api for Delete Restaurant
+      parameters:
+      - description: ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: Delete Restaurant
+      tags:
+      - BOOKING_RESTAURANT
+    get:
+      consumes:
+      - application/json
+      description: Api for Get All Restaurants By User Id
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetAllByUIdRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: Get All Restaurants By User Id
+      tags:
+      - BOOKING_RESTAURANT
+  /v1/booking/restaurants/deleted:
+    get:
+      consumes:
+      - application/json
+      description: Api for List Deleted Restaurants
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.List'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: List Deleted Restaurants
+      tags:
+      - BOOKING_RESTAURANT
+  /v1/booking/users/attraction/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Api for Get All Users By Attraction Id
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetAllByHRAIdRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: Get All Users By Attraction Id
+      tags:
+      - BOOKING_ATTRACTION
+  /v1/booking/users/restaurant/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Api for Get All Users By Restaurant Id
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetAllByHRAIdRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: Get All Users By Restaurant Id
+      tags:
+      - BOOKING_RESTAURANT
+  /v1/booking/users/room/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Api for Get All Users By Room Id
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetAllByHRAIdRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: Get All Users By Room Id
+      tags:
+      - BOOKING_HOTEL
   /v1/favourite/add:
     post:
       consumes:

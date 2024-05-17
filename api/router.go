@@ -136,6 +136,12 @@ func NewRoute(option RouteOption) *gin.Engine {
 	// MEDIA
 	api.POST("/media/user-photo", HandlerV1.UploadMedia)
 
+	// BOOKING HOTEL
+	
+	// BOOKING RESTAURANT
+
+	// BOOKING ATTRACTION
+
 
 	url := ginSwagger.URL("swagger/doc.json")
 	api.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
