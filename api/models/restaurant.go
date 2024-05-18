@@ -30,7 +30,7 @@ type RestaurantModel struct {
 
 type ListRestaurantsModel struct {
 	Restaurants []*RestaurantModel `json:"restaurants"`
-	Overall        uint64        `json:"overall"`
+	Count       uint64             `json:"count"`
 }
 
 type UpdateRestaurant struct {

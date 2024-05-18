@@ -28,7 +28,7 @@ type HotelModel struct {
 
 type ListHotelsModel struct {
 	Hotels []*HotelModel `json:"hotels"`
-	Overall        uint64        `json:"overall"`
+	Count  uint64        `json:"count"`
 }
 
 type UpdateHotel struct {

@@ -16,6 +16,7 @@ import (
 
 // CREATE ATTRACTION
 // @Summary CREATE ATTRACTION
+// @Security BearerAuth
 // @Description Api for creating attraction
 // @Tags ATTRACTION
 // @Accept json
@@ -63,6 +64,7 @@ func (h HandlerV1) CreateAttraction(c *gin.Context) {
 			ImageId:         image_id,
 			EstablishmentId: attraction_id,
 			ImageUrl:        bodyImage.ImageUrl,
+			Category:        "attraction",
 		}
 
 		images = append(images, &image)
@@ -88,6 +90,7 @@ func (h HandlerV1) CreateAttraction(c *gin.Context) {
 			Country:         body.Location.Country,
 			City:            body.Location.City,
 			StateProvince:   body.Location.StateProvince,
+			Category:        "attraction",
 		},
 	})
 	if err != nil {
@@ -141,6 +144,7 @@ func (h HandlerV1) CreateAttraction(c *gin.Context) {
 
 // GET ATTRACTION BY ATTRACTION_ID
 // @Summary GET ATTRACTION BY ATTRACTION_ID
+// @Security BearerAuth
 // @Description Api for getting attraction by attraction_id
 // @Tags ATTRACTION
 // @Accept json
@@ -222,6 +226,7 @@ func (h HandlerV1) GetAttraction(c *gin.Context) {
 
 // LIST ATTRACTIONS BY PAGE AND LIMIT
 // @Summary LIST ATTRACTIONS BY PAGE AND LIMIT
+// @Security BearerAuth
 // @Description Api for listing attractions by page and limit
 // @Tags ATTRACTION
 // @Accept json
@@ -329,7 +334,7 @@ func (h HandlerV1) ListAttractions(c *gin.Context) {
 
 	listModel := models.ListAttractionModel{
 		Attractions: respAttractions,
-		Overall:     response.Overall,
+		Count:       response.Overall,
 	}
 
 	c.JSON(200, listModel)
@@ -337,6 +342,7 @@ func (h HandlerV1) ListAttractions(c *gin.Context) {
 
 // UPDATE ATTRACTION
 // @Summary UPDATE ATTRACTION
+// @Security BearerAuth
 // @Description Api for updating attraction by attraction_id
 // @Tags ATTRACTION
 // @Accept json
@@ -443,6 +449,7 @@ func (h HandlerV1) UpdateAttraction(c *gin.Context) {
 
 // DELETE ATTRACTION BY ATTRACTION_ID
 // @Summary DELETE ATTRACTION BY ATTRACTION_ID
+// @Security BearerAuth
 // @Description Api for deleting attraction by attraction_id
 // @Tags ATTRACTION
 // @Accept json
@@ -495,6 +502,7 @@ func (h HandlerV1) DeleteAttraction(c *gin.Context) {
 
 // LIST ATTRACTIONS BY PAGE, LIMIT, COUNTRY, CITY AND STATE_PROVINCE
 // @Summary LIST ATTRACTIONS BY PAGE, LIMIT, COUNTRY, CITY AND STATE_PROVINCE
+// @Security BearerAuth
 // @Description Api for listing attractions by page, limit, country, city and state_province
 // @Tags ATTRACTION
 // @Accept json
@@ -610,5 +618,10 @@ func (h HandlerV1) ListAttractionsByLocation(c *gin.Context) {
 		respAttractions = append(respAttractions, &attraction)
 	}
 
-	c.JSON(200, respAttractions)
+	respModel := models.ListAttractionModel{
+		Attractions: respAttractions,
+		Count:     uint64(response.Count),
+	}
+
+	c.JSON(200, respModel)
 }
