@@ -27,6 +27,18 @@ p, user, /v1/review/create, POST
 p, user, /v1/review/delete, DELETE
 p, user, /v1/review/list, GET
 
+p, user, /v1/booking/hotels, POST
+p, user, /v1/booking/hotels/{id}, DELETE
+p, user, /v1/booking/hotels, PUT
+
+p, user, /v1/booking/restaurants, POST
+p, user, /v1/booking/restaurants, PUT
+p, user, /v1/booking/restaurants/{id}, DELETE
+
+p, user, /v1/booking/attractions, POST
+p, user, /v1/booking/attractions, PUT
+p, user, /v1/booking/attractions/{id}, DELETE
+
 p, admin, /v1/users, POST
 p, admin, /v1/users/list, GET
 
@@ -44,6 +56,21 @@ p, admin, /v1/hotel/delete, DELETE
 p, admin, /v1/restaurant/create, POST
 p, admin, /v1/restaurant/update, PUT
 p, admin, /v1/restaurant/delete, DELETE
+
+p, admin, /v1/booking/hotels/{id}, GET
+p, admin, /v1/booking/users/room/{id}, GET
+p, admin, /v1/booking/hotels, GET
+p, admin, /v1/booking/hotels/deleted, GET
+
+p, admin, /v1/booking/restaurants/{id}, GET
+p, admin, /v1/booking/users/restaurant/{id}, GET
+p, admin, /v1/booking/restaurants, GET
+p, admin, /v1/booking/restaurants/deleted, GET
+
+p, admin, /v1/booking/attractions/{id}, GET
+p, admin, /v1/booking/users/attraction/{id}, GET
+p, admin, /v1/booking/attractions, GET
+p, admin, /v1/booking/attractions/deleted, GET
 
 p, sudo, /v1/admins, POST
 p, sudo, /v1/admins/{id}, GET
