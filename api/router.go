@@ -137,11 +137,31 @@ func NewRoute(option RouteOption) *gin.Engine {
 	api.POST("/media/user-photo", HandlerV1.UploadMedia)
 
 	// BOOKING HOTEL
+	api.POST("/booking/hotels", HandlerV1.UHBCreate)
+	api.GET("/booking/hotels/:id", HandlerV1.UHBGetAllByUId)
+	api.GET("/booking/users/room/:id", HandlerV1.UHBGetAllByHId)
+	api.GET("/booking/hotels", HandlerV1.UHBList)
+	api.GET("/booking/hotels/deleted", HandlerV1.UHBListDeleted)
+	api.PUT("/booking/hotels", HandlerV1.UHBUpdate)
+	api.DELETE("/booking/hotels/:id", HandlerV1.UHBDelete)
 	
 	// BOOKING RESTAURANT
+	api.POST("/booking/restaurants", HandlerV1.URBCreate)
+	api.GET("/booking/restaurants/:id", HandlerV1.URBGetAllByUId)
+	api.GET("/booking/users/restaurant/:id", HandlerV1.URBGetAllByRId)
+	api.GET("/booking/restaurants", HandlerV1.URBList)
+	api.GET("/booking/restaurants/deleted", HandlerV1.URBListDeleted)
+	api.PUT("/booking/restaurants", HandlerV1.URBUpdate)
+	api.DELETE("/booking/restaurants/:id", HandlerV1.URBDelete)
 
 	// BOOKING ATTRACTION
-
+	api.POST("/booking/attractions", HandlerV1.UABCreate)
+	api.GET("/booking/attractions/:id", HandlerV1.UABGetAllByUId)
+	api.GET("/booking/users/attraction/:id", HandlerV1.UABGetAllByAId)
+	api.GET("/booking/attractions", HandlerV1.UABList)
+	api.GET("/booking/attractions/deleted", HandlerV1.UABListDeleted)
+	api.PUT("/booking/attractions", HandlerV1.UABUpdate)
+	api.DELETE("/booking/attractions/:id", HandlerV1.UABDelete)
 
 	url := ginSwagger.URL("swagger/doc.json")
 	api.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
