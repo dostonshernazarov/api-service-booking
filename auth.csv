@@ -81,7 +81,7 @@ p, sudo, /v1/admins/{id}, GET
 p, sudo, /v1/admins/list, GET
 p, sudo, /v1/admins/list/deleted, GET
 p, sudo, /v1/admins, PUT
-p, sudo, /v1/admins/:id, DELETE
+p, sudo, /v1/admins/{id}, DELETE
 
 g, admin, user, *
 g, admin, unauthorized, *
