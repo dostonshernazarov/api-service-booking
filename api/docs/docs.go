@@ -263,7 +263,110 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/attraction/create": {
+        "/v1/attraction": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Api for getting attraction by attraction_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ATTRACTION"
+                ],
+                "summary": "GET ATTRACTION BY ATTRACTION_ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "attraction_id",
+                        "name": "attraction_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.AttractionModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Api for updating attraction by attraction_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ATTRACTION"
+                ],
+                "summary": "UPDATE ATTRACTION",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "attraction_id",
+                        "name": "attraction_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "description": "UpdatingAttraction",
+                        "name": "UpdatingAttraction",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UpdateAttraction"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.AttractionModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            },
             "post": {
                 "security": [
                     {
@@ -319,9 +422,7 @@ const docTemplate = `{
                         }
                     }
                 }
-            }
-        },
-        "/v1/attraction/delete": {
+            },
             "delete": {
                 "security": [
                     {
@@ -353,55 +454,6 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.DeleteResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/models.StandartError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/models.StandartError"
-                        }
-                    }
-                }
-            }
-        },
-        "/v1/attraction/get": {
-            "get": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
-                "description": "Api for getting attraction by attraction_id",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "ATTRACTION"
-                ],
-                "summary": "GET ATTRACTION BY ATTRACTION_ID",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "attraction_id",
-                        "name": "attraction_id",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.AttractionModel"
                         }
                     },
                     "404": {
@@ -475,7 +527,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/attraction/listbylocation": {
+        "/v1/attraction/listlocation": {
             "get": {
                 "security": [
                     {
@@ -535,64 +587,6 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.ListAttractionModel"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/models.StandartError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/models.StandartError"
-                        }
-                    }
-                }
-            }
-        },
-        "/v1/attraction/update": {
-            "patch": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
-                "description": "Api for updating attraction by attraction_id",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "ATTRACTION"
-                ],
-                "summary": "UPDATE ATTRACTION",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "attraction_id",
-                        "name": "attraction_id",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "description": "UpdatingAttraction",
-                        "name": "UpdatingAttraction",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.UpdateAttraction"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.AttractionModel"
                         }
                     },
                     "404": {
@@ -1805,7 +1799,110 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/hotel/create": {
+        "/v1/hotel": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Api for getting hotel by hotel_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "HOTEL"
+                ],
+                "summary": "GET HOTEL BY HOTEL_ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "hotel_id",
+                        "name": "hotel_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.HotelModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Api for updating hotel by hotel_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "HOTEL"
+                ],
+                "summary": "UPDATE HOTEL",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "hotel_id",
+                        "name": "hotel_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "description": "UpdatingHotel",
+                        "name": "UpdatingHotel",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UpdateHotel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.HotelModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            },
             "post": {
                 "security": [
                     {
@@ -1861,9 +1958,7 @@ const docTemplate = `{
                         }
                     }
                 }
-            }
-        },
-        "/v1/hotel/delete": {
+            },
             "delete": {
                 "security": [
                     {
@@ -1895,55 +1990,6 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.DeleteResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/models.StandartError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/models.StandartError"
-                        }
-                    }
-                }
-            }
-        },
-        "/v1/hotel/get": {
-            "get": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
-                "description": "Api for getting hotel by hotel_id",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HOTEL"
-                ],
-                "summary": "GET HOTEL BY HOTEL_ID",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "hotel_id",
-                        "name": "hotel_id",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.HotelModel"
                         }
                     },
                     "404": {
@@ -2017,14 +2063,14 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/hotel/update": {
-            "patch": {
+        "/v1/hotel/listlocation": {
+            "get": {
                 "security": [
                     {
                         "BearerAuth": []
                     }
                 ],
-                "description": "Api for updating hotel by hotel_id",
+                "description": "Api for listing hotels by page, limit, country, city and state_province",
                 "consumes": [
                     "application/json"
                 ],
@@ -2034,30 +2080,49 @@ const docTemplate = `{
                 "tags": [
                     "HOTEL"
                 ],
-                "summary": "UPDATE HOTEL",
+                "summary": "LIST HOTELS BY PAGE, LIMIT, COUNTRY, CITY AND STATE_PROVINCE",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "hotel_id",
-                        "name": "hotel_id",
+                        "description": "page",
+                        "name": "page",
                         "in": "query",
                         "required": true
                     },
                     {
-                        "description": "UpdatingHotel",
-                        "name": "UpdatingHotel",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.UpdateHotel"
-                        }
+                        "type": "string",
+                        "description": "limit",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "country",
+                        "name": "country",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "city",
+                        "name": "city",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "state_province",
+                        "name": "state_province",
+                        "in": "query",
+                        "required": true
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.HotelModel"
+                            "$ref": "#/definitions/models.ListHotelsModel"
                         }
                     },
                     "404": {
@@ -2124,7 +2189,110 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/restaurant/create": {
+        "/v1/restaurant": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Api for getting restaurant by restaurant_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "RESTAURANT"
+                ],
+                "summary": "GET RESTAURANT BY RESTAURANT_ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "restaurant_id",
+                        "name": "restaurant_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.RestaurantModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Api for updating restaurant by restaurant_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "RESTAURANT"
+                ],
+                "summary": "UPDATE RESTAURANT",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "restaurant_id",
+                        "name": "restaurant_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "description": "UpdatingRestaurant",
+                        "name": "UpdatingRestaurant",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UpdateRestaurant"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.RestaurantModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            },
             "post": {
                 "security": [
                     {
@@ -2180,9 +2348,7 @@ const docTemplate = `{
                         }
                     }
                 }
-            }
-        },
-        "/v1/restaurant/delete": {
+            },
             "delete": {
                 "security": [
                     {
@@ -2214,55 +2380,6 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.DeleteResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/models.StandartError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/models.StandartError"
-                        }
-                    }
-                }
-            }
-        },
-        "/v1/restaurant/get": {
-            "get": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
-                "description": "Api for getting restaurant by restaurant_id",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "RESTAURANT"
-                ],
-                "summary": "GET RESTAURANT BY RESTAURANT_ID",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "restaurant_id",
-                        "name": "restaurant_id",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.RestaurantModel"
                         }
                     },
                     "404": {
@@ -2336,14 +2453,14 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/restaurant/update": {
-            "patch": {
+        "/v1/restaurant/listlocation": {
+            "get": {
                 "security": [
                     {
                         "BearerAuth": []
                     }
                 ],
-                "description": "Api for updating restaurant by restaurant_id",
+                "description": "Api for listing restaurants by page, limit, country, city and state_province",
                 "consumes": [
                     "application/json"
                 ],
@@ -2353,30 +2470,49 @@ const docTemplate = `{
                 "tags": [
                     "RESTAURANT"
                 ],
-                "summary": "UPDATE RESTAURANT",
+                "summary": "LIST RESTAURANTS BY PAGE, LIMIT, COUNTRY, CITY AND STATE_PROVINCE",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "restaurant_id",
-                        "name": "restaurant_id",
+                        "description": "page",
+                        "name": "page",
                         "in": "query",
                         "required": true
                     },
                     {
-                        "description": "UpdatingRestaurant",
-                        "name": "UpdatingRestaurant",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.UpdateRestaurant"
-                        }
+                        "type": "string",
+                        "description": "limit",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "country",
+                        "name": "country",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "city",
+                        "name": "city",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "state_province",
+                        "name": "state_province",
+                        "in": "query",
+                        "required": true
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.RestaurantModel"
+                            "$ref": "#/definitions/models.ListRestaurantsModel"
                         }
                     },
                     "404": {
@@ -3692,7 +3828,7 @@ const docTemplate = `{
                         "$ref": "#/definitions/models.AttractionModel"
                     }
                 },
-                "overall": {
+                "count": {
                     "type": "integer"
                 }
             }
@@ -3711,21 +3847,21 @@ const docTemplate = `{
         "models.ListHotelsModel": {
             "type": "object",
             "properties": {
+                "count": {
+                    "type": "integer"
+                },
                 "hotels": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/models.HotelModel"
                     }
-                },
-                "overall": {
-                    "type": "integer"
                 }
             }
         },
         "models.ListRestaurantsModel": {
             "type": "object",
             "properties": {
-                "overall": {
+                "count": {
                     "type": "integer"
                 },
                 "restaurants": {

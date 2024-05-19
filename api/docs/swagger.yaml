@@ -280,7 +280,7 @@ definitions:
         items:
           $ref: '#/definitions/models.AttractionModel'
         type: array
-      overall:
+      count:
         type: integer
     type: object
   models.ListFavouritesModel:
@@ -292,16 +292,16 @@ definitions:
     type: object
   models.ListHotelsModel:
     properties:
+      count:
+        type: integer
       hotels:
         items:
           $ref: '#/definitions/models.HotelModel'
         type: array
-      overall:
-        type: integer
     type: object
   models.ListRestaurantsModel:
     properties:
-      overall:
+      count:
         type: integer
       restaurants:
         items:
@@ -810,7 +810,67 @@ paths:
       summary: LIST ADMINS
       tags:
       - ADMIN
-  /v1/attraction/create:
+  /v1/attraction:
+    delete:
+      consumes:
+      - application/json
+      description: Api for deleting attraction by attraction_id
+      parameters:
+      - description: attraction_id
+        in: query
+        name: attraction_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DeleteResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: DELETE ATTRACTION BY ATTRACTION_ID
+      tags:
+      - ATTRACTION
+    get:
+      consumes:
+      - application/json
+      description: Api for getting attraction by attraction_id
+      parameters:
+      - description: attraction_id
+        in: query
+        name: attraction_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AttractionModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: GET ATTRACTION BY ATTRACTION_ID
+      tags:
+      - ATTRACTION
     post:
       consumes:
       - application/json
@@ -847,48 +907,22 @@ paths:
       summary: CREATE ATTRACTION
       tags:
       - ATTRACTION
-  /v1/attraction/delete:
-    delete:
+    put:
       consumes:
       - application/json
-      description: Api for deleting attraction by attraction_id
+      description: Api for updating attraction by attraction_id
       parameters:
       - description: attraction_id
         in: query
         name: attraction_id
         required: true
         type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.DeleteResponse'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/models.StandartError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.StandartError'
-      security:
-      - BearerAuth: []
-      summary: DELETE ATTRACTION BY ATTRACTION_ID
-      tags:
-      - ATTRACTION
-  /v1/attraction/get:
-    get:
-      consumes:
-      - application/json
-      description: Api for getting attraction by attraction_id
-      parameters:
-      - description: attraction_id
-        in: query
-        name: attraction_id
+      - description: UpdatingAttraction
+        in: body
+        name: UpdatingAttraction
         required: true
-        type: string
+        schema:
+          $ref: '#/definitions/models.UpdateAttraction'
       produces:
       - application/json
       responses:
@@ -906,7 +940,7 @@ paths:
             $ref: '#/definitions/models.StandartError'
       security:
       - BearerAuth: []
-      summary: GET ATTRACTION BY ATTRACTION_ID
+      summary: UPDATE ATTRACTION
       tags:
       - ATTRACTION
   /v1/attraction/list:
@@ -945,7 +979,7 @@ paths:
       summary: LIST ATTRACTIONS BY PAGE AND LIMIT
       tags:
       - ATTRACTION
-  /v1/attraction/listbylocation:
+  /v1/attraction/listlocation:
     get:
       consumes:
       - application/json
@@ -994,43 +1028,6 @@ paths:
       security:
       - BearerAuth: []
       summary: LIST ATTRACTIONS BY PAGE, LIMIT, COUNTRY, CITY AND STATE_PROVINCE
-      tags:
-      - ATTRACTION
-  /v1/attraction/update:
-    patch:
-      consumes:
-      - application/json
-      description: Api for updating attraction by attraction_id
-      parameters:
-      - description: attraction_id
-        in: query
-        name: attraction_id
-        required: true
-        type: string
-      - description: UpdatingAttraction
-        in: body
-        name: UpdatingAttraction
-        required: true
-        schema:
-          $ref: '#/definitions/models.UpdateAttraction'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.AttractionModel'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/models.StandartError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.StandartError'
-      security:
-      - BearerAuth: []
-      summary: UPDATE ATTRACTION
       tags:
       - ATTRACTION
   /v1/booking/attractions:
@@ -1785,7 +1782,67 @@ paths:
       summary: REMOVE FROM FAVOURITES BY FAVOURITE_ID
       tags:
       - FAVOURITE
-  /v1/hotel/create:
+  /v1/hotel:
+    delete:
+      consumes:
+      - application/json
+      description: Api for deleting hotel by hotel_id
+      parameters:
+      - description: hotel_id
+        in: query
+        name: hotel_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DeleteResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: DELETE HOTEL BY HOTEL_ID
+      tags:
+      - HOTEL
+    get:
+      consumes:
+      - application/json
+      description: Api for getting hotel by hotel_id
+      parameters:
+      - description: hotel_id
+        in: query
+        name: hotel_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.HotelModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: GET HOTEL BY HOTEL_ID
+      tags:
+      - HOTEL
     post:
       consumes:
       - application/json
@@ -1822,48 +1879,22 @@ paths:
       summary: CREATE HOTEL
       tags:
       - HOTEL
-  /v1/hotel/delete:
-    delete:
+    put:
       consumes:
       - application/json
-      description: Api for deleting hotel by hotel_id
+      description: Api for updating hotel by hotel_id
       parameters:
       - description: hotel_id
         in: query
         name: hotel_id
         required: true
         type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.DeleteResponse'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/models.StandartError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.StandartError'
-      security:
-      - BearerAuth: []
-      summary: DELETE HOTEL BY HOTEL_ID
-      tags:
-      - HOTEL
-  /v1/hotel/get:
-    get:
-      consumes:
-      - application/json
-      description: Api for getting hotel by hotel_id
-      parameters:
-      - description: hotel_id
-        in: query
-        name: hotel_id
+      - description: UpdatingHotel
+        in: body
+        name: UpdatingHotel
         required: true
-        type: string
+        schema:
+          $ref: '#/definitions/models.UpdateHotel'
       produces:
       - application/json
       responses:
@@ -1881,7 +1912,7 @@ paths:
             $ref: '#/definitions/models.StandartError'
       security:
       - BearerAuth: []
-      summary: GET HOTEL BY HOTEL_ID
+      summary: UPDATE HOTEL
       tags:
       - HOTEL
   /v1/hotel/list:
@@ -1920,30 +1951,44 @@ paths:
       summary: LIST HOTELS BY PAGE AND LIMIT
       tags:
       - HOTEL
-  /v1/hotel/update:
-    patch:
+  /v1/hotel/listlocation:
+    get:
       consumes:
       - application/json
-      description: Api for updating hotel by hotel_id
+      description: Api for listing hotels by page, limit, country, city and state_province
       parameters:
-      - description: hotel_id
+      - description: page
         in: query
-        name: hotel_id
+        name: page
         required: true
         type: string
-      - description: UpdatingHotel
-        in: body
-        name: UpdatingHotel
+      - description: limit
+        in: query
+        name: limit
         required: true
-        schema:
-          $ref: '#/definitions/models.UpdateHotel'
+        type: string
+      - description: country
+        in: query
+        name: country
+        required: true
+        type: string
+      - description: city
+        in: query
+        name: city
+        required: true
+        type: string
+      - description: state_province
+        in: query
+        name: state_province
+        required: true
+        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.HotelModel'
+            $ref: '#/definitions/models.ListHotelsModel'
         "404":
           description: Not Found
           schema:
@@ -1954,7 +1999,7 @@ paths:
             $ref: '#/definitions/models.StandartError'
       security:
       - BearerAuth: []
-      summary: UPDATE HOTEL
+      summary: LIST HOTELS BY PAGE, LIMIT, COUNTRY, CITY AND STATE_PROVINCE
       tags:
       - HOTEL
   /v1/media/user-photo:
@@ -1989,7 +2034,67 @@ paths:
       summary: Upload User photo
       tags:
       - MEDIA
-  /v1/restaurant/create:
+  /v1/restaurant:
+    delete:
+      consumes:
+      - application/json
+      description: Api for deleting restaurant by restaurant_id
+      parameters:
+      - description: restaurant_id
+        in: query
+        name: restaurant_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DeleteResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: DELETE RESTAURANT BY RESTAURANT_ID
+      tags:
+      - RESTAURANT
+    get:
+      consumes:
+      - application/json
+      description: Api for getting restaurant by restaurant_id
+      parameters:
+      - description: restaurant_id
+        in: query
+        name: restaurant_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.RestaurantModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: GET RESTAURANT BY RESTAURANT_ID
+      tags:
+      - RESTAURANT
     post:
       consumes:
       - application/json
@@ -2026,48 +2131,22 @@ paths:
       summary: CREATE RESTAURANT
       tags:
       - RESTAURANT
-  /v1/restaurant/delete:
-    delete:
+    put:
       consumes:
       - application/json
-      description: Api for deleting restaurant by restaurant_id
+      description: Api for updating restaurant by restaurant_id
       parameters:
       - description: restaurant_id
         in: query
         name: restaurant_id
         required: true
         type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.DeleteResponse'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/models.StandartError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.StandartError'
-      security:
-      - BearerAuth: []
-      summary: DELETE RESTAURANT BY RESTAURANT_ID
-      tags:
-      - RESTAURANT
-  /v1/restaurant/get:
-    get:
-      consumes:
-      - application/json
-      description: Api for getting restaurant by restaurant_id
-      parameters:
-      - description: restaurant_id
-        in: query
-        name: restaurant_id
+      - description: UpdatingRestaurant
+        in: body
+        name: UpdatingRestaurant
         required: true
-        type: string
+        schema:
+          $ref: '#/definitions/models.UpdateRestaurant'
       produces:
       - application/json
       responses:
@@ -2085,7 +2164,7 @@ paths:
             $ref: '#/definitions/models.StandartError'
       security:
       - BearerAuth: []
-      summary: GET RESTAURANT BY RESTAURANT_ID
+      summary: UPDATE RESTAURANT
       tags:
       - RESTAURANT
   /v1/restaurant/list:
@@ -2124,30 +2203,44 @@ paths:
       summary: LIST RESTAURANTS BY PAGE AND LIMIT
       tags:
       - RESTAURANT
-  /v1/restaurant/update:
-    patch:
+  /v1/restaurant/listlocation:
+    get:
       consumes:
       - application/json
-      description: Api for updating restaurant by restaurant_id
+      description: Api for listing restaurants by page, limit, country, city and state_province
       parameters:
-      - description: restaurant_id
+      - description: page
         in: query
-        name: restaurant_id
+        name: page
         required: true
         type: string
-      - description: UpdatingRestaurant
-        in: body
-        name: UpdatingRestaurant
+      - description: limit
+        in: query
+        name: limit
         required: true
-        schema:
-          $ref: '#/definitions/models.UpdateRestaurant'
+        type: string
+      - description: country
+        in: query
+        name: country
+        required: true
+        type: string
+      - description: city
+        in: query
+        name: city
+        required: true
+        type: string
+      - description: state_province
+        in: query
+        name: state_province
+        required: true
+        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.RestaurantModel'
+            $ref: '#/definitions/models.ListRestaurantsModel'
         "404":
           description: Not Found
           schema:
@@ -2158,7 +2251,7 @@ paths:
             $ref: '#/definitions/models.StandartError'
       security:
       - BearerAuth: []
-      summary: UPDATE RESTAURANT
+      summary: LIST RESTAURANTS BY PAGE, LIMIT, COUNTRY, CITY AND STATE_PROVINCE
       tags:
       - RESTAURANT
   /v1/review/create:
