@@ -103,7 +103,7 @@ type LocationModel struct {
 
 type ListAttractionModel struct {
 	Attractions []*AttractionModel `json:"attractions"`
-	Overall     uint64        `json:"overall"`
+	Count       uint64             `json:"count"`
 }
 
 type UpdateAttraction struct {

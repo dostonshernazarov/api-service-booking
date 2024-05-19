@@ -26,7 +26,7 @@ import (
 // @Success 200 {object} models.HotelModel
 // @Failure 404 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/hotel/create [POST]
+// @Router /v1/hotel [POST]
 func (h HandlerV1) CreateHotel(c *gin.Context) {
 	var (
 		body        models.CreateHotel
@@ -64,6 +64,7 @@ func (h HandlerV1) CreateHotel(c *gin.Context) {
 			ImageId:         image_id,
 			EstablishmentId: hotel_id,
 			ImageUrl:        bodyImage.ImageUrl,
+			Category:        "hotel",
 		}
 
 		images = append(images, &image)
@@ -89,6 +90,7 @@ func (h HandlerV1) CreateHotel(c *gin.Context) {
 			Country:         body.Location.Country,
 			City:            body.Location.City,
 			StateProvince:   body.Location.StateProvince,
+			Category:        "hotel",
 		},
 	})
 	if err != nil {
@@ -151,7 +153,7 @@ func (h HandlerV1) CreateHotel(c *gin.Context) {
 // @Success 200 {object} models.HotelModel
 // @Failure 404 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/hotel/get [GET]
+// @Router /v1/hotel [GET]
 func (h HandlerV1) GetHotel(c *gin.Context) {
 	var (
 		jspbMarshal protojson.MarshalOptions
@@ -332,7 +334,7 @@ func (h HandlerV1) ListHotels(c *gin.Context) {
 
 	listModel := models.ListHotelsModel{
 		Hotels:  respHotels,
-		Overall: response.Overall,
+		Count: response.Overall,
 	}
 
 	c.JSON(200, listModel)
@@ -350,7 +352,7 @@ func (h HandlerV1) ListHotels(c *gin.Context) {
 // @Success 200 {object} models.HotelModel
 // @Failure 404 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/hotel/update [PATCH]
+// @Router /v1/hotel [PUT]
 func (h HandlerV1) UpdateHotel(c *gin.Context) {
 	var (
 		body        models.CreateHotel
@@ -456,7 +458,7 @@ func (h HandlerV1) UpdateHotel(c *gin.Context) {
 // @Success 200 {object} models.DeleteResponse
 // @Failure 404 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/hotel/delete [DELETE]
+// @Router /v1/hotel [DELETE]
 func (h HandlerV1) DeleteHotel(c *gin.Context) {
 	var (
 		jspbMarshal protojson.MarshalOptions
@@ -496,4 +498,130 @@ func (h HandlerV1) DeleteHotel(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"message": "successfuly deleted",
 	})
+}
+
+// LIST HOTELS BY PAGE, LIMIT, COUNTRY, CITY AND STATE_PROVINCE
+// @Summary LIST HOTELS BY PAGE, LIMIT, COUNTRY, CITY AND STATE_PROVINCE
+// @Security BearerAuth
+// @Description Api for listing hotels by page, limit, country, city and state_province
+// @Tags HOTEL
+// @Accept json
+// @Produce json
+// @Param page query string true "page"
+// @Param limit query string true "limit"
+// @Param country query string true "country"
+// @Param city query string true "city"
+// @Param state_province query string true "state_province"
+// @Success 200 {object} models.ListHotelsModel
+// @Failure 404 {object} models.StandartError
+// @Failure 500 {object} models.StandartError
+// @Router /v1/hotel/listlocation [GET]
+func (h HandlerV1) ListHotelsByLocation(c *gin.Context) {
+	var (
+		jspbMarshal protojson.MarshalOptions
+	)
+
+	jspbMarshal.UseProtoNames = true
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+	defer cancel()
+
+	ctx, span := otlp.Start(ctx, "api", "ListHotels")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+
+	page := c.Query("page")
+	pageInt, err := strconv.Atoi(page)
+	if err != nil {
+		c.JSON(404, gin.H{
+			"error": err.Error(),
+		})
+		h.Logger.Error(err.Error())
+		return
+	}
+
+	limit := c.Query("limit")
+	limitInt, err := strconv.Atoi(limit)
+	if err != nil {
+		c.JSON(404, gin.H{
+			"error": err.Error(),
+		})
+		h.Logger.Error(err.Error())
+		return
+	}
+
+	offset := (pageInt - 1) * limitInt
+
+	country := c.Query("country")
+	city := c.Query("city")
+	state_province := c.Query("state_province")
+
+	response, err := h.Service.EstablishmentService().ListHotelsByLocation(ctx, &pbe.ListHotelsByLocationRequest{
+		Offset:        uint64(offset),
+		Limit:         uint64(limitInt),
+		Country:       country,
+		City:          city,
+		StateProvince: state_province,
+	})
+	if err != nil {
+		c.JSON(500, gin.H{
+			"error": err.Error(),
+		})
+		h.Logger.Error(err.Error())
+		return
+	}
+
+	var respHotels []*models.HotelModel
+
+	for _, respHotel := range response.Hotels {
+
+		var respImages []*models.ImageModel
+
+		for _, respImage := range respHotel.Images {
+			image := models.ImageModel{
+				ImageId:         respImage.ImageId,
+				EstablishmentId: respImage.EstablishmentId,
+				ImageUrl:        respImage.ImageUrl,
+				CreatedAt:       respImage.CreatedAt,
+				UpdatedAt:       respImage.UpdatedAt,
+			}
+			respImages = append(respImages, &image)
+		}
+
+		hotel := models.HotelModel{
+			HotelId:       respHotel.HotelId,
+			OwnerId:       respHotel.OwnerId,
+			HotelName:     respHotel.HotelName,
+			Description:   respHotel.Description,
+			Rating:        respHotel.Rating,
+			ContactNumber: respHotel.ContactNumber,
+			LicenceUrl:    respHotel.LicenceUrl,
+			WebsiteUrl:    respHotel.WebsiteUrl,
+			Images:        respImages,
+			Location: models.LocationModel{
+				LocationId:      respHotel.Location.LocationId,
+				EstablishmentId: respHotel.Location.EstablishmentId,
+				Address:         respHotel.Location.Address,
+				Latitude:        float64(respHotel.Location.Latitude),
+				Longitude:       float64(respHotel.Location.Longitude),
+				Country:         respHotel.Location.Country,
+				City:            respHotel.Location.City,
+				StateProvince:   respHotel.Location.StateProvince,
+				CreatedAt:       respHotel.Location.CreatedAt,
+				UpdatedAt:       respHotel.Location.UpdatedAt,
+			},
+			CreatedAt: respHotel.CreatedAt,
+			UpdatedAt: respHotel.UpdatedAt,
+		}
+
+		respHotels = append(respHotels, &hotel)
+	}
+
+	respModel := models.ListHotelsModel{
+		Hotels:  respHotels,
+		Count: uint64(response.Count),
+	}
+
+	c.JSON(200, respModel)
 }

@@ -85,26 +85,28 @@ func NewRoute(option RouteOption) *gin.Engine {
 	api.GET("/users/token", HandlerV1.GetByToken)
 
 	// ATTRACTION METHODS
-	api.POST("/attraction/create", HandlerV1.CreateAttraction)
-	api.GET("/attraction/get", HandlerV1.GetAttraction)
+	api.POST("/attraction", HandlerV1.CreateAttraction)
+	api.GET("/attraction", HandlerV1.GetAttraction)
 	api.GET("/attraction/list", HandlerV1.ListAttractions)
-	api.PATCH("/attraction/update", HandlerV1.UpdateAttraction)
-	api.DELETE("/attraction/delete", HandlerV1.DeleteAttraction)
-	api.GET("/attraction/listbylocation", HandlerV1.ListAttractionsByLocation)
+	api.PUT("/attraction", HandlerV1.UpdateAttraction)
+	api.DELETE("/attraction", HandlerV1.DeleteAttraction)
+	api.GET("/attraction/listlocation", HandlerV1.ListAttractionsByLocation)
 
 	// HOTEL METHODS
-	api.POST("/hotel/create", HandlerV1.CreateHotel)
-	api.GET("/hotel/get", HandlerV1.GetHotel)
+	api.POST("/hotel", HandlerV1.CreateHotel)
+	api.GET("/hotel", HandlerV1.GetHotel)
 	api.GET("/hotel/list", HandlerV1.ListHotels)
-	api.PATCH("/hotel/update", HandlerV1.UpdateHotel)
-	api.DELETE("/hotel/delete", HandlerV1.DeleteHotel)
+	api.PUT("/hotel", HandlerV1.UpdateHotel)
+	api.DELETE("/hotel", HandlerV1.DeleteHotel)
+	api.GET("/hotel/listlocation", HandlerV1.ListHotelsByLocation)
 
 	// RESTAURANT METHODS
-	api.POST("/restaurant/create", HandlerV1.CreateRestaurant)
-	api.GET("/restaurant/get", HandlerV1.GetRestaurant)
+	api.POST("/restaurant", HandlerV1.CreateRestaurant)
+	api.GET("/restaurant", HandlerV1.GetRestaurant)
 	api.GET("/restaurant/list", HandlerV1.ListRestaurants)
-	api.PATCH("/restaurant/update", HandlerV1.UpdateRestaurant)
-	api.DELETE("/restaurant/delete", HandlerV1.DeleteRestaurant)
+	api.PUT("/restaurant", HandlerV1.UpdateRestaurant)
+	api.DELETE("/restaurant", HandlerV1.DeleteRestaurant)
+	api.GET("/restaurant/listlocation", HandlerV1.ListRestaurantsByLocation)
 
 	// FAVOURITE METHODS
 	api.POST("/favourite/add", HandlerV1.AddToFavourites)
