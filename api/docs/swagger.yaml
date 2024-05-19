@@ -219,7 +219,7 @@ definitions:
         items:
           $ref: '#/definitions/models.AttractionModel'
         type: array
-      overall:
+      count:
         type: integer
     type: object
   models.ListFavouritesModel:
@@ -231,16 +231,16 @@ definitions:
     type: object
   models.ListHotelsModel:
     properties:
+      count:
+        type: integer
       hotels:
         items:
           $ref: '#/definitions/models.HotelModel'
         type: array
-      overall:
-        type: integer
     type: object
   models.ListRestaurantsModel:
     properties:
-      overall:
+      count:
         type: integer
       restaurants:
         items:
@@ -877,7 +877,6 @@ paths:
       - description: state_province
         in: query
         name: state_province
-        required: true
         type: string
       produces:
       - application/json
@@ -1192,7 +1191,6 @@ paths:
       - description: state_province
         in: query
         name: state_province
-        required: true
         type: string
       produces:
       - application/json
@@ -1415,7 +1413,6 @@ paths:
       - description: state_province
         in: query
         name: state_province
-        required: true
         type: string
       produces:
       - application/json

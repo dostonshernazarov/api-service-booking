@@ -526,8 +526,7 @@ const docTemplate = `{
                         "type": "string",
                         "description": "state_province",
                         "name": "state_province",
-                        "in": "query",
-                        "required": true
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -1012,8 +1011,7 @@ const docTemplate = `{
                         "type": "string",
                         "description": "state_province",
                         "name": "state_province",
-                        "in": "query",
-                        "required": true
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -1359,8 +1357,7 @@ const docTemplate = `{
                         "type": "string",
                         "description": "state_province",
                         "name": "state_province",
-                        "in": "query",
-                        "required": true
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -2596,7 +2593,7 @@ const docTemplate = `{
                         "$ref": "#/definitions/models.AttractionModel"
                     }
                 },
-                "overall": {
+                "count": {
                     "type": "integer"
                 }
             }
@@ -2615,21 +2612,21 @@ const docTemplate = `{
         "models.ListHotelsModel": {
             "type": "object",
             "properties": {
+                "count": {
+                    "type": "integer"
+                },
                 "hotels": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/models.HotelModel"
                     }
-                },
-                "overall": {
-                    "type": "integer"
                 }
             }
         },
         "models.ListRestaurantsModel": {
             "type": "object",
             "properties": {
-                "overall": {
+                "count": {
                     "type": "integer"
                 },
                 "restaurants": {

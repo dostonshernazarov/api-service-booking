@@ -511,7 +511,7 @@ func (h HandlerV1) DeleteHotel(c *gin.Context) {
 // @Param limit query string true "limit"
 // @Param country query string true "country"
 // @Param city query string true "city"
-// @Param state_province query string true "state_province"
+// @Param state_province query string false "state_province"
 // @Success 200 {object} models.ListHotelsModel
 // @Failure 404 {object} models.StandartError
 // @Failure 500 {object} models.StandartError

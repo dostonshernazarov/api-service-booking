@@ -8,3 +8,9 @@
 2024-05-17T19:45:01.709+0500	INFO	app/main.go:41	api gateway service stops
 2024-05-17T19:49:08.643+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
 2024-05-17T19:49:54.120+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-20T00:58:53.537+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-20T00:58:58.851+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-20T00:59:34.644+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-20T01:00:09.394+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-20T01:01:04.730+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-20T01:01:54.731+0500	INFO	app/main.go:41	api gateway service stops
