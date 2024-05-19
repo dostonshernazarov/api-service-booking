@@ -11,13 +11,17 @@ p, unauthorized, /v1/attraction/list, GET
 p, unauthorized, /v1/hotel/list, GET
 p, unauthorized, /v1/restaurant/list, GET
 
+p, unauthorized, /v1/hotel/listlocation, GET
+p, unauthorized, /v1/attraction/listlocation, GET
+p, unauthorized, /v1/restaurant/listlocation, GET
+
 p, user, /v1/users/{id}, GET
 p, user, /v1/users, PUT
 p, user, /v1/media/user-photo, POST
 
-p, user, /v1/attraction/get, GET
-p, user, /v1/hotel/get, GET
-p, user, /v1/restaurant/get, GET
+p, user, /v1/attraction, GET
+p, user, /v1/hotel, GET
+p, user, /v1/restaurant, GET
 
 p, user, /v1/favourite/add, POST
 p, user, /v1/favourite/remove, DELETE
@@ -45,17 +49,17 @@ p, admin, /v1/users/list, GET
 p, admin, /v1/users/list/deleted, GET
 p, admin, /v1/users/{id}, DELETE
 
-p, admin, /v1/attraction/create, POST
-p, admin, /v1/attraction/update, PUT
-p, admin, /v1/attraction/delete, DELETE
+p, admin, /v1/attraction, POST
+p, admin, /v1/attraction, PUT
+p, admin, /v1/attraction, DELETE
 
-p, admin, /v1/hotel/create, POST
-p, admin, /v1/hotel/update, PUT
-p, admin, /v1/hotel/delete, DELETE
+p, admin, /v1/hotel, POST
+p, admin, /v1/hotel, PUT
+p, admin, /v1/hotel, DELETE
 
-p, admin, /v1/restaurant/create, POST
-p, admin, /v1/restaurant/update, PUT
-p, admin, /v1/restaurant/delete, DELETE
+p, admin, /v1/restaurant, POST
+p, admin, /v1/restaurant, PUT
+p, admin, /v1/restaurant, DELETE
 
 p, admin, /v1/booking/hotels/{id}, GET
 p, admin, /v1/booking/users/room/{id}, GET

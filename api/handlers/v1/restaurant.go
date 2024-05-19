@@ -26,7 +26,7 @@ import (
 // @Success 200 {object} models.RestaurantModel
 // @Failure 404 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/restaurant/create [POST]
+// @Router /v1/restaurant [POST]
 func (h HandlerV1) CreateRestaurant(c *gin.Context) {
 	var (
 		body        models.CreateRestaurant
@@ -64,6 +64,7 @@ func (h HandlerV1) CreateRestaurant(c *gin.Context) {
 			ImageId:         image_id,
 			EstablishmentId: restaurant_id,
 			ImageUrl:        bodyImage.ImageUrl,
+			Category:        "restaurant",
 		}
 
 		images = append(images, &image)
@@ -90,6 +91,7 @@ func (h HandlerV1) CreateRestaurant(c *gin.Context) {
 			Country:         body.Location.Country,
 			City:            body.Location.City,
 			StateProvince:   body.Location.StateProvince,
+			Category:        "restaurant",
 		},
 	})
 	if err != nil {
@@ -153,7 +155,7 @@ func (h HandlerV1) CreateRestaurant(c *gin.Context) {
 // @Success 200 {object} models.RestaurantModel
 // @Failure 404 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/restaurant/get [GET]
+// @Router /v1/restaurant [GET]
 func (h HandlerV1) GetRestaurant(c *gin.Context) {
 	var (
 		jspbMarshal protojson.MarshalOptions
@@ -336,7 +338,7 @@ func (h HandlerV1) ListRestaurants(c *gin.Context) {
 
 	listModel := models.ListRestaurantsModel{
 		Restaurants: respRestaurants,
-		Overall:     response.Overall,
+		Count:     response.Overall,
 	}
 
 	c.JSON(200, listModel)
@@ -354,7 +356,7 @@ func (h HandlerV1) ListRestaurants(c *gin.Context) {
 // @Success 200 {object} models.RestaurantModel
 // @Failure 404 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/restaurant/update [PATCH]
+// @Router /v1/restaurant [PUT]
 func (h HandlerV1) UpdateRestaurant(c *gin.Context) {
 	var (
 		body        models.CreateRestaurant
@@ -462,7 +464,7 @@ func (h HandlerV1) UpdateRestaurant(c *gin.Context) {
 // @Success 200 {object} models.DeleteResponse
 // @Failure 404 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/restaurant/delete [DELETE]
+// @Router /v1/restaurant [DELETE]
 func (h HandlerV1) DeleteRestaurant(c *gin.Context) {
 	var (
 		jspbMarshal protojson.MarshalOptions
@@ -502,4 +504,131 @@ func (h HandlerV1) DeleteRestaurant(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"message": "successfuly deleted",
 	})
+}
+
+// LIST RESTAURANTS BY PAGE, LIMIT, COUNTRY, CITY AND STATE_PROVINCE
+// @Summary LIST RESTAURANTS BY PAGE, LIMIT, COUNTRY, CITY AND STATE_PROVINCE
+// @Security BearerAuth
+// @Description Api for listing restaurants by page, limit, country, city and state_province
+// @Tags RESTAURANT
+// @Accept json
+// @Produce json
+// @Param page query string true "page"
+// @Param limit query string true "limit"
+// @Param country query string true "country"
+// @Param city query string true "city"
+// @Param state_province query string true "state_province"
+// @Success 200 {object} models.ListRestaurantsModel
+// @Failure 404 {object} models.StandartError
+// @Failure 500 {object} models.StandartError
+// @Router /v1/restaurant/listlocation [GET]
+func (h HandlerV1) ListRestaurantsByLocation(c *gin.Context) {
+	var (
+		jspbMarshal protojson.MarshalOptions
+	)
+
+	jspbMarshal.UseProtoNames = true
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+	defer cancel()
+
+	ctx, span := otlp.Start(ctx, "api", "ListRestaurants")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+
+	page := c.Query("page")
+	pageInt, err := strconv.Atoi(page)
+	if err != nil {
+		c.JSON(404, gin.H{
+			"error": err.Error(),
+		})
+		h.Logger.Error(err.Error())
+		return
+	}
+
+	limit := c.Query("limit")
+	limitInt, err := strconv.Atoi(limit)
+	if err != nil {
+		c.JSON(404, gin.H{
+			"error": err.Error(),
+		})
+		h.Logger.Error(err.Error())
+		return
+	}
+
+	offset := (pageInt - 1) * limitInt
+
+	country := c.Query("country")
+	city := c.Query("city")
+	state_province := c.Query("state_province")
+
+	response, err := h.Service.EstablishmentService().ListRestaurantsByLocation(ctx, &pbe.ListRestaurantsByLocationRequest{
+		Offset:        uint64(offset),
+		Limit:         uint64(limitInt),
+		Country:       country,
+		City:          city,
+		StateProvince: state_province,
+	})
+	if err != nil {
+		c.JSON(500, gin.H{
+			"error": err.Error(),
+		})
+		h.Logger.Error(err.Error())
+		return
+	}
+
+	var respRestaurants []*models.RestaurantModel
+
+	for _, respRestaurant := range response.Restaurants {
+
+		var respImages []*models.ImageModel
+
+		for _, respImage := range respRestaurant.Images {
+			image := models.ImageModel{
+				ImageId:         respImage.ImageId,
+				EstablishmentId: respImage.EstablishmentId,
+				ImageUrl:        respImage.ImageUrl,
+				CreatedAt:       respImage.CreatedAt,
+				UpdatedAt:       respImage.UpdatedAt,
+			}
+			respImages = append(respImages, &image)
+		}
+
+		restaurant := models.RestaurantModel{
+			RestaurantId:   respRestaurant.RestaurantId,
+			OwnerId:        respRestaurant.OwnerId,
+			RestaurantName: respRestaurant.RestaurantName,
+			Description:    respRestaurant.Description,
+			Rating:         respRestaurant.Rating,
+			OpeningHours:   respRestaurant.OpeningHours,
+			ContactNumber:  respRestaurant.ContactNumber,
+			LicenceUrl:     respRestaurant.LicenceUrl,
+			WebsiteUrl:     respRestaurant.WebsiteUrl,
+			Images:         respImages,
+			Location: models.LocationModel{
+				LocationId:      respRestaurant.Location.LocationId,
+				EstablishmentId: respRestaurant.Location.EstablishmentId,
+				Address:         respRestaurant.Location.Address,
+				Latitude:        float64(respRestaurant.Location.Latitude),
+				Longitude:       float64(respRestaurant.Location.Longitude),
+				Country:         respRestaurant.Location.Country,
+				City:            respRestaurant.Location.City,
+				StateProvince:   respRestaurant.Location.StateProvince,
+				CreatedAt:       respRestaurant.Location.CreatedAt,
+				UpdatedAt:       respRestaurant.Location.UpdatedAt,
+			},
+			CreatedAt: respRestaurant.CreatedAt,
+			UpdatedAt: respRestaurant.UpdatedAt,
+		}
+
+		respRestaurants = append(respRestaurants, &restaurant)
+	}
+
+	respModel := models.ListRestaurantsModel{
+		Restaurants: respRestaurants,
+		Count:     uint64(response.Count),
+	}
+
+	c.JSON(200, respModel)
 }

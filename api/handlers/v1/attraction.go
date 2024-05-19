@@ -26,7 +26,7 @@ import (
 // @Success 200 {object} models.AttractionModel
 // @Failure 404 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/attraction/create [POST]
+// @Router /v1/attraction [POST]
 func (h HandlerV1) CreateAttraction(c *gin.Context) {
 	var (
 		body        models.CreateAttraction
@@ -64,6 +64,7 @@ func (h HandlerV1) CreateAttraction(c *gin.Context) {
 			ImageId:         image_id,
 			EstablishmentId: attraction_id,
 			ImageUrl:        bodyImage.ImageUrl,
+			Category:        "attraction",
 		}
 
 		images = append(images, &image)
@@ -89,6 +90,7 @@ func (h HandlerV1) CreateAttraction(c *gin.Context) {
 			Country:         body.Location.Country,
 			City:            body.Location.City,
 			StateProvince:   body.Location.StateProvince,
+			Category:        "attraction",
 		},
 	})
 	if err != nil {
@@ -151,7 +153,7 @@ func (h HandlerV1) CreateAttraction(c *gin.Context) {
 // @Success 200 {object} models.AttractionModel
 // @Failure 404 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/attraction/get [GET]
+// @Router /v1/attraction [GET]
 func (h HandlerV1) GetAttraction(c *gin.Context) {
 	var (
 		jspbMarshal protojson.MarshalOptions
@@ -332,7 +334,7 @@ func (h HandlerV1) ListAttractions(c *gin.Context) {
 
 	listModel := models.ListAttractionModel{
 		Attractions: respAttractions,
-		Overall:     response.Overall,
+		Count:       response.Overall,
 	}
 
 	c.JSON(200, listModel)
@@ -350,7 +352,7 @@ func (h HandlerV1) ListAttractions(c *gin.Context) {
 // @Success 200 {object} models.AttractionModel
 // @Failure 404 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/attraction/update [PATCH]
+// @Router /v1/attraction [PUT]
 func (h HandlerV1) UpdateAttraction(c *gin.Context) {
 	var (
 		body        models.Attraction
@@ -456,7 +458,7 @@ func (h HandlerV1) UpdateAttraction(c *gin.Context) {
 // @Success 200 {object} models.DeleteResponse
 // @Failure 404 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/attraction/delete [DELETE]
+// @Router /v1/attraction [DELETE]
 func (h HandlerV1) DeleteAttraction(c *gin.Context) {
 	var (
 		jspbMarshal protojson.MarshalOptions
@@ -513,7 +515,7 @@ func (h HandlerV1) DeleteAttraction(c *gin.Context) {
 // @Success 200 {object} models.ListAttractionModel
 // @Failure 404 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/attraction/listbylocation [GET]
+// @Router /v1/attraction/listlocation [GET]
 func (h HandlerV1) ListAttractionsByLocation(c *gin.Context) {
 	var (
 		jspbMarshal protojson.MarshalOptions
@@ -616,5 +618,10 @@ func (h HandlerV1) ListAttractionsByLocation(c *gin.Context) {
 		respAttractions = append(respAttractions, &attraction)
 	}
 
-	c.JSON(200, respAttractions)
+	respModel := models.ListAttractionModel{
+		Attractions: respAttractions,
+		Count:     uint64(response.Count),
+	}
+
+	c.JSON(200, respModel)
 }
