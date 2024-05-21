@@ -10,8 +10,8 @@ import (
 	rediswatcher "github.com/casbin/redis-watcher/v2"
 	"go.uber.org/zap"
 
-	"Booking/api_establishment_booking/internal/pkg/config"
-	"Booking/api_establishment_booking/internal/pkg/postgres"
+	"Booking/api-service-booking/internal/pkg/config"
+	"Booking/api-service-booking/internal/pkg/postgres"
 )
 
 func NewCachedEnforcer(cfg *config.Config, logger *zap.Logger) (*casbin.CachedEnforcer, error) {

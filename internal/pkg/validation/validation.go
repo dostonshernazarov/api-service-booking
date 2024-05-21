@@ -5,13 +5,14 @@ import (
 	"reflect"
 	"regexp"
 	"strings"
+	"unicode"
 
 	english "github.com/go-playground/locales/en"
 	ut "github.com/go-playground/universal-translator"
 	"github.com/go-playground/validator/v10"
 	validatorEn "github.com/go-playground/validator/v10/translations/en"
 
-	errorpkg "Booking/api_establishment_booking/internal/errors"
+	errorpkg "Booking/api-service-booking/internal/errors"
 )
 
 func Validator(s interface{}) error {
@@ -76,4 +77,32 @@ func (v *customValidation) PhoneUz(fl validator.FieldLevel) bool {
 		return false
 	}
 	return isMatch
+}
+
+func IsValidEmail(email string) bool {
+	// Regular expression for basic email validation
+	emailRegex := `^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`
+	match, _ := regexp.MatchString(emailRegex, email)
+	return match
+}
+
+func IsValidPassword(password string) bool {
+	// Check password length
+	if len(password) < 8 {
+		return false
+	}
+
+	hasLetter := false
+	hasDigit := false
+
+	// Check if password contains at least one letter and one digit
+	for _, char := range password {
+		if unicode.IsLetter(char) {
+			hasLetter = true
+		} else if unicode.IsDigit(char) {
+			hasDigit = true
+		}
+	}
+
+	return hasLetter && hasDigit
 }

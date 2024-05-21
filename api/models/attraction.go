@@ -100,3 +100,37 @@ type LocationModel struct {
 	CreatedAt       string  `json:"created_at"`
 	UpdatedAt       string  `json:"updated_at"`
 }
+
+type ListAttractionModel struct {
+	Attractions []*AttractionModel `json:"attractions"`
+	Count       uint64             `json:"count"`
+}
+
+type UpdateAttraction struct {
+	AttractionName string         `json:"attraction_name" default:"updated attraction name"`
+	Description    string         `json:"description" default:"updated description"`
+	Rating         float64        `json:"rating" default:"5.0"`
+	ContactNumber  string         `json:"contact_number" default:"updated contact number"`
+	LicenceUrl     string         `json:"licence_url" default:"updated licence url"`
+	WebsiteUrl     string         `json:"website_url" default:"updated website url"`
+	Location       UpdateLocation `json:"location"`
+}
+
+type UpdateLocation struct {
+	Address       string  `json:"address" default:"updated address"`
+	Latitude      float64 `json:"latitude" default:"1.1"`
+	Longitude     float64 `json:"longitude" default:"1.1"`
+	Country       string  `json:"country" default:"updated country"`
+	City          string  `json:"city" default:"updated city"`
+	StateProvince string  `json:"state_province" default:"updated state or province"`
+}
+
+type DeleteResponse struct {
+	Success bool `json:"success"`
+}
+
+type FieldValuesByLocation struct {
+	Country string `json:"country"`
+	City string `json:"city"`
+	Province string `json:"province"`
+}

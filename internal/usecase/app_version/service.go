@@ -4,9 +4,9 @@ import (
 	"context"
 	"time"
 
-	"Booking/api_establishment_booking/internal/entity"
-	"Booking/api_establishment_booking/internal/infrastructure/repository/postgresql/repo"
-	// "Booking/api_establishment_booking/internal/pkg/otlp"
+	"Booking/api-service-booking/internal/entity"
+	"Booking/api-service-booking/internal/infrastructure/repository/postgresql/repo"
+	// "Booking/api-service-booking/internal/pkg/otlp"
 )
 
 type appVersionService struct {

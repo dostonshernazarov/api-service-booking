@@ -1,7 +1,7 @@
 package event
 
 import (
-	"Booking/api_establishment_booking/api/models"
+	"Booking/api-service-booking/api/models"
 	"context"
 )
 
@@ -23,6 +23,6 @@ type BrokerConsumer interface {
 }
 
 type BrokerProducer interface {
-	ProduceUserToCreate(ctx context.Context, key string, value *models.Attraction) error
+	ProduceUserToCreate(ctx context.Context, key string, value *models.UserRes) error
 	Close()
 }

@@ -8,8 +8,8 @@ import (
 
 	"go.uber.org/zap"
 
-	"Booking/api_establishment_booking/internal/app"
-	configpkg "Booking/api_establishment_booking/internal/pkg/config"
+	"Booking/api-service-booking/internal/app"
+	configpkg "Booking/api-service-booking/internal/pkg/config"
 )
 
 func main() {

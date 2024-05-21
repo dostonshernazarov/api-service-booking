@@ -6,25 +6,29 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/casbin/casbin/util"
+	"github.com/casbin/casbin/v2"
 	"go.uber.org/zap"
 
-	"Booking/api_establishment_booking/api"
-	grpcService "Booking/api_establishment_booking/internal/infrastructure/grpc_service_client"
+	"Booking/api-service-booking/api"
+	grpcService "Booking/api-service-booking/internal/infrastructure/grpc_service_client"
 
-	// "Booking/api_establishment_booking/internal/infrastructure/kafka"
-	"Booking/api_establishment_booking/internal/infrastructure/repository/postgresql"
-	"Booking/api_establishment_booking/internal/pkg/config"
-	"Booking/api_establishment_booking/internal/pkg/logger"
-	"Booking/api_establishment_booking/internal/pkg/otlp"
+	defaultrolemanager "github.com/casbin/casbin/v2/rbac/default-role-manager"
 
-	// "Booking/api_establishment_booking/internal/pkg/otlp"
+	// "Booking/api-service-booking/internal/infrastructure/kafka"
+	"Booking/api-service-booking/internal/infrastructure/repository/postgresql"
+	"Booking/api-service-booking/internal/pkg/config"
+	"Booking/api-service-booking/internal/pkg/logger"
+	"Booking/api-service-booking/internal/pkg/otlp"
 
-	"Booking/api_establishment_booking/internal/pkg/postgres"
-	"Booking/api_establishment_booking/internal/pkg/redis"
-	"Booking/api_establishment_booking/internal/usecase/app_version"
-	"Booking/api_establishment_booking/internal/usecase/event"
-	"Booking/api_establishment_booking/internal/usecase/refresh_token"
-	// "Booking/api_establishment_booking/internal/usecase/refresh_token"
+	// "Booking/api-service-booking/internal/pkg/otlp"
+
+	"Booking/api-service-booking/internal/pkg/postgres"
+	"Booking/api-service-booking/internal/pkg/redis"
+	"Booking/api-service-booking/internal/usecase/app_version"
+	"Booking/api-service-booking/internal/usecase/event"
+	// "Booking/api-service-booking/internal/usecase/refresh_token"
+	// "Booking/api-service-booking/internal/usecase/refresh_token"
 )
 
 type App struct {
@@ -33,7 +37,7 @@ type App struct {
 	DB      *postgres.PostgresDB
 	RedisDB *redis.RedisDB
 	server  *http.Server
-	// Enforcer       *casbin.CachedEnforcer
+	Enforcer       *casbin.Enforcer
 	Clients        grpcService.ServiceClient
 	ShutdownOTLP   func() error
 	BrokerProducer event.BrokerProducer
@@ -69,10 +73,10 @@ func NewApp(cfg config.Config) (*App, error) {
 	}
 
 	// initialization enforcer
-	// enforcer, err := policy.NewCachedEnforcer(&cfg, logger)
-	// if err != nil {
-	// 	return nil, err
-	// }
+	enforcer, err := casbin.NewEnforcer("auth.conf", "auth.csv")
+	if err != nil {
+		return nil, err
+	}
 
 	// enforcer.SetCache(policy.NewCache(&redisdb.Client))
 
@@ -95,7 +99,7 @@ func NewApp(cfg config.Config) (*App, error) {
 		Logger:  logger,
 		DB:      db,
 		RedisDB: redisdb,
-		// Enforcer:       enforcer,
+		Enforcer:       enforcer,
 		// BrokerProducer: kafkaProducer,
 		ShutdownOTLP: shutdownOTLP,
 		appVersion:   appVersionUseCase,
@@ -117,10 +121,10 @@ func (a *App) Run() error {
 	// initialize cache
 	// cache := redisrepo.NewCache(a.RedisDB)
 
-	tokenRepo := postgresql.NewRefreshTokenRepo(a.DB)
+	// tokenRepo := postgresql.NewRefreshTokenRepo(a.DB)
 
 	// initialize token service
-	refreshTokenService := refresh_token.NewRefreshTokenService(contextTimeout, tokenRepo)
+	// refreshTokenService := refresh_token.NewRefreshTokenService(contextTimeout, tokenRepo)
 
 	// api init
 	handler := api.NewRoute(api.RouteOption{
@@ -128,15 +132,19 @@ func (a *App) Run() error {
 		Logger:         a.Logger,
 		ContextTimeout: contextTimeout,
 		// Cache:          cache,
-		// Enforcer:       a.Enforcer,
-		RefreshToken:   refreshTokenService,
+		Enforcer:       a.Enforcer,
 		Service:        clients,
 		BrokerProducer: a.BrokerProducer,
 		AppVersion:     a.appVersion,
 	})
-	// if err = a.Enforcer.LoadPolicy(); err != nil {
-	// 	return fmt.Errorf("error during enforcer load policy: %w", err)
-	// }
+	err = a.Enforcer.LoadPolicy()
+	if err != nil {
+		return err
+	}
+	roleManager := a.Enforcer.GetRoleManager().(*defaultrolemanager.RoleManagerImpl)
+
+	roleManager.AddMatchingFunc("keyMatch", util.KeyMatch)
+	roleManager.AddMatchingFunc("keyMatch3", util.KeyMatch3)
 
 	// server init
 	a.server, err = api.NewServer(a.Config, handler)
