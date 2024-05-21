@@ -137,6 +137,7 @@ func NewRoute(option RouteOption) *gin.Engine {
 
 	// MEDIA
 	api.POST("/media/user-photo", HandlerV1.UploadMedia)
+	api.POST("/media/establishment/:id", HandlerV1.CreateEstablishmentMedia)
 
 	// BOOKING HOTEL
 	api.POST("/booking/hotels", HandlerV1.UHBCreate)

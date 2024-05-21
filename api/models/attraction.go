@@ -128,3 +128,9 @@ type UpdateLocation struct {
 type DeleteResponse struct {
 	Success bool `json:"success"`
 }
+
+type FieldValuesByLocation struct {
+	Country string `json:"country"`
+	City string `json:"city"`
+	Province string `json:"province"`
+}

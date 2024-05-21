@@ -43,6 +43,8 @@ p, user, /v1/booking/attractions, POST
 p, user, /v1/booking/attractions, PUT
 p, user, /v1/booking/attractions/{id}, DELETE
 
+p, admin, /v1/media/establishment/{id}, POST
+
 p, admin, /v1/users, POST
 p, admin, /v1/users/list, GET
 

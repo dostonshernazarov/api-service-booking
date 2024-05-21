@@ -509,13 +509,11 @@ func (h HandlerV1) DeleteAttraction(c *gin.Context) {
 // @Produce json
 // @Param page query string true "page"
 // @Param limit query string true "limit"
-// @Param country query string true "country"
-// @Param city query string true "city"
-// @Param state_province query string true "state_province"
+// @Param request query models.FieldValuesByLocation true "request"
 // @Success 200 {object} models.ListAttractionModel
 // @Failure 404 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/attraction/listlocation [GET]
+// @Router /v1/attraction/listlocation [GET]  
 func (h HandlerV1) ListAttractionsByLocation(c *gin.Context) {
 	var (
 		jspbMarshal protojson.MarshalOptions
@@ -555,7 +553,7 @@ func (h HandlerV1) ListAttractionsByLocation(c *gin.Context) {
 
 	country := c.Query("country")
 	city := c.Query("city")
-	state_province := c.Query("state_province")
+	state_province := c.Query("province")
 
 	response, err := h.Service.EstablishmentService().ListAttractionsByLocation(ctx, &pbe.ListAttractionsByLocationRequest{
 		Offset:        uint64(offset),

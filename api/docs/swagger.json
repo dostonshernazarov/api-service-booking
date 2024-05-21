@@ -553,24 +553,18 @@
                     },
                     {
                         "type": "string",
-                        "description": "country",
-                        "name": "country",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "city",
                         "name": "city",
-                        "in": "query",
-                        "required": true
+                        "in": "query"
                     },
                     {
                         "type": "string",
-                        "description": "state_province",
-                        "name": "state_province",
-                        "in": "query",
-                        "required": true
+                        "name": "country",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "province",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -2089,24 +2083,18 @@
                     },
                     {
                         "type": "string",
-                        "description": "country",
-                        "name": "country",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "city",
                         "name": "city",
-                        "in": "query",
-                        "required": true
+                        "in": "query"
                     },
                     {
                         "type": "string",
-                        "description": "state_province",
-                        "name": "state_province",
-                        "in": "query",
-                        "required": true
+                        "name": "country",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "province",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -2126,6 +2114,62 @@
                         "description": "Internal Server Error",
                         "schema": {
                             "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/media/establishment/{id}": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Through this api frontent can upload establishment photo and get the link to the media.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "MEDIA"
+                ],
+                "summary": "Upload Establishment photo",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "Image",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Establishment_ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.EstablishmentImageRespons"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.Error"
                         }
                     }
                 }
@@ -2479,24 +2523,18 @@
                     },
                     {
                         "type": "string",
-                        "description": "country",
-                        "name": "country",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "city",
                         "name": "city",
-                        "in": "query",
-                        "required": true
+                        "in": "query"
                     },
                     {
                         "type": "string",
-                        "description": "state_province",
-                        "name": "state_province",
-                        "in": "query",
-                        "required": true
+                        "name": "country",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "province",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -3688,6 +3726,17 @@
         "models.Error": {
             "type": "object",
             "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.EstablishmentImageRespons": {
+            "type": "object",
+            "properties": {
+                "image_url": {
+                    "type": "string"
+                },
                 "message": {
                     "type": "string"
                 }
