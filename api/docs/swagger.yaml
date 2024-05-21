@@ -198,6 +198,13 @@ definitions:
       message:
         type: string
     type: object
+  models.EstablishmentImageRespons:
+    properties:
+      image_url:
+        type: string
+      message:
+        type: string
+    type: object
   models.FavouriteModel:
     properties:
       created_at:
@@ -995,20 +1002,14 @@ paths:
         name: limit
         required: true
         type: string
-      - description: country
-        in: query
-        name: country
-        required: true
-        type: string
-      - description: city
-        in: query
+      - in: query
         name: city
-        required: true
         type: string
-      - description: state_province
-        in: query
-        name: state_province
-        required: true
+      - in: query
+        name: country
+        type: string
+      - in: query
+        name: province
         type: string
       produces:
       - application/json
@@ -1967,20 +1968,14 @@ paths:
         name: limit
         required: true
         type: string
-      - description: country
-        in: query
-        name: country
-        required: true
-        type: string
-      - description: city
-        in: query
+      - in: query
         name: city
-        required: true
         type: string
-      - description: state_province
-        in: query
-        name: state_province
-        required: true
+      - in: query
+        name: country
+        type: string
+      - in: query
+        name: province
         type: string
       produces:
       - application/json
@@ -2002,6 +1997,43 @@ paths:
       summary: LIST HOTELS BY PAGE, LIMIT, COUNTRY, CITY AND STATE_PROVINCE
       tags:
       - HOTEL
+  /v1/media/establishment/{id}:
+    post:
+      consumes:
+      - application/json
+      description: Through this api frontent can upload establishment photo and get
+        the link to the media.
+      parameters:
+      - description: Image
+        in: formData
+        name: file
+        required: true
+        type: file
+      - description: Establishment_ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.EstablishmentImageRespons'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Error'
+      security:
+      - BearerAuth: []
+      summary: Upload Establishment photo
+      tags:
+      - MEDIA
   /v1/media/user-photo:
     post:
       consumes:
@@ -2219,20 +2251,14 @@ paths:
         name: limit
         required: true
         type: string
-      - description: country
-        in: query
-        name: country
-        required: true
-        type: string
-      - description: city
-        in: query
+      - in: query
         name: city
-        required: true
         type: string
-      - description: state_province
-        in: query
-        name: state_province
-        required: true
+      - in: query
+        name: country
+        type: string
+      - in: query
+        name: province
         type: string
       produces:
       - application/json

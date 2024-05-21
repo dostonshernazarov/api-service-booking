@@ -27,5 +27,10 @@ type (
 		Images []*Media `json:"images,omitempty"`
 	}
 
+	EstablishmentImageRespons struct {
+		ImageURL string `json:"image_url"`
+		Message string `json:"message"`
+	}
+
 )
 

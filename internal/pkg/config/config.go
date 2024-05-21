@@ -75,7 +75,7 @@ func NewConfig() (*Config, error) {
 	config.APP = getEnv("APP", "app")
 	config.Environment = getEnv("ENVIRONMENT", "develop")
 	config.LogLevel = getEnv("LOG_LEVEL", "debug")
-	config.Context.Timeout = getEnv("CONTEXT_TIMEOUT", "30s")
+	config.Context.Timeout = getEnv("CONTEXT_TIMEOUT", "7s")
 
 	// server configuration
 	config.Server.Host = getEnv("SERVER_HOST", "api-service")
