@@ -125,6 +125,7 @@ func NewRoute(option RouteOption) *gin.Engine {
 	api.GET("/users/set/:email", HandlerV1.ForgetPassword)
 	api.GET("/users/code", HandlerV1.ForgetPasswordVerify)
 	api.PUT("/users/password", HandlerV1.SetNewPassword)
+	api.GET("/admins/login", HandlerV1.LoginAdmin)
 
 	api.GET("/token/:refresh", HandlerV1.UpdateToken)
 

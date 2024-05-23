@@ -9,6 +9,7 @@ import (
 	scode "Booking/api-service-booking/internal/pkg/sendcode"
 	tokens "Booking/api-service-booking/internal/pkg/token"
 	val "Booking/api-service-booking/internal/pkg/validation"
+	"errors"
 
 	// "context"
 	"encoding/json"
@@ -307,6 +308,109 @@ func (h HandlerV1) Login(c *gin.Context) {
 		return
 	}
 
+	// println("\n\n", user.User.Email, "\n\n")
+
+	if !etc.CheckPasswordHash(password, user.User.Password) {
+		c.JSON(http.StatusConflict, gin.H{
+			"message": "Incorrect email or password",
+		})
+		return
+	}
+
+	h.JwtHandler = tokens.JwtHandler{
+		Sub:       user.User.Id,
+		Role:      user.User.Role,
+		SigninKey: h.Config.Token.SignInKey,
+		Log:       h.Logger,
+		Timeout:   int(h.Config.Token.AccessTTL),
+	}
+
+	access, refresh, err := h.JwtHandler.GenerateJwt()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Went wrong",
+		})
+		h.Logger.Error("error while generate JWT in login", l.Error(err))
+		return
+	}
+
+	_, err = h.Service.UserService().Update(ctx, &pbu.User{
+		Id:           user.User.Id,
+		FullName:     user.User.FullName,
+		Email:        user.User.Email,
+		Password:     user.User.Password,
+		DateOfBirth:  user.User.DateOfBirth,
+		ProfileImg:   user.User.ProfileImg,
+		Card:         user.User.Card,
+		Gender:       user.User.Gender,
+		PhoneNumber:  user.User.PhoneNumber,
+		Role:         user.User.Role,
+		RefreshToken: refresh,
+	})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Went wrong",
+		})
+		h.Logger.Error("error while update user in login", l.Error(err))
+		return
+	}
+
+	c.JSON(http.StatusOK, &models.UserResCreate{
+		Id:           user.User.Id,
+		FullName:     user.User.FullName,
+		Email:        user.User.Email,
+		DateOfBirth:  user.User.DateOfBirth,
+		ProfileImg:   user.User.ProfileImg,
+		Card:         user.User.Card,
+		Gender:       user.User.Gender,
+		PhoneNumber:  user.User.PhoneNumber,
+		Role:         user.User.Role,
+		AccessToken:  access,
+		RefreshToken: refresh,
+	})
+}
+
+// LOGIN ADMIN...
+// @Security BearerAuth
+// @Router /v1/admins/login [GET]
+// @Summary LOGIN
+// @Description Api for login admin
+// @Tags LOGIN
+// @Accept json
+// @Produce json
+// @Param request query models.Login true "request"
+// @Success 200 {object} models.UserResCreate
+// @Failure 400 {object} models.StandartError
+// @Failure 500 {object} models.StandartError
+func (h HandlerV1) LoginAdmin(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "Login")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+		attribute.Key("host").String(c.Request.Host),
+	)
+	defer span.End()
+
+	email := c.Query("email")
+	password := c.Query("password")
+
+	user, err := h.Service.UserService().Get(ctx, &pbu.Filter{
+		Filter: map[string]string{"email": email},
+	})
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Incorrect email or password",
+		})
+		h.Logger.Error("error while get user in login", l.Error(err))
+		return
+	}
+
+	if user.User.Role != "admin" || user.User.Role != "sudo" {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Permission denied",
+		})
+		h.Logger.Error("Role not admin", l.Error(errors.New("Permission denied")))
+		return
+	}
 	// println("\n\n", user.User.Email, "\n\n")
 
 	if !etc.CheckPasswordHash(password, user.User.Password) {
