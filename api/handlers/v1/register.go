@@ -404,7 +404,7 @@ func (h HandlerV1) LoginAdmin(c *gin.Context) {
 		return
 	}
 
-	if user.User.Role != "admin" {
+	if user.User.Role != "admin" || user.User.Role != "sudo" {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "Permission denied",
 		})
