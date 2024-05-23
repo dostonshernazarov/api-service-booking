@@ -109,7 +109,7 @@ func NewConfig() (*Config, error) {
 
 
 	// booking configuration
-	config.BookingService.Host = getEnv("BOOKING_SERVICE_GRPC_HOST", "booking-service")
+	config.BookingService.Host = getEnv("BOOKING_SERVICE_GRPC_HOST", "booking-service`")
 	config.BookingService.Port = getEnv("BOOKING_SERVICE_GRPC_PORT", ":50023")
 
 	// token configuration

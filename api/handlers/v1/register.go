@@ -204,7 +204,7 @@ func (h HandlerV1) Verification(c *gin.Context) {
 
 	id, err := uuid.NewUUID()
 	if err != nil {
-		c.JSON(http.StatusConflict, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "error while generating uuid",
 		})
 		h.Logger.Error("Error generate new uuid", l.Error(err))
@@ -221,7 +221,7 @@ func (h HandlerV1) Verification(c *gin.Context) {
 
 	access, refresh, err := h.JwtHandler.GenerateJwt()
 	if err != nil {
-		c.JSON(http.StatusConflict, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "error while generating jwt",
 		})
 		h.Logger.Error("error generate new jwt tokens", l.Error(err))
@@ -230,7 +230,7 @@ func (h HandlerV1) Verification(c *gin.Context) {
 
 	userdetail.Password, err = etc.HashPassword(userdetail.Password)
 	if err != nil {
-		c.JSON(http.StatusConflict, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "Oops. Something went wrong with password",
 		})
 		h.Logger.Error("error in hash password", l.Error(err))
@@ -251,14 +251,14 @@ func (h HandlerV1) Verification(c *gin.Context) {
 		RefreshToken: refresh,
 	})
 	if err != nil {
-		c.JSON(http.StatusConflict, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "Error while create user",
 		})
 		h.Logger.Error("error in create user", l.Error(err))
 		return
 	}
 
-	c.JSON(http.StatusOK, &models.UserResCreate{
+	c.JSON(http.StatusCreated, &models.UserResCreate{
 		Id:           res.Id,
 		FullName:     res.FullName,
 		Email:        res.Email,
@@ -300,7 +300,7 @@ func (h HandlerV1) Login(c *gin.Context) {
 		Filter: map[string]string{"email": email},
 	})
 	if err != nil {
-		c.JSON(http.StatusConflict, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "Incorrect email or password",
 		})
 		h.Logger.Error("error while get user in login", l.Error(err))
@@ -326,7 +326,7 @@ func (h HandlerV1) Login(c *gin.Context) {
 
 	access, refresh, err := h.JwtHandler.GenerateJwt()
 	if err != nil {
-		c.JSON(http.StatusConflict, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "Went wrong",
 		})
 		h.Logger.Error("error while generate JWT in login", l.Error(err))
@@ -347,7 +347,7 @@ func (h HandlerV1) Login(c *gin.Context) {
 		RefreshToken: refresh,
 	})
 	if err != nil {
-		c.JSON(http.StatusConflict, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "Went wrong",
 		})
 		h.Logger.Error("error while update user in login", l.Error(err))
@@ -396,13 +396,13 @@ func (h HandlerV1) ForgetPassword(c *gin.Context) {
 	email = strings.TrimSpace(email)
 	email = strings.ToLower(email)
 
-	println("\n\n", email, "\n")
+	// println("\n\n", email, "\n")
 	uniqueCheck, err := h.Service.UserService().CheckUniquess(ctx, &pbu.FV{
 		Field: "email",
 		Value: email,
 	})
 	if err != nil {
-		c.JSON(http.StatusConflict, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "Went wrong",
 		})
 		h.Logger.Error("error while check unique in forget password", l.Error(err))
@@ -432,7 +432,7 @@ func (h HandlerV1) ForgetPassword(c *gin.Context) {
 
 	userByte, err := json.Marshal(toRedis)
 	if err != nil {
-		c.JSON(http.StatusConflict, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
 		h.Logger.Error("Failed to marshal body", l.Error(err))
@@ -440,7 +440,7 @@ func (h HandlerV1) ForgetPassword(c *gin.Context) {
 	}
 	_, err = rdb.Set(ctx, toRedis.Email, userByte, time.Minute*10).Result()
 	if err != nil {
-		c.JSON(http.StatusConflict, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
 		h.Logger.Error("Failed to set object to redis", l.Error(err))
@@ -573,7 +573,7 @@ func (h HandlerV1) SetNewPassword(c *gin.Context) {
 
 	access, refresh, err := h.JwtHandler.GenerateJwt()
 	if err != nil {
-		c.JSON(http.StatusConflict, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "Went wrong",
 		})
 		h.Logger.Error("error while generate JWT in login", l.Error(err))
@@ -582,7 +582,7 @@ func (h HandlerV1) SetNewPassword(c *gin.Context) {
 
 	password, err = etc.HashPassword(password)
 	if err != nil {
-		c.JSON(http.StatusConflict, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "Oops. Something went wrong with password",
 		})
 		h.Logger.Error("error while hash password in set new password", l.Error(err))
@@ -603,7 +603,7 @@ func (h HandlerV1) SetNewPassword(c *gin.Context) {
 		RefreshToken: refresh,
 	})
 	if err != nil {
-		c.JSON(http.StatusConflict, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "Oops. Something went wrong with password",
 		})
 		h.Logger.Error("error while hash password in set new password", l.Error(err))

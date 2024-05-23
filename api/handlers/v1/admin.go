@@ -200,7 +200,7 @@ func (h *HandlerV1) GetAdmin(c *gin.Context) {
 	}
 
 	if response.User.Role != "admin" {
-		c.JSON(http.StatusInternalServerError, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "Can't get",
 		})
 		return
@@ -322,7 +322,7 @@ func (h *HandlerV1) UpdateAdmin(c *gin.Context) {
 		Filter: map[string]string{"id": userID},
 	})
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "Went wrong",
 		})
 		h.Logger.Error("failed to get user in update", l.Error(err))
@@ -482,7 +482,7 @@ func (h *HandlerV1) DeleteAdmin(c *gin.Context) {
 		Filter: map[string]string{"id": id},
 	})
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "Went wrong, error",
 		})
 		h.Logger.Error("failed to get admin in delete admin", l.Error(err))
@@ -490,7 +490,7 @@ func (h *HandlerV1) DeleteAdmin(c *gin.Context) {
 	}
 
 	if user.User.Role != "admin" {
-		c.JSON(http.StatusInternalServerError, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "Can't delete",
 		})
 		return

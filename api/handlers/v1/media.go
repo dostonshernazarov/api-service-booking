@@ -80,7 +80,7 @@ func (h *HandlerV1) UploadMedia(c *gin.Context) {
 		},
 	})
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, models.Error{
+		c.JSON(http.StatusBadRequest, models.Error{
 			Message: "Error getting user",
 		})
 		return
@@ -346,7 +346,7 @@ func (h *HandlerV1) CreateEstablishmentMedia(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, &models.EstablishmentImageRespons{
+	c.JSON(http.StatusCreated, &models.EstablishmentImageRespons{
 		ImageURL: minioURL,
 		Message:  respons.Result,
 	})

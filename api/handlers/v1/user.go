@@ -77,7 +77,7 @@ func (h *HandlerV1) Create(c *gin.Context) {
 		Value:                body.Email,
 	})
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "Went wrong",
 		})
 
@@ -95,7 +95,7 @@ func (h *HandlerV1) Create(c *gin.Context) {
 
 	password, err  := etc.HashPassword(body.Password)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "Went wrong",
 		})
 
@@ -115,7 +115,7 @@ func (h *HandlerV1) Create(c *gin.Context) {
 
 	access, refresh, err := h.JwtHandler.GenerateJwt()
 	if err != nil {
-		c.JSON(http.StatusConflict, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "error while generating jwt",
 		})
 		h.Logger.Error("error generate new jwt tokens", l.Error(err))
@@ -189,7 +189,7 @@ func (h *HandlerV1) Get(c *gin.Context) {
 			Filter: map[string]string{"id": id},
 		})
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
 		l.Error(err)
@@ -197,7 +197,7 @@ func (h *HandlerV1) Get(c *gin.Context) {
 	}
 
 	if response.User.Role != "user" {
-		c.JSON(http.StatusInternalServerError, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "Can't get",
 		})
 		return
@@ -431,7 +431,7 @@ func (h *HandlerV1) Update(c *gin.Context) {
 		}
 		body.Password, err =  etc.HashPassword(body.Password)
 		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{
+			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": "Went wrong",
 			})
 			h.Logger.Error("failed to hash password in update", l.Error(err))
@@ -534,7 +534,7 @@ func (h *HandlerV1) Delete(c *gin.Context) {
 		Filter:               map[string]string{"id":id},
 	})
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "Went wrong, error",
 		})
 		h.Logger.Error("failed to get user in delete", l.Error(err))
@@ -542,7 +542,7 @@ func (h *HandlerV1) Delete(c *gin.Context) {
 	}
 
 	if user.User.Role != "user" {
-		c.JSON(http.StatusInternalServerError, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "Can't delete",
 		})
 		return

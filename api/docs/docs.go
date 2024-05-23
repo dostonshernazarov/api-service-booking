@@ -386,13 +386,6 @@ const docTemplate = `{
                 "summary": "CREATE ATTRACTION",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "owner_id",
-                        "name": "owner_id",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
                         "description": "Attraction",
                         "name": "Attraction",
                         "in": "body",
@@ -1916,13 +1909,6 @@ const docTemplate = `{
                 "summary": "CREATE HOTEL",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "owner_id",
-                        "name": "owner_id",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
                         "description": "Hotel",
                         "name": "Hotel",
                         "in": "body",
@@ -2355,13 +2341,6 @@ const docTemplate = `{
                 ],
                 "summary": "CREATE RESTAURANT",
                 "parameters": [
-                    {
-                        "type": "string",
-                        "description": "owner_id",
-                        "name": "owner_id",
-                        "in": "query",
-                        "required": true
-                    },
                     {
                         "description": "Restaurant",
                         "name": "Restaurant",

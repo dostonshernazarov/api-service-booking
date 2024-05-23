@@ -5,6 +5,7 @@ import (
 	pbe "Booking/api-service-booking/genproto/establishment-proto"
 	"Booking/api-service-booking/internal/pkg/otlp"
 	"context"
+	"net/http"
 	"strconv"
 	"time"
 
@@ -21,7 +22,6 @@ import (
 // @Tags RESTAURANT
 // @Accept json
 // @Produce json
-// @Param owner_id query string true "owner_id"
 // @Param Restaurant body models.CreateRestaurant true "Restaurant"
 // @Success 200 {object} models.RestaurantModel
 // @Failure 404 {object} models.StandartError
@@ -50,7 +50,13 @@ func (h HandlerV1) CreateRestaurant(c *gin.Context) {
 		return
 	}
 
-	owner_id := c.Query("owner_id")
+	owner_id, statusCode := GetIdFromToken(c.Request, h.Config)
+	if statusCode != http.StatusOK {
+		c.JSON(statusCode, gin.H{
+            "error": "Can't get",
+        })
+        return
+    }
 
 	restaurant_id := uuid.New().String()
 	location_id := uuid.New().String()
@@ -141,7 +147,7 @@ func (h HandlerV1) CreateRestaurant(c *gin.Context) {
 		UpdatedAt: response.UpdatedAt,
 	}
 
-	c.JSON(200, respModel)
+	c.JSON(http.StatusCreated, respModel)
 }
 
 // GET RESTAURANT BY RESTAURANT_ID

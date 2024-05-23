@@ -883,11 +883,6 @@ paths:
       - application/json
       description: Api for creating attraction
       parameters:
-      - description: owner_id
-        in: query
-        name: owner_id
-        required: true
-        type: string
       - description: Attraction
         in: body
         name: Attraction
@@ -1849,11 +1844,6 @@ paths:
       - application/json
       description: Api for creating hotel
       parameters:
-      - description: owner_id
-        in: query
-        name: owner_id
-        required: true
-        type: string
       - description: Hotel
         in: body
         name: Hotel
@@ -2132,11 +2122,6 @@ paths:
       - application/json
       description: Api for creating restaurant
       parameters:
-      - description: owner_id
-        in: query
-        name: owner_id
-        required: true
-        type: string
       - description: Restaurant
         in: body
         name: Restaurant
