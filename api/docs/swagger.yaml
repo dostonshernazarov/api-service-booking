@@ -817,6 +817,38 @@ paths:
       summary: LIST ADMINS
       tags:
       - ADMIN
+  /v1/admins/login:
+    get:
+      consumes:
+      - application/json
+      description: Api for login admin
+      parameters:
+      - in: query
+        name: email
+        type: string
+      - in: query
+        name: password
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserResCreate'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: LOGIN
+      tags:
+      - LOGIN
   /v1/attraction:
     delete:
       consumes:
