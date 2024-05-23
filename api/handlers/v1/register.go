@@ -9,7 +9,6 @@ import (
 	scode "Booking/api-service-booking/internal/pkg/sendcode"
 	tokens "Booking/api-service-booking/internal/pkg/token"
 	val "Booking/api-service-booking/internal/pkg/validation"
-	"errors"
 
 	// "context"
 	"encoding/json"
@@ -213,11 +212,11 @@ func (h HandlerV1) Verification(c *gin.Context) {
 	}
 
 	h.JwtHandler = tokens.JwtHandler{
-		Sub:  id.String(),
-		Iss:  "client",
+		Sub:       id.String(),
+		Iss:       "client",
 		SigninKey: h.Config.Token.SignInKey,
-		Role: "user",
-		Log:  h.Logger,
+		Role:      "user",
+		Log:       h.Logger,
 	}
 
 	access, refresh, err := h.JwtHandler.GenerateJwt()
@@ -400,16 +399,18 @@ func (h HandlerV1) LoginAdmin(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "Incorrect email or password",
 		})
-		h.Logger.Error("error while get user in login", l.Error(err))
+		h.Logger.Error("error while get user in login admin", l.Error(err))
 		return
 	}
 
-	if user.User.Role != "admin" || user.User.Role != "sudo" {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Permission denied",
-		})
-		h.Logger.Error("Role not admin", l.Error(errors.New("Permission denied")))
-		return
+	if user.User.Role != "admin" {
+		if user.User.Role != "sudo" {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": "Permission denied",
+			})
+			h.Logger.Error("Role not admin")
+			return
+		}
 	}
 	// println("\n\n", user.User.Email, "\n\n")
 
@@ -777,11 +778,11 @@ func (h HandlerV1) UpdateToken(c *gin.Context) {
 	exp := (resClaim["exp"])
 	if exp.(float64)-float64(Now_time) > 0 {
 		h.JwtHandler = tokens.JwtHandler{
-			Sub:  user.User.Id,
-			Iss:  "client",
+			Sub:       user.User.Id,
+			Iss:       "client",
 			SigninKey: h.Config.Token.SignInKey,
-			Role: user.User.Role,
-			Log:  h.Logger,
+			Role:      user.User.Role,
+			Log:       h.Logger,
 		}
 
 		accessR, refreshR, err := h.JwtHandler.GenerateJwt()
@@ -793,17 +794,17 @@ func (h HandlerV1) UpdateToken(c *gin.Context) {
 			return
 		}
 		_, err = h.Service.UserService().Update(ctx, &pbu.User{
-			Id:                   user.User.Id,
-			FullName:             user.User.FullName,
-			Email:                user.User.Email,
-			Password:             user.User.Password,
-			DateOfBirth:          user.User.DateOfBirth,
-			ProfileImg:           user.User.ProfileImg,
-			Card:                 user.User.Card,
-			Gender:               user.User.Gender,
-			PhoneNumber:          user.User.PhoneNumber,
-			Role:                 user.User.Role,
-			RefreshToken:         refreshR,
+			Id:           user.User.Id,
+			FullName:     user.User.FullName,
+			Email:        user.User.Email,
+			Password:     user.User.Password,
+			DateOfBirth:  user.User.DateOfBirth,
+			ProfileImg:   user.User.ProfileImg,
+			Card:         user.User.Card,
+			Gender:       user.User.Gender,
+			PhoneNumber:  user.User.PhoneNumber,
+			Role:         user.User.Role,
+			RefreshToken: refreshR,
 		})
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{
