@@ -4,10 +4,8 @@ import (
 	"Booking/api-service-booking/api/models"
 	pbe "Booking/api-service-booking/genproto/establishment-proto"
 	"Booking/api-service-booking/internal/pkg/otlp"
-	"context"
 	"net/http"
 	"strconv"
-	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -35,13 +33,12 @@ func (h HandlerV1) CreateAttraction(c *gin.Context) {
 
 	jspbMarshal.UseProtoNames = true
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel()
-
-	ctx, span := otlp.Start(ctx, "api", "CreateAttraction")
+	
+	ctx, span := otlp.Start(c, "api", "CreateAttraction")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 	)
+	defer span.End()
 
 	if err := c.ShouldBindJSON(&body); err != nil {
 		c.JSON(404, gin.H{
@@ -167,13 +164,11 @@ func (h HandlerV1) GetAttraction(c *gin.Context) {
 
 	jspbMarshal.UseProtoNames = true
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel()
-
-	ctx, span := otlp.Start(ctx, "api", "GetAttraction")
+	ctx, span := otlp.Start(c, "api", "GetAttraction")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 	)
+	defer span.End()
 
 	attraction_id := c.Query("attraction_id")
 
@@ -250,13 +245,11 @@ func (h HandlerV1) ListAttractions(c *gin.Context) {
 
 	jspbMarshal.UseProtoNames = true
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel()
-
-	ctx, span := otlp.Start(ctx, "api", "ListAttractions")
+	ctx, span := otlp.Start(c, "api", "ListAttractions")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 	)
+	defer span.End()
 
 	page := c.Query("page")
 	pageInt, err := strconv.Atoi(page)
@@ -367,13 +360,11 @@ func (h HandlerV1) UpdateAttraction(c *gin.Context) {
 
 	jspbMarshal.UseProtoNames = true
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel()
-
-	ctx, span := otlp.Start(ctx, "api", "UpdateAttraction")
+	ctx, span := otlp.Start(c, "api", "UpdateAttraction")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 	)
+	defer span.End()
 
 	if err := c.ShouldBindJSON(&body); err != nil {
 		c.JSON(404, gin.H{
@@ -471,14 +462,11 @@ func (h HandlerV1) DeleteAttraction(c *gin.Context) {
 	)
 
 	jspbMarshal.UseProtoNames = true
-
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel()
-
-	ctx, span := otlp.Start(ctx, "api", "DeleteAttraction")
+	ctx, span := otlp.Start(c, "api", "DeleteAttraction")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 	)
+	defer span.End()
 
 	attraction_id := c.Query("attraction_id")
 
@@ -526,14 +514,11 @@ func (h HandlerV1) ListAttractionsByLocation(c *gin.Context) {
 	)
 
 	jspbMarshal.UseProtoNames = true
-
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel()
-
-	ctx, span := otlp.Start(ctx, "api", "ListAttractions")
+	ctx, span := otlp.Start(c, "api", "ListAttractions")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 	)
+	defer span.End()
 
 	page := c.Query("page")
 	pageInt, err := strconv.Atoi(page)
