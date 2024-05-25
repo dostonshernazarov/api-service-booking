@@ -4,12 +4,14 @@ import (
 	models "Booking/api-service-booking/api/models"
 	pbb "Booking/api-service-booking/genproto/booking-proto"
 	l "Booking/api-service-booking/internal/pkg/logger"
+	"Booking/api-service-booking/internal/pkg/otlp"
 	"context"
 	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+	"go.opentelemetry.io/otel/attribute"
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
@@ -26,6 +28,13 @@ import (
 // @Failure 500 {object} models.StandartError
 // @Router /v1/booking/hotels [post]
 func (h *HandlerV1) UHBCreate(c *gin.Context) {
+
+	ctx, span := otlp.Start(c, "api", "CreateBookHotel")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	var (
 		body        models.CreateBookingReq
 		jsonMarshal protojson.MarshalOptions
@@ -41,8 +50,6 @@ func (h *HandlerV1) UHBCreate(c *gin.Context) {
 		return
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
 
 	userID, statusCode := GetIdFromToken(c.Request, h.Config)
     if statusCode == 401 {
@@ -98,6 +105,12 @@ func (h *HandlerV1) UHBCreate(c *gin.Context) {
 // @Failure 500 {object} models.StandartError
 // @Router /v1/booking/restaurants [post]
 func (h *HandlerV1) URBCreate(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "CreateBooRestaurant")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	var (
 		body        models.CreateBookingReq
 		jsonMarshal protojson.MarshalOptions
@@ -112,9 +125,6 @@ func (h *HandlerV1) URBCreate(c *gin.Context) {
 		l.Error(err)
 		return
 	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
 
 	userID, statusCode := GetIdFromToken(c.Request, h.Config)
     if statusCode == 401 {
@@ -170,6 +180,12 @@ func (h *HandlerV1) URBCreate(c *gin.Context) {
 // @Failure 500 {object} models.StandartError
 // @Router /v1/booking/attractions [post]
 func (h *HandlerV1) UABCreate(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "CreateBookAttraction")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	var (
 		body        models.CreateBookingReq
 		jsonMarshal protojson.MarshalOptions
@@ -184,9 +200,6 @@ func (h *HandlerV1) UABCreate(c *gin.Context) {
 		l.Error(err)
 		return
 	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
 
 	userID, statusCode := GetIdFromToken(c.Request, h.Config)
     if statusCode == 401 {
@@ -242,6 +255,12 @@ func (h *HandlerV1) UABCreate(c *gin.Context) {
 // @Failure 500 {object} models.StandartError
 // @Router /v1/booking/hotels/{id} [get]
 func (h *HandlerV1) UHBGetAllByUId(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "listBookHotelByUserID")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	var (
 		body        models.GetAllByUIdReq
 		jsonMarshal protojson.MarshalOptions
@@ -258,9 +277,6 @@ func (h *HandlerV1) UHBGetAllByUId(c *gin.Context) {
 	}
 
 	id := c.Param("id")
-
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
 
 	response, err := h.Service.BookingService().UHBGetAllByUId(
 		ctx, &pbb.ListReqById{
@@ -293,6 +309,12 @@ func (h *HandlerV1) UHBGetAllByUId(c *gin.Context) {
 // @Failure 500 {object} models.StandartError
 // @Router /v1/booking/restaurants/{id} [get]
 func (h *HandlerV1) URBGetAllByUId(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "listBookRestaurantsByUserID")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	var (
 		body        models.GetAllByUIdReq
 		jsonMarshal protojson.MarshalOptions
@@ -309,9 +331,6 @@ func (h *HandlerV1) URBGetAllByUId(c *gin.Context) {
 	}
 
 	id := c.Param("id")
-
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
 
 	response, err := h.Service.BookingService().URBGetAllByUId(
 		ctx, &pbb.ListReqById{
@@ -344,6 +363,12 @@ func (h *HandlerV1) URBGetAllByUId(c *gin.Context) {
 // @Failure 500 {object} models.StandartError
 // @Router /v1/booking/attractions/{id} [get]
 func (h *HandlerV1) UABGetAllByUId(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "listBookAttractionByUserID")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	var (
 		body        models.GetAllByUIdReq
 		jsonMarshal protojson.MarshalOptions
@@ -360,9 +385,6 @@ func (h *HandlerV1) UABGetAllByUId(c *gin.Context) {
 	}
 
 	id := c.Param("id")
-
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
 
 	response, err := h.Service.BookingService().UABGetAllByUId(
 		ctx, &pbb.ListReqById{
@@ -395,6 +417,12 @@ func (h *HandlerV1) UABGetAllByUId(c *gin.Context) {
 // @Failure 500 {object} models.StandartError
 // @Router /v1/booking/users/room/{id} [get]
 func (h *HandlerV1) UHBGetAllByHId(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "listUsersByBookedRoomID")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	var (
 		body        models.GetAllByHRAIdReq
 		jsonMarshal protojson.MarshalOptions
@@ -411,9 +439,6 @@ func (h *HandlerV1) UHBGetAllByHId(c *gin.Context) {
 	}
 
 	id := c.Param("id")
-
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
 
 	response, err := h.Service.BookingService().UHBGetAllByHId(
 		ctx, &pbb.ListReqById{
@@ -446,6 +471,12 @@ func (h *HandlerV1) UHBGetAllByHId(c *gin.Context) {
 // @Failure 500 {object} models.StandartError
 // @Router /v1/booking/users/restaurant/{id} [get]
 func (h *HandlerV1) URBGetAllByRId(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "listUsersByRestaurantID")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	var (
 		body        models.GetAllByHRAIdReq
 		jsonMarshal protojson.MarshalOptions
@@ -462,9 +493,6 @@ func (h *HandlerV1) URBGetAllByRId(c *gin.Context) {
 	}
 
 	id := c.Param("id")
-
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
 
 	response, err := h.Service.BookingService().UHBGetAllByHId(
 		ctx, &pbb.ListReqById{
@@ -497,6 +525,12 @@ func (h *HandlerV1) URBGetAllByRId(c *gin.Context) {
 // @Failure 500 {object} models.StandartError
 // @Router /v1/booking/users/attraction/{id} [get]
 func (h *HandlerV1) UABGetAllByAId(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "listBookHotelByUserID")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	var (
 		body        models.GetAllByHRAIdReq
 		jsonMarshal protojson.MarshalOptions
@@ -513,9 +547,6 @@ func (h *HandlerV1) UABGetAllByAId(c *gin.Context) {
 	}
 
 	id := c.Param("id")
-
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
 
 	response, err := h.Service.BookingService().UABGetAllByAId(
 		ctx, &pbb.ListReqById{
@@ -548,6 +579,12 @@ func (h *HandlerV1) UABGetAllByAId(c *gin.Context) {
 // @Failure 500 {object} models.StandartError
 // @Router /v1/booking/hotels [get]
 func (h *HandlerV1) UHBList(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "listBookHotels")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	var (
 		body        models.Pagination
 		jsonMarshal protojson.MarshalOptions
@@ -563,7 +600,7 @@ func (h *HandlerV1) UHBList(c *gin.Context) {
 		return
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
+	ctx, cancel := context.WithTimeout(ctx, 10*time.Second*time.Duration(h.ContextTimeout))
 	defer cancel()
 
 	response, err := h.Service.BookingService().UHBList(
@@ -594,6 +631,12 @@ func (h *HandlerV1) UHBList(c *gin.Context) {
 // @Failure 500 {object} models.StandartError
 // @Router /v1/booking/restaurants [get]
 func (h *HandlerV1) URBList(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "listBookRestaurants")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	var (
 		body        models.Pagination
 		jsonMarshal protojson.MarshalOptions
@@ -608,9 +651,6 @@ func (h *HandlerV1) URBList(c *gin.Context) {
 		l.Error(err)
 		return
 	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
 
 	response, err := h.Service.BookingService().URBList(
 		ctx, &pbb.ListReq{
@@ -640,6 +680,12 @@ func (h *HandlerV1) URBList(c *gin.Context) {
 // @Failure 500 {object} models.StandartError
 // @Router /v1/booking/attractions [get]
 func (h *HandlerV1) UABList(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "listBookAttractions")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	var (
 		body        models.Pagination
 		jsonMarshal protojson.MarshalOptions
@@ -654,9 +700,6 @@ func (h *HandlerV1) UABList(c *gin.Context) {
 		l.Error(err)
 		return
 	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
 
 	response, err := h.Service.BookingService().UABList(
 		ctx, &pbb.ListReq{
@@ -686,6 +729,12 @@ func (h *HandlerV1) UABList(c *gin.Context) {
 // @Failure 500 {object} models.StandartError
 // @Router /v1/booking/hotels/deleted [get]
 func (h *HandlerV1) UHBListDeleted(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "listDeletedBookHotels")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	var (
 		body        models.Pagination
 		jsonMarshal protojson.MarshalOptions
@@ -700,9 +749,6 @@ func (h *HandlerV1) UHBListDeleted(c *gin.Context) {
 		l.Error(err)
 		return
 	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
 
 	response, err := h.Service.BookingService().UHBListDeleted(
 		ctx, &pbb.ListReq{
@@ -732,6 +778,12 @@ func (h *HandlerV1) UHBListDeleted(c *gin.Context) {
 // @Failure 500 {object} models.StandartError
 // @Router /v1/booking/restaurants/deleted [get]
 func (h *HandlerV1) URBListDeleted(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "listDeletedBookRestaurants")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	var (
 		body        models.Pagination
 		jsonMarshal protojson.MarshalOptions
@@ -746,9 +798,6 @@ func (h *HandlerV1) URBListDeleted(c *gin.Context) {
 		l.Error(err)
 		return
 	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
 
 	response, err := h.Service.BookingService().URBListDeleted(
 		ctx, &pbb.ListReq{
@@ -778,6 +827,12 @@ func (h *HandlerV1) URBListDeleted(c *gin.Context) {
 // @Failure 500 {object} models.StandartError
 // @Router /v1/booking/attractions/deleted [get]
 func (h *HandlerV1) UABListDeleted(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "ListDeletedBookAttractions")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	var (
 		body        models.Pagination
 		jsonMarshal protojson.MarshalOptions
@@ -792,9 +847,6 @@ func (h *HandlerV1) UABListDeleted(c *gin.Context) {
 		l.Error(err)
 		return
 	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
 
 	response, err := h.Service.BookingService().UABListDeleted(
 		ctx, &pbb.ListReq{
@@ -824,6 +876,12 @@ func (h *HandlerV1) UABListDeleted(c *gin.Context) {
 // @Failure 500 {object} models.StandartError
 // @Router /v1/booking/hotels [put]
 func (h *HandlerV1) UHBUpdate(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "UpdateBookedHotel")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+	
 	var (
 		body        models.UpdateBookingReq
 		jsonMarshal protojson.MarshalOptions
@@ -838,9 +896,6 @@ func (h *HandlerV1) UHBUpdate(c *gin.Context) {
 		h.Logger.Error("failed to bind json", l.Error(err))
 		return
 	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
 
 	response, err := h.Service.BookingService().UHBUpdate(ctx, &pbb.GeneralBook{
 		Id:                   body.Id.String(),
@@ -888,6 +943,12 @@ func (h *HandlerV1) UHBUpdate(c *gin.Context) {
 // @Failure 500 {object} models.StandartError
 // @Router /v1/booking/restaurants [put]
 func (h *HandlerV1) URBUpdate(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "UpdateBookedRestaurant")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	var (
 		body        models.UpdateBookingReq
 		jsonMarshal protojson.MarshalOptions
@@ -902,9 +963,6 @@ func (h *HandlerV1) URBUpdate(c *gin.Context) {
 		h.Logger.Error("failed to bind json", l.Error(err))
 		return
 	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
 
 	response, err := h.Service.BookingService().URBUpdate(ctx, &pbb.GeneralBook{
 		Id:                   body.Id.String(),
@@ -952,6 +1010,13 @@ func (h *HandlerV1) URBUpdate(c *gin.Context) {
 // @Failure 500 {object} models.StandartError
 // @Router /v1/booking/attractions [put]
 func (h *HandlerV1) UABUpdate(c *gin.Context) {
+
+	ctx, span := otlp.Start(c, "api", "UpdateBookedAttraction")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	var (
 		body        models.UpdateBookingReq
 		jsonMarshal protojson.MarshalOptions
@@ -966,9 +1031,6 @@ func (h *HandlerV1) UABUpdate(c *gin.Context) {
 		h.Logger.Error("failed to bind json", l.Error(err))
 		return
 	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
 
 	response, err := h.Service.BookingService().UABUpdate(ctx, &pbb.GeneralBook{
 		Id:                   body.Id.String(),
@@ -1016,12 +1078,16 @@ func (h *HandlerV1) UABUpdate(c *gin.Context) {
 // @Failure 500 {object} models.StandartError
 // @Router /v1/booking/hotels/{id} [delete]
 func (h *HandlerV1) UHBDelete(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "DeleteBookedHotel")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	var jsonMarshal protojson.MarshalOptions
 	jsonMarshal.UseProtoNames = true
 
 	id := c.Query("id")
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
 
 	response, err := h.Service.BookingService().UHBDelete(
 		ctx, &pbb.Id{
@@ -1051,12 +1117,16 @@ func (h *HandlerV1) UHBDelete(c *gin.Context) {
 // @Failure 500 {object} models.StandartError
 // @Router /v1/booking/restaurants/{id} [delete]
 func (h *HandlerV1) URBDelete(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "DeleteBookedRestaurant")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	var jsonMarshal protojson.MarshalOptions
 	jsonMarshal.UseProtoNames = true
 
 	id := c.Query("id")
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
 
 	response, err := h.Service.BookingService().URBDelete(
 		ctx, &pbb.Id{
@@ -1086,12 +1156,16 @@ func (h *HandlerV1) URBDelete(c *gin.Context) {
 // @Failure 500 {object} models.StandartError
 // @Router /v1/booking/attractions/{id} [delete]
 func (h *HandlerV1) UABDelete(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "DeleteBookedAttraction")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	var jsonMarshal protojson.MarshalOptions
 	jsonMarshal.UseProtoNames = true
 
 	id := c.Query("id")
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second*time.Duration(h.ContextTimeout))
-	defer cancel()
 
 	response, err := h.Service.BookingService().UABDelete(
 		ctx, &pbb.Id{

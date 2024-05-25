@@ -5,6 +5,7 @@ import (
 	"Booking/api-service-booking/api/models"
 	pbe "Booking/api-service-booking/genproto/establishment-proto"
 	"Booking/api-service-booking/genproto/user-proto"
+	"Booking/api-service-booking/internal/pkg/otlp"
 	"context"
 	"fmt"
 	"log"
@@ -17,6 +18,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
+	"go.opentelemetry.io/otel/attribute"
 )
 
 // @Summary     Upload User photo
@@ -31,6 +33,12 @@ import (
 // @Failure     500 {object} models.Error
 // @Router      /v1/media/user-photo [POST]
 func (h *HandlerV1) UploadMedia(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "UploadMediaUser")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	duration, err := time.ParseDuration(h.Config.Context.Timeout)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, models.Error{
@@ -39,7 +47,7 @@ func (h *HandlerV1) UploadMedia(c *gin.Context) {
 		log.Println(err.Error())
 		return
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), duration)
+	ctx, cancel := context.WithTimeout(ctx, duration)
 	defer cancel()
 
 	endpoint := "18.185.248.114:9000"
@@ -202,6 +210,12 @@ func (h *HandlerV1) UploadMedia(c *gin.Context) {
 // @Failure     500 {object} models.Error
 // @Router      /v1/media/establishment/{id} [POST]
 func (h *HandlerV1) CreateEstablishmentMedia(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "UploadMediaEstablishment")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	duration, err := time.ParseDuration(h.Config.Context.Timeout)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, models.Error{
@@ -210,7 +224,7 @@ func (h *HandlerV1) CreateEstablishmentMedia(c *gin.Context) {
 		log.Println(err.Error())
 		return
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), duration)
+	ctx, cancel := context.WithTimeout(ctx, duration)
 	defer cancel()
 
 	endpoint := "18.185.248.114:9000"

@@ -35,13 +35,11 @@ func (h HandlerV1) CreateRestaurant(c *gin.Context) {
 
 	jspbMarshal.UseProtoNames = true
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel()
-
-	ctx, span := otlp.Start(ctx, "api", "CreateRestaurant")
+	ctx, span := otlp.Start(c, "api", "CreateRestaurant")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 	)
+	defer span.End()
 
 	if err := c.ShouldBindJSON(&body); err != nil {
 		c.JSON(404, gin.H{
@@ -172,10 +170,11 @@ func (h HandlerV1) GetRestaurant(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 	defer cancel()
 
-	ctx, span := otlp.Start(ctx, "api", "GetHotel")
+	ctx, span := otlp.Start(ctx, "api", "GetRestaurant")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 	)
+	defer span.End()
 
 	restaurant_id := c.Query("restaurant_id")
 
@@ -260,6 +259,7 @@ func (h HandlerV1) ListRestaurants(c *gin.Context) {
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 	)
+	defer span.End()
 
 	page := c.Query("page")
 	pageInt, err := strconv.Atoi(page)
@@ -378,6 +378,7 @@ func (h HandlerV1) UpdateRestaurant(c *gin.Context) {
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 	)
+	defer span.End()
 
 	if err := c.ShouldBindJSON(&body); err != nil {
 		c.JSON(404, gin.H{
@@ -478,13 +479,11 @@ func (h HandlerV1) DeleteRestaurant(c *gin.Context) {
 
 	jspbMarshal.UseProtoNames = true
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel()
-
-	ctx, span := otlp.Start(ctx, "api", "DeleteRestaurant")
+	ctx, span := otlp.Start(c, "api", "DeleteRestaurant")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 	)
+	defer span.End()
 
 	restaurant_id := c.Query("restaurant_id")
 
@@ -533,13 +532,11 @@ func (h HandlerV1) ListRestaurantsByLocation(c *gin.Context) {
 
 	jspbMarshal.UseProtoNames = true
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel()
-
-	ctx, span := otlp.Start(ctx, "api", "ListRestaurants")
+	ctx, span := otlp.Start(c, "api", "ListRestaurants")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 	)
+	defer span.End()
 
 	page := c.Query("page")
 	pageInt, err := strconv.Atoi(page)

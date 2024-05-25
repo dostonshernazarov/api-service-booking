@@ -4,9 +4,7 @@ import (
 	"Booking/api-service-booking/api/models"
 	pb "Booking/api-service-booking/genproto/establishment-proto"
 	"Booking/api-service-booking/internal/pkg/otlp"
-	"context"
-	"time"
-
+	
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"go.opentelemetry.io/otel/attribute"
@@ -27,19 +25,17 @@ import (
 // @Failure 500 {object} models.StandartError
 // @Router /v1/favourite/add [POST]
 func (h HandlerV1) AddToFavourites(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "AddToFavourites")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	var (
 		jspbMarshal protojson.MarshalOptions
 	)
 
 	jspbMarshal.UseProtoNames = true
-
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel()
-
-	ctx, span := otlp.Start(ctx, "api", "AddToFavourites")
-	span.SetAttributes(
-		attribute.Key("method").String(c.Request.Method),
-	)
 
 	establishment_id := c.Query("establishment_id")
 	user_id := c.Query("user_id")
@@ -84,19 +80,18 @@ func (h HandlerV1) AddToFavourites(c *gin.Context) {
 // @Failure 500 {object} models.StandartError
 // @Router /v1/favourite/remove [DELETE]
 func (h HandlerV1) RemoveFromFavourites(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "RemoveFromFavourites")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	var (
 		jspbMarshal protojson.MarshalOptions
 	)
 
 	jspbMarshal.UseProtoNames = true
-
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel()
-
-	ctx, span := otlp.Start(ctx, "api", "RemoveFromFavourites")
-	span.SetAttributes(
-		attribute.Key("method").String(c.Request.Method),
-	)
+	
 
 	favourite_id := c.Query("favourite_id")
 
@@ -137,19 +132,19 @@ func (h HandlerV1) RemoveFromFavourites(c *gin.Context) {
 // @Failure 500 {object} models.StandartError
 // @Router /v1/favourite/list [GET]
 func (h HandlerV1) ListFavouritesByUserId(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "ListFavouritesByUserId")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	var (
 		jspbMarshal protojson.MarshalOptions
 	)
 
 	jspbMarshal.UseProtoNames = true
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel()
-
-	ctx, span := otlp.Start(ctx, "api", "ListFavouritesByUserId")
-	span.SetAttributes(
-		attribute.Key("method").String(c.Request.Method),
-	)
+	
 
 	user_id := c.Query("user_id")
 

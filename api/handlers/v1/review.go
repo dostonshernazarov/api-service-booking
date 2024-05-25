@@ -4,9 +4,7 @@ import (
 	"Booking/api-service-booking/api/models"
 	pb "Booking/api-service-booking/genproto/establishment-proto"
 	"Booking/api-service-booking/internal/pkg/otlp"
-	"context"
-	"time"
-
+	
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"go.opentelemetry.io/otel/attribute"
@@ -35,13 +33,11 @@ func (h HandlerV1) CreateReview(c *gin.Context) {
 
 	jspbMarshal.UseProtoNames = true
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel()
-
-	ctx, span := otlp.Start(ctx, "api", "CreateReview")
+	ctx, span := otlp.Start(c, "api", "CreateReview")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 	)
+	defer span.End()
 
 	if err := c.ShouldBindJSON(&body); err != nil {
 		c.JSON(404, gin.H{
@@ -104,13 +100,11 @@ func (h HandlerV1) ListReviews(c *gin.Context) {
 
 	jspbMarshal.UseProtoNames = true
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel()
-
-	ctx, span := otlp.Start(ctx, "api", "ListReviews")
+	ctx, span := otlp.Start(c, "api", "ListReviews")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 	)
+	defer span.End()
 
 	establishment_id := c.Query("establishment_id")
 
@@ -168,13 +162,11 @@ func (h HandlerV1) DeleteReview(c *gin.Context) {
 
 	jspbMarshal.UseProtoNames = true
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel()
-
-	ctx, span := otlp.Start(ctx, "api", "DeleteReview")
+	ctx, span := otlp.Start(c, "api", "DeleteReview")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 	)
+	defer span.End()
 
 	review_id := c.Query("review_id")
 

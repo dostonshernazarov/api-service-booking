@@ -4,10 +4,8 @@ import (
 	"Booking/api-service-booking/api/models"
 	pbe "Booking/api-service-booking/genproto/establishment-proto"
 	"Booking/api-service-booking/internal/pkg/otlp"
-	"context"
 	"net/http"
 	"strconv"
-	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -28,6 +26,12 @@ import (
 // @Failure 500 {object} models.StandartError
 // @Router /v1/hotel [POST]
 func (h HandlerV1) CreateHotel(c *gin.Context) {
+	ctx, span := otlp.Start(c, "api", "CreateHotel")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
 	var (
 		body        models.CreateHotel
 		jspbMarshal protojson.MarshalOptions
@@ -35,14 +39,7 @@ func (h HandlerV1) CreateHotel(c *gin.Context) {
 
 	jspbMarshal.UseProtoNames = true
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel()
-
-	ctx, span := otlp.Start(ctx, "api", "CreateHotel")
-	span.SetAttributes(
-		attribute.Key("method").String(c.Request.Method),
-	)
-
+	
 	if err := c.ShouldBindJSON(&body); err != nil {
 		c.JSON(404, gin.H{
 			"error": err.Error(),
@@ -168,13 +165,11 @@ func (h HandlerV1) GetHotel(c *gin.Context) {
 
 	jspbMarshal.UseProtoNames = true
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel()
-
-	ctx, span := otlp.Start(ctx, "api", "GetHotel")
+	ctx, span := otlp.Start(c, "api", "GetHotel")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 	)
+	defer span.End()
 
 	hotel_id := c.Query("hotel_id")
 
@@ -251,13 +246,11 @@ func (h HandlerV1) ListHotels(c *gin.Context) {
 
 	jspbMarshal.UseProtoNames = true
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel()
-
-	ctx, span := otlp.Start(ctx, "api", "ListHotels")
+	ctx, span := otlp.Start(c, "api", "ListHotels")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 	)
+	defer span.End()
 
 	page := c.Query("page")
 	pageInt, err := strconv.Atoi(page)
@@ -361,6 +354,7 @@ func (h HandlerV1) ListHotels(c *gin.Context) {
 // @Failure 500 {object} models.StandartError
 // @Router /v1/hotel [PUT]
 func (h HandlerV1) UpdateHotel(c *gin.Context) {
+
 	var (
 		body        models.CreateHotel
 		jspbMarshal protojson.MarshalOptions
@@ -368,13 +362,11 @@ func (h HandlerV1) UpdateHotel(c *gin.Context) {
 
 	jspbMarshal.UseProtoNames = true
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel()
-
-	ctx, span := otlp.Start(ctx, "api", "UpdateHotel")
+	ctx, span := otlp.Start(c, "api", "UpdateHotel")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 	)
+	defer span.End()
 
 	if err := c.ShouldBindJSON(&body); err != nil {
 		c.JSON(404, gin.H{
@@ -473,13 +465,11 @@ func (h HandlerV1) DeleteHotel(c *gin.Context) {
 
 	jspbMarshal.UseProtoNames = true
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel()
-
-	ctx, span := otlp.Start(ctx, "api", "DeleteHotel")
+	ctx, span := otlp.Start(c, "api", "DeleteHotel")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 	)
+	defer span.End()
 
 	hotel_id := c.Query("hotel_id")
 
@@ -528,13 +518,11 @@ func (h HandlerV1) ListHotelsByLocation(c *gin.Context) {
 
 	jspbMarshal.UseProtoNames = true
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel()
-
-	ctx, span := otlp.Start(ctx, "api", "ListHotels")
+	ctx, span := otlp.Start(c, "api", "ListHotels")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
 	)
+	defer span.End()
 
 	page := c.Query("page")
 	pageInt, err := strconv.Atoi(page)
