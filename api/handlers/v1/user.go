@@ -229,7 +229,7 @@ func (h *HandlerV1) Get(c *gin.Context) {
 // @Produce json
 // @Param request query models.Pagination true "request"
 // @Param request query models.FieldValues true "request"
-// @Success 200 {object} pbu.ListUsersRes
+// @Success 200 {object} models.ListUsersRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
 // @Router /v1/users/list [get]
@@ -293,7 +293,7 @@ func (h *HandlerV1) ListUsers(c *gin.Context) {
 // @Produce json
 // @Param request query models.Pagination true "request"
 // @Param request query models.FieldValues true "request"
-// @Success 200 {object} pbu.ListUsersRes
+// @Success 200 {object} models.ListUsersRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
 // @Router /v1/users/list/deleted [get]

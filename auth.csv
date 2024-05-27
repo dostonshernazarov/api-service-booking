@@ -20,6 +20,10 @@ p, unauthorized, /v1/attraction, GET
 p, unauthorized, /v1/hotel, GET
 p, unauthorized, /v1/restaurant, GET
 
+p, unauthorized, /v1/attraction/find, GET
+p, unauthorized, /v1/hotel/find, GET
+p, unauthorized, /v1/restaurant/find, GET
+
 p, user, /v1/users/{id}, GET
 p, user, /v1/users, PUT
 p, user, /v1/media/user-photo, POST

@@ -26,6 +26,7 @@ type UserRes struct {
 	DeletedAt string `json:"deleted_at"`
 }
 
+type ListUsersRes struct{}
 
 type Users struct {
     Users []*UserRes `json:"users"`
