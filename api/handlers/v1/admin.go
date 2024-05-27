@@ -231,7 +231,7 @@ func (h *HandlerV1) GetAdmin(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param request query models.Pagination true "request"
-// @Success 200 {object} pbu.ListUsersRes
+// @Success 200 {object} models.ListUsersRes
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
 // @Router /v1/admins/list [get]

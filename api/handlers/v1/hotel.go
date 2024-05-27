@@ -618,3 +618,96 @@ func (h HandlerV1) ListHotelsByLocation(c *gin.Context) {
 
 	c.JSON(200, respModel)
 }
+
+// FIND HOTELS BY NAME
+// @Summary FIND HOTELS BY NAME
+// @Security BearerAuth
+// @Description Api for listing hotels by name
+// @Tags HOTEL
+// @Accept json
+// @Produce json
+// @Param name query string true "name"
+// @Success 200 {object} models.ListHotelsModel
+// @Failure 404 {object} models.StandartError
+// @Failure 500 {object} models.StandartError
+// @Router /v1/hotel/find [GET]
+func (h HandlerV1) FindHotelsByName(c *gin.Context) {
+	var (
+		jspbMarshal protojson.MarshalOptions
+	)
+
+	jspbMarshal.UseProtoNames = true
+
+	ctx, span := otlp.Start(c, "api", "ListHotels")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
+	name := c.Query("name")
+	
+
+	response, err := h.Service.EstablishmentService().FindHotelsByName(ctx, &pbe.FindHotelsByNameRequest{
+		Name: name,
+	})
+	if err != nil {
+		c.JSON(500, gin.H{
+			"error": err.Error(),
+		})
+		h.Logger.Error(err.Error())
+		return
+	}
+
+	var respHotels []*models.HotelModel
+
+	for _, respHotel := range response.Hotels {
+
+		var respImages []*models.ImageModel
+
+		for _, respImage := range respHotel.Images {
+			image := models.ImageModel{
+				ImageId:         respImage.ImageId,
+				EstablishmentId: respImage.EstablishmentId,
+				ImageUrl:        respImage.ImageUrl,
+				CreatedAt:       respImage.CreatedAt,
+				UpdatedAt:       respImage.UpdatedAt,
+			}
+			respImages = append(respImages, &image)
+		}
+
+		hotel := models.HotelModel{
+			HotelId:       respHotel.HotelId,
+			OwnerId:       respHotel.OwnerId,
+			HotelName:     respHotel.HotelName,
+			Description:   respHotel.Description,
+			Rating:        respHotel.Rating,
+			ContactNumber: respHotel.ContactNumber,
+			LicenceUrl:    respHotel.LicenceUrl,
+			WebsiteUrl:    respHotel.WebsiteUrl,
+			Images:        respImages,
+			Location: models.LocationModel{
+				LocationId:      respHotel.Location.LocationId,
+				EstablishmentId: respHotel.Location.EstablishmentId,
+				Address:         respHotel.Location.Address,
+				Latitude:        float64(respHotel.Location.Latitude),
+				Longitude:       float64(respHotel.Location.Longitude),
+				Country:         respHotel.Location.Country,
+				City:            respHotel.Location.City,
+				StateProvince:   respHotel.Location.StateProvince,
+				CreatedAt:       respHotel.Location.CreatedAt,
+				UpdatedAt:       respHotel.Location.UpdatedAt,
+			},
+			CreatedAt: respHotel.CreatedAt,
+			UpdatedAt: respHotel.UpdatedAt,
+		}
+
+		respHotels = append(respHotels, &hotel)
+	}
+
+	listModel := models.ListHotelsModel{
+		Hotels:  respHotels,
+		Count: response.Count,
+	}
+
+	c.JSON(200, listModel)
+}
