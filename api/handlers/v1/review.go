@@ -62,7 +62,7 @@ func (h HandlerV1) CreateReview(c *gin.Context) {
 	})
 	if err != nil {
 		c.JSON(500, gin.H{
-			"error": err.Error(),
+			"error": "error while getting response",
 		})
 		h.Logger.Error(err.Error())
 		return
@@ -113,7 +113,7 @@ func (h HandlerV1) ListReviews(c *gin.Context) {
 	})
 	if err != nil {
 		c.JSON(500, gin.H{
-			"error": err.Error(),
+			"error": "error while getting response",
 		})
 		h.Logger.Error(err.Error())
 		return
@@ -175,7 +175,7 @@ func (h HandlerV1) DeleteReview(c *gin.Context) {
 	})
 	if err != nil {
 		c.JSON(500, gin.H{
-			"error": err.Error(),
+			"error": "error while getting response",
 		})
 		h.Logger.Error(err.Error())
 		return

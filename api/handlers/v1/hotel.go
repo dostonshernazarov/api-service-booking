@@ -42,7 +42,7 @@ func (h HandlerV1) CreateHotel(c *gin.Context) {
 	
 	if err := c.ShouldBindJSON(&body); err != nil {
 		c.JSON(404, gin.H{
-			"error": err.Error(),
+			"error": "error while binding json",
 		})
 		return
 	}
@@ -99,7 +99,7 @@ func (h HandlerV1) CreateHotel(c *gin.Context) {
 	})
 	if err != nil {
 		c.JSON(500, gin.H{
-			"error": err.Error(),
+			"error": "error while getting response",
 		})
 		return
 	}
@@ -178,7 +178,7 @@ func (h HandlerV1) GetHotel(c *gin.Context) {
 	})
 	if err != nil {
 		c.JSON(500, gin.H{
-			"error": err.Error(),
+			"error": "error while getting response",
 		})
 		h.Logger.Error(err.Error())
 		return
@@ -256,7 +256,7 @@ func (h HandlerV1) ListHotels(c *gin.Context) {
 	pageInt, err := strconv.Atoi(page)
 	if err != nil {
 		c.JSON(404, gin.H{
-			"error": err.Error(),
+			"error": "error while parsing page to int",
 		})
 		h.Logger.Error(err.Error())
 		return
@@ -266,7 +266,7 @@ func (h HandlerV1) ListHotels(c *gin.Context) {
 	limitInt, err := strconv.Atoi(limit)
 	if err != nil {
 		c.JSON(404, gin.H{
-			"error": err.Error(),
+			"error": "error while parsing limit to int",
 		})
 		h.Logger.Error(err.Error())
 		return
@@ -280,7 +280,7 @@ func (h HandlerV1) ListHotels(c *gin.Context) {
 	})
 	if err != nil {
 		c.JSON(500, gin.H{
-			"error": err.Error(),
+			"error": "error while getting response",
 		})
 		h.Logger.Error(err.Error())
 		return
@@ -370,7 +370,7 @@ func (h HandlerV1) UpdateHotel(c *gin.Context) {
 
 	if err := c.ShouldBindJSON(&body); err != nil {
 		c.JSON(404, gin.H{
-			"error": err.Error(),
+			"error": "error while binding json",
 		})
 		return
 	}
@@ -398,7 +398,7 @@ func (h HandlerV1) UpdateHotel(c *gin.Context) {
 	})
 	if err != nil {
 		c.JSON(500, gin.H{
-			"error": err.Error(),
+			"error": "error while getting response",
 		})
 		h.Logger.Error(err.Error())
 		return
@@ -478,7 +478,7 @@ func (h HandlerV1) DeleteHotel(c *gin.Context) {
 	})
 	if err != nil {
 		c.JSON(500, gin.H{
-			"error": err.Error(),
+			"error": "error while getting response",
 		})
 		h.Logger.Error(err.Error())
 		return
@@ -528,7 +528,7 @@ func (h HandlerV1) ListHotelsByLocation(c *gin.Context) {
 	pageInt, err := strconv.Atoi(page)
 	if err != nil {
 		c.JSON(404, gin.H{
-			"error": err.Error(),
+			"error": "error while parsing page to int",
 		})
 		h.Logger.Error(err.Error())
 		return
@@ -538,7 +538,7 @@ func (h HandlerV1) ListHotelsByLocation(c *gin.Context) {
 	limitInt, err := strconv.Atoi(limit)
 	if err != nil {
 		c.JSON(404, gin.H{
-			"error": err.Error(),
+			"error": "error while parsing limit to int",
 		})
 		h.Logger.Error(err.Error())
 		return
@@ -559,7 +559,7 @@ func (h HandlerV1) ListHotelsByLocation(c *gin.Context) {
 	})
 	if err != nil {
 		c.JSON(500, gin.H{
-			"error": err.Error(),
+			"error": "error while getting response",
 		})
 		h.Logger.Error(err.Error())
 		return
@@ -652,7 +652,7 @@ func (h HandlerV1) FindHotelsByName(c *gin.Context) {
 	})
 	if err != nil {
 		c.JSON(500, gin.H{
-			"error": err.Error(),
+			"error": "error while getting response",
 		})
 		h.Logger.Error(err.Error())
 		return

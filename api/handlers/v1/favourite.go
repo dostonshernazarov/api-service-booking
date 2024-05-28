@@ -51,7 +51,7 @@ func (h HandlerV1) AddToFavourites(c *gin.Context) {
 	})
 	if err != nil {
 		c.JSON(500, gin.H{
-			"error": err.Error(),
+			"error": "error while getting response",
 		})
 		h.Logger.Error(err.Error())
 		return
@@ -100,7 +100,7 @@ func (h HandlerV1) RemoveFromFavourites(c *gin.Context) {
 	})
 	if err != nil {
 		c.JSON(500, gin.H{
-			"error": err.Error(),
+			"error": "error while getting response",
 		})
 		h.Logger.Error(err.Error())
 		return
@@ -153,7 +153,7 @@ func (h HandlerV1) ListFavouritesByUserId(c *gin.Context) {
 	})
 	if err != nil {
 		c.JSON(500, gin.H{
-			"error": err.Error(),
+			"error": "error while getting response",
 		})
 		h.Logger.Error(err.Error())
 		return

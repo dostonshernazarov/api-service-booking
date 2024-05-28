@@ -224,3 +224,108 @@ net/http.(*conn).serve
 2024-05-27T21:39:43.480+0500	INFO	app/main.go:41	api gateway service stops
 2024-05-27T21:39:46.336+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
 2024-05-27T21:43:24.606+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-28T16:24:40.287+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-28T17:44:34.395+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-28T17:48:57.548+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-28T17:48:59.586+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-28T17:57:12.329+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-28T17:57:14.770+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-28T17:57:20.199+0500	ERROR	v1/attraction.go:652	rpc error: code = Internal desc = failed to fetch attractions: ERROR: syntax error at or near "ILIKE" (SQLSTATE 42601)
+Booking/api-service-booking/api/handlers/v1.HandlerV1.FindAttractionsByName
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/attraction.go:652
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-28T17:58:51.299+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-28T17:58:53.507+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-28T17:59:04.973+0500	ERROR	v1/attraction.go:652	rpc error: code = Internal desc = failed to fetch attractions: ERROR: syntax error at or near "ILIKE" (SQLSTATE 42601)
+Booking/api-service-booking/api/handlers/v1.HandlerV1.FindAttractionsByName
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/attraction.go:652
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-28T18:04:00.463+0500	ERROR	v1/attraction.go:652	rpc error: code = Internal desc = failed to fetch attractions: ERROR: syntax error at or near "WHERE" (SQLSTATE 42601)
+Booking/api-service-booking/api/handlers/v1.HandlerV1.FindAttractionsByName
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/attraction.go:652
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-28T18:05:56.521+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-28T18:05:58.645+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-28T18:10:24.777+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-28T18:10:26.858+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-28T18:25:11.274+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-28T18:25:13.474+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-28T19:47:58.397+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-28T20:36:16.197+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-28T20:36:32.639+0500	ERROR	v1/attraction.go:652	rpc error: code = Internal desc = failed to fetch attractions: ERROR: syntax error at or near "ORDERY" (SQLSTATE 42601)
+Booking/api-service-booking/api/handlers/v1.HandlerV1.FindAttractionsByName
+	/home/user/projects/src/Booking/api-service-booking/api/handlers/v1/attraction.go:652
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/home/user/projects/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
+net/http.serverHandler.ServeHTTP
+	/usr/local/go/src/net/http/server.go:3137
+net/http.(*conn).serve
+	/usr/local/go/src/net/http/server.go:2039
+2024-05-28T20:37:25.346+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-28T20:37:27.520+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-28T20:38:57.096+0500	INFO	app/main.go:41	api gateway service stops
+2024-05-28T20:58:28.337+0500	INFO	app/main.go:30	Listen: 	{"address": "localhost:8080"}
+2024-05-28T20:58:29.222+0500	INFO	app/main.go:41	api gateway service stops
