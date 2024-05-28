@@ -175,7 +175,7 @@ func (h *HandlerV1) UploadMedia(c *gin.Context) {
 		return
 	}
 
-	minioURL := fmt.Sprintf("https:/media.touristan-bs.uz/%s/%s", bucketName, objectName)
+	minioURL := fmt.Sprintf("https://media.touristan-bs.uz/%s/%s", bucketName, objectName)
 	// if err != nil {
 	// 	c.JSON(http.StatusInternalServerError, models.Error{
 	// 		Message: err.Error(),
@@ -343,7 +343,7 @@ func (h *HandlerV1) CreateEstablishmentMedia(c *gin.Context) {
 		return
 	}
 
-	minioURL := fmt.Sprintf("https:/media.touristan-bs.uz/%s/%s", bucketName, objectName)
+	minioURL := fmt.Sprintf("https://media.touristan-bs.uz/%s/%s", bucketName, objectName)
 
 	// println("\n\n", minioURL, "\n")
 	respons ,err := h.Service.EstablishmentService().CreateMedia(ctx, &pbe.Image{
@@ -366,4 +366,3 @@ func (h *HandlerV1) CreateEstablishmentMedia(c *gin.Context) {
 	})
 
 }
-
