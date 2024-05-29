@@ -134,3 +134,7 @@ type FieldValuesByLocation struct {
 	City string `json:"city"`
 	Province string `json:"province"`
 }
+
+type FindByName struct {
+	Name string `json:"name"`
+}

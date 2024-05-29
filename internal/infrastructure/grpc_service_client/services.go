@@ -69,6 +69,7 @@ func New(cfg *config.Config) (ServiceClient, error) {
 		connections: []*grpc.ClientConn{
 			connEstablishmentService,
 			connUserService,
+			connBookingService,
 		},
 	}, nil
 }
