@@ -947,10 +947,8 @@ paths:
       - application/json
       description: Api for finding attractions by name
       parameters:
-      - description: name
-        in: query
+      - in: query
         name: name
-        required: true
         type: string
       produces:
       - application/json
@@ -1939,10 +1937,8 @@ paths:
       - application/json
       description: Api for listing hotels by name
       parameters:
-      - description: name
-        in: query
+      - in: query
         name: name
-        required: true
         type: string
       produces:
       - application/json
@@ -2248,10 +2244,8 @@ paths:
       - application/json
       description: Api for listing restaurants by name
       parameters:
-      - description: name
-        in: query
+      - in: query
         name: name
-        required: true
         type: string
       produces:
       - application/json

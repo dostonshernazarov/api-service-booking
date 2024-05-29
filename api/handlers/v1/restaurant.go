@@ -641,7 +641,7 @@ func (h HandlerV1) ListRestaurantsByLocation(c *gin.Context) {
 // @Tags RESTAURANT
 // @Accept json
 // @Produce json
-// @Param name query string true "name"
+// @Param request query models.FindByName true "request"
 // @Success 200 {object} models.ListRestaurantsModel
 // @Failure 404 {object} models.StandartError
 // @Failure 500 {object} models.StandartError

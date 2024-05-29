@@ -39,7 +39,7 @@ func (h HandlerV1) CreateHotel(c *gin.Context) {
 
 	jspbMarshal.UseProtoNames = true
 
-	
+
 	if err := c.ShouldBindJSON(&body); err != nil {
 		c.JSON(404, gin.H{
 			"error": err.Error(),
@@ -626,7 +626,7 @@ func (h HandlerV1) ListHotelsByLocation(c *gin.Context) {
 // @Tags HOTEL
 // @Accept json
 // @Produce json
-// @Param name query string true "name"
+// @Param request query models.FindByName true "request"
 // @Success 200 {object} models.ListHotelsModel
 // @Failure 404 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
@@ -645,7 +645,7 @@ func (h HandlerV1) FindHotelsByName(c *gin.Context) {
 	defer span.End()
 
 	name := c.Query("name")
-	
+
 
 	response, err := h.Service.EstablishmentService().FindHotelsByName(ctx, &pbe.FindHotelsByNameRequest{
 		Name: name,

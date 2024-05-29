@@ -33,7 +33,7 @@ func (h HandlerV1) CreateAttraction(c *gin.Context) {
 
 	jspbMarshal.UseProtoNames = true
 
-	
+
 	ctx, span := otlp.Start(c, "api", "CreateAttraction")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
@@ -507,7 +507,7 @@ func (h HandlerV1) DeleteAttraction(c *gin.Context) {
 // @Success 200 {object} models.ListAttractionModel
 // @Failure 404 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/attraction/listlocation [GET]  
+// @Router /v1/attraction/listlocation [GET]
 func (h HandlerV1) ListAttractionsByLocation(c *gin.Context) {
 	var (
 		jspbMarshal protojson.MarshalOptions
@@ -622,7 +622,7 @@ func (h HandlerV1) ListAttractionsByLocation(c *gin.Context) {
 // @Tags ATTRACTION
 // @Accept json
 // @Produce json
-// @Param name query string true "name"
+// @Param request query models.FindByName true "request"
 // @Success 200 {object} models.ListAttractionModel
 // @Failure 404 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
