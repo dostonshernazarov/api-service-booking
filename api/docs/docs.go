@@ -919,13 +919,23 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.GetAllByUIdRes"
+                            "$ref": "#/definitions/models.IdRes"
                         }
                     },
                     "400": {
@@ -1213,17 +1223,25 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "ID",
                         "name": "id",
-                        "in": "path",
-                        "required": true
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.GetAllByUIdRes"
+                            "$ref": "#/definitions/models.IdRes"
                         }
                     },
                     "400": {
@@ -1515,13 +1533,23 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.GetAllByUIdRes"
+                            "$ref": "#/definitions/models.IdRes"
                         }
                     },
                     "400": {
@@ -1611,13 +1639,23 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.GetAllByHRAIdRes"
+                            "$ref": "#/definitions/models.IdRes"
                         }
                     },
                     "400": {
@@ -1660,13 +1698,23 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.GetAllByHRAIdRes"
+                            "$ref": "#/definitions/models.IdRes"
                         }
                     },
                     "400": {
@@ -1709,13 +1757,23 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.GetAllByHRAIdRes"
+                            "$ref": "#/definitions/models.IdRes"
                         }
                     },
                     "400": {
@@ -3949,28 +4007,6 @@ const docTemplate = `{
                 }
             }
         },
-        "models.GetAllByHRAIdRes": {
-            "type": "object",
-            "properties": {
-                "user_id": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/models.UserId"
-                    }
-                }
-            }
-        },
-        "models.GetAllByUIdRes": {
-            "type": "object",
-            "properties": {
-                "bookings": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/models.BookingRes"
-                    }
-                }
-            }
-        },
         "models.HotelModel": {
             "type": "object",
             "properties": {
@@ -4012,6 +4048,25 @@ const docTemplate = `{
                 },
                 "website_url": {
                     "type": "string"
+                }
+            }
+        },
+        "models.IdReq": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.IdRes": {
+            "type": "object",
+            "properties": {
+                "ids": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.IdReq"
+                    }
                 }
             }
         },
@@ -4329,9 +4384,6 @@ const docTemplate = `{
                 "reason": {
                     "type": "string"
                 },
-                "user_id": {
-                    "type": "string"
-                },
                 "will_arrive": {
                     "type": "string"
                 },
@@ -4434,14 +4486,6 @@ const docTemplate = `{
                 "website_url": {
                     "type": "string",
                     "default": "updated website url"
-                }
-            }
-        },
-        "models.UserId": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string"
                 }
             }
         },

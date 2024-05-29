@@ -218,20 +218,6 @@ definitions:
       user_id:
         type: string
     type: object
-  models.GetAllByHRAIdRes:
-    properties:
-      user_id:
-        items:
-          $ref: '#/definitions/models.UserId'
-        type: array
-    type: object
-  models.GetAllByUIdRes:
-    properties:
-      bookings:
-        items:
-          $ref: '#/definitions/models.BookingRes'
-        type: array
-    type: object
   models.HotelModel:
     properties:
       contact_number:
@@ -260,6 +246,18 @@ definitions:
         type: string
       website_url:
         type: string
+    type: object
+  models.IdReq:
+    properties:
+      id:
+        type: string
+    type: object
+  models.IdRes:
+    properties:
+      ids:
+        items:
+          $ref: '#/definitions/models.IdReq'
+        type: array
     type: object
   models.ImageModel:
     properties:
@@ -467,8 +465,6 @@ definitions:
         type: integer
       reason:
         type: string
-      user_id:
-        type: string
       will_arrive:
         type: string
       will_leave:
@@ -542,11 +538,6 @@ definitions:
         type: string
       website_url:
         default: updated website url
-        type: string
-    type: object
-  models.UserId:
-    properties:
-      id:
         type: string
     type: object
   models.UserReq:
@@ -1188,13 +1179,19 @@ paths:
         name: id
         required: true
         type: string
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.GetAllByUIdRes'
+            $ref: '#/definitions/models.IdRes'
         "400":
           description: Bad Request
           schema:
@@ -1370,18 +1367,22 @@ paths:
       - application/json
       description: Api for Get All Hotels By User Id
       parameters:
-      - description: ID
-        in: path
+      - in: query
         name: id
-        required: true
         type: string
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.GetAllByUIdRes'
+            $ref: '#/definitions/models.IdRes'
         "400":
           description: Bad Request
           schema:
@@ -1562,13 +1563,19 @@ paths:
         name: id
         required: true
         type: string
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.GetAllByUIdRes'
+            $ref: '#/definitions/models.IdRes'
         "400":
           description: Bad Request
           schema:
@@ -1625,13 +1632,19 @@ paths:
         name: id
         required: true
         type: string
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.GetAllByHRAIdRes'
+            $ref: '#/definitions/models.IdRes'
         "400":
           description: Bad Request
           schema:
@@ -1656,13 +1669,19 @@ paths:
         name: id
         required: true
         type: string
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.GetAllByHRAIdRes'
+            $ref: '#/definitions/models.IdRes'
         "400":
           description: Bad Request
           schema:
@@ -1687,13 +1706,19 @@ paths:
         name: id
         required: true
         type: string
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.GetAllByHRAIdRes'
+            $ref: '#/definitions/models.IdRes'
         "400":
           description: Bad Request
           schema:
