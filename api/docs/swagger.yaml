@@ -218,20 +218,6 @@ definitions:
       user_id:
         type: string
     type: object
-  models.GetAllByHRAIdRes:
-    properties:
-      user_id:
-        items:
-          $ref: '#/definitions/models.UserId'
-        type: array
-    type: object
-  models.GetAllByUIdRes:
-    properties:
-      bookings:
-        items:
-          $ref: '#/definitions/models.BookingRes'
-        type: array
-    type: object
   models.HotelModel:
     properties:
       contact_number:
@@ -260,6 +246,18 @@ definitions:
         type: string
       website_url:
         type: string
+    type: object
+  models.IdReq:
+    properties:
+      id:
+        type: string
+    type: object
+  models.IdRes:
+    properties:
+      ids:
+        items:
+          $ref: '#/definitions/models.IdReq'
+        type: array
     type: object
   models.ImageModel:
     properties:
@@ -323,6 +321,8 @@ definitions:
         items:
           $ref: '#/definitions/models.ReviewModel'
         type: array
+    type: object
+  models.ListUsersRes:
     type: object
   models.LocationModel:
     properties:
@@ -465,8 +465,6 @@ definitions:
         type: integer
       reason:
         type: string
-      user_id:
-        type: string
       will_arrive:
         type: string
       will_leave:
@@ -542,11 +540,6 @@ definitions:
         default: updated website url
         type: string
     type: object
-  models.UserId:
-    properties:
-      id:
-        type: string
-    type: object
   models.UserReq:
     properties:
       card:
@@ -616,44 +609,6 @@ definitions:
       refresh_token:
         type: string
       role:
-        type: string
-    type: object
-  user.ListUsersRes:
-    properties:
-      count:
-        type: integer
-      users:
-        items:
-          $ref: '#/definitions/user.UserList'
-        type: array
-    type: object
-  user.UserList:
-    properties:
-      card:
-        type: string
-      created_at:
-        type: string
-      date_of_birth:
-        type: string
-      deleted_at:
-        type: string
-      email:
-        type: string
-      full_name:
-        type: string
-      gender:
-        type: string
-      id:
-        type: string
-      phone_number:
-        type: string
-      profile_img:
-        type: string
-      refresh_token:
-        type: string
-      role:
-        type: string
-      updated_at:
         type: string
     type: object
 info:
@@ -803,7 +758,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/user.ListUsersRes'
+            $ref: '#/definitions/models.ListUsersRes'
         "400":
           description: Bad Request
           schema:
@@ -975,6 +930,35 @@ paths:
       security:
       - BearerAuth: []
       summary: UPDATE ATTRACTION
+      tags:
+      - ATTRACTION
+  /v1/attraction/find:
+    get:
+      consumes:
+      - application/json
+      description: Api for finding attractions by name
+      parameters:
+      - in: query
+        name: name
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ListAttractionModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: Find ATTRACTIONS BY NAME
       tags:
       - ATTRACTION
   /v1/attraction/list:
@@ -1193,13 +1177,19 @@ paths:
         name: id
         required: true
         type: string
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.GetAllByUIdRes'
+            $ref: '#/definitions/models.IdRes'
         "400":
           description: Bad Request
           schema:
@@ -1375,18 +1365,22 @@ paths:
       - application/json
       description: Api for Get All Hotels By User Id
       parameters:
-      - description: ID
-        in: path
+      - in: query
         name: id
-        required: true
         type: string
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.GetAllByUIdRes'
+            $ref: '#/definitions/models.IdRes'
         "400":
           description: Bad Request
           schema:
@@ -1567,13 +1561,19 @@ paths:
         name: id
         required: true
         type: string
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.GetAllByUIdRes'
+            $ref: '#/definitions/models.IdRes'
         "400":
           description: Bad Request
           schema:
@@ -1630,13 +1630,19 @@ paths:
         name: id
         required: true
         type: string
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.GetAllByHRAIdRes'
+            $ref: '#/definitions/models.IdRes'
         "400":
           description: Bad Request
           schema:
@@ -1661,13 +1667,19 @@ paths:
         name: id
         required: true
         type: string
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.GetAllByHRAIdRes'
+            $ref: '#/definitions/models.IdRes'
         "400":
           description: Bad Request
           schema:
@@ -1692,13 +1704,19 @@ paths:
         name: id
         required: true
         type: string
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.GetAllByHRAIdRes'
+            $ref: '#/definitions/models.IdRes'
         "400":
           description: Bad Request
           schema:
@@ -1936,6 +1954,35 @@ paths:
       security:
       - BearerAuth: []
       summary: UPDATE HOTEL
+      tags:
+      - HOTEL
+  /v1/hotel/find:
+    get:
+      consumes:
+      - application/json
+      description: Api for listing hotels by name
+      parameters:
+      - in: query
+        name: name
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ListHotelsModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: FIND HOTELS BY NAME
       tags:
       - HOTEL
   /v1/hotel/list:
@@ -2214,6 +2261,35 @@ paths:
       security:
       - BearerAuth: []
       summary: UPDATE RESTAURANT
+      tags:
+      - RESTAURANT
+  /v1/restaurant/find:
+    get:
+      consumes:
+      - application/json
+      description: Api for listing restaurants by name
+      parameters:
+      - in: query
+        name: name
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ListRestaurantsModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartError'
+      security:
+      - BearerAuth: []
+      summary: FIND RESTAURANTS BY NAME
       tags:
       - RESTAURANT
   /v1/restaurant/list:
@@ -2612,7 +2688,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/user.ListUsersRes'
+            $ref: '#/definitions/models.ListUsersRes'
         "400":
           description: Bad Request
           schema:
@@ -2650,7 +2726,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/user.ListUsersRes'
+            $ref: '#/definitions/models.ListUsersRes'
         "400":
           description: Bad Request
           schema:

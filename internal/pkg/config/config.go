@@ -47,7 +47,7 @@ type Config struct {
 		Secret     string
 		AccessTTL  time.Duration
 		RefreshTTL time.Duration
-		SignInKey string
+		SignInKey  string
 	}
 	Minio struct {
 		Endpoint              string
@@ -63,9 +63,9 @@ type Config struct {
 		}
 	}
 	EstablishmentService webAddress
-	UserService webAddress
-	BookingService webAddress
-	OTLPCollector webAddress
+	UserService          webAddress
+	BookingService       webAddress
+	OTLPCollector        webAddress
 }
 
 func NewConfig() (*Config, error) {
@@ -102,14 +102,12 @@ func NewConfig() (*Config, error) {
 	config.EstablishmentService.Host = getEnv("ESTABLISHMENT_SERVICE_GRPC_HOST", "establishment-service")
 	config.EstablishmentService.Port = getEnv("ESTABLISHMENT_SERVICE_GRPC_PORT", ":50024")
 
-
 	// user configuration
 	config.UserService.Host = getEnv("USER_SERVICE_GRPC_HOST", "user-service")
 	config.UserService.Port = getEnv("USER_SERVICE_GRPC_PORT", ":50025")
 
-
 	// booking configuration
-	config.BookingService.Host = getEnv("BOOKING_SERVICE_GRPC_HOST", "booking-service`")
+	config.BookingService.Host = getEnv("BOOKING_SERVICE_GRPC_HOST", "booking-service")
 	config.BookingService.Port = getEnv("BOOKING_SERVICE_GRPC_PORT", ":50023")
 
 	// token configuration
@@ -130,7 +128,7 @@ func NewConfig() (*Config, error) {
 	config.Token.SignInKey = getEnv("TOKEN_SIGNIN_KEY", "debug_booking")
 
 	// otlp collector configuration
-	config.OTLPCollector.Host = getEnv("OTLP_COLLECTOR_HOST", "localhost")
+	config.OTLPCollector.Host = getEnv("OTLP_COLLECTOR_HOST", "otel-collector")
 	config.OTLPCollector.Port = getEnv("OTLP_COLLECTOR_PORT", ":4317")
 
 	// kafka configuration

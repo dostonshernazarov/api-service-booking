@@ -33,7 +33,7 @@ func (h HandlerV1) CreateAttraction(c *gin.Context) {
 
 	jspbMarshal.UseProtoNames = true
 
-	
+
 	ctx, span := otlp.Start(c, "api", "CreateAttraction")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
@@ -507,7 +507,7 @@ func (h HandlerV1) DeleteAttraction(c *gin.Context) {
 // @Success 200 {object} models.ListAttractionModel
 // @Failure 404 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
-// @Router /v1/attraction/listlocation [GET]  
+// @Router /v1/attraction/listlocation [GET]
 func (h HandlerV1) ListAttractionsByLocation(c *gin.Context) {
 	var (
 		jspbMarshal protojson.MarshalOptions
@@ -613,4 +613,96 @@ func (h HandlerV1) ListAttractionsByLocation(c *gin.Context) {
 	}
 
 	c.JSON(200, respModel)
+}
+
+// Find ATTRACTIONS BY NAME
+// @Summary Find ATTRACTIONS BY NAME
+// @Security BearerAuth
+// @Description Api for finding attractions by name
+// @Tags ATTRACTION
+// @Accept json
+// @Produce json
+// @Param request query models.FindByName true "request"
+// @Success 200 {object} models.ListAttractionModel
+// @Failure 404 {object} models.StandartError
+// @Failure 500 {object} models.StandartError
+// @Router /v1/attraction/find [GET]
+func (h HandlerV1) FindAttractionsByName(c *gin.Context) {
+	var (
+		jspbMarshal protojson.MarshalOptions
+	)
+
+	jspbMarshal.UseProtoNames = true
+
+	ctx, span := otlp.Start(c, "api", "FindAttractions")
+	span.SetAttributes(
+		attribute.Key("method").String(c.Request.Method),
+	)
+	defer span.End()
+
+	name := c.Query("name")
+
+	response, err := h.Service.EstablishmentService().FindAttractionsByName(ctx, &pbe.FindAttractionsByNameRequest{
+		Name: name,
+	})
+	if err != nil {
+		c.JSON(500, gin.H{
+			"error": err.Error(),
+		})
+		h.Logger.Error(err.Error())
+		return
+	}
+
+	var respAttractions []*models.AttractionModel
+
+	for _, respAttraction := range response.Attractions {
+
+		var respImages []*models.ImageModel
+
+		for _, respImage := range respAttraction.Images {
+			image := models.ImageModel{
+				ImageId:         respImage.ImageId,
+				EstablishmentId: respImage.EstablishmentId,
+				ImageUrl:        respImage.ImageUrl,
+				CreatedAt:       respImage.CreatedAt,
+				UpdatedAt:       respImage.UpdatedAt,
+			}
+			respImages = append(respImages, &image)
+		}
+
+		attraction := models.AttractionModel{
+			AttractionId:   respAttraction.AttractionId,
+			OwnerId:        respAttraction.OwnerId,
+			AttractionName: respAttraction.AttractionName,
+			Description:    respAttraction.Description,
+			Rating:         respAttraction.Rating,
+			ContactNumber:  respAttraction.ContactNumber,
+			LicenceUrl:     respAttraction.LicenceUrl,
+			WebsiteUrl:     respAttraction.WebsiteUrl,
+			Images:         respImages,
+			Location: models.LocationModel{
+				LocationId:      respAttraction.Location.LocationId,
+				EstablishmentId: respAttraction.Location.EstablishmentId,
+				Address:         respAttraction.Location.Address,
+				Latitude:        float64(respAttraction.Location.Latitude),
+				Longitude:       float64(respAttraction.Location.Longitude),
+				Country:         respAttraction.Location.Country,
+				City:            respAttraction.Location.City,
+				StateProvince:   respAttraction.Location.StateProvince,
+				CreatedAt:       respAttraction.Location.CreatedAt,
+				UpdatedAt:       respAttraction.Location.UpdatedAt,
+			},
+			CreatedAt: respAttraction.CreatedAt,
+			UpdatedAt: respAttraction.UpdatedAt,
+		}
+
+		respAttractions = append(respAttractions, &attraction)
+	}
+
+	listModel := models.ListAttractionModel{
+		Attractions: respAttractions,
+		Count:       response.Count,
+	}
+
+	c.JSON(200, listModel)
 }

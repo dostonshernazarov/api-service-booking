@@ -149,7 +149,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/user.ListUsersRes"
+                            "$ref": "#/definitions/models.ListUsersRes"
                         }
                     },
                     "400": {
@@ -499,6 +499,53 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.DeleteResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/attraction/find": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Api for finding attractions by name",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ATTRACTION"
+                ],
+                "summary": "Find ATTRACTIONS BY NAME",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ListAttractionModel"
                         }
                     },
                     "404": {
@@ -870,13 +917,23 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.GetAllByUIdRes"
+                            "$ref": "#/definitions/models.IdRes"
                         }
                     },
                     "400": {
@@ -1164,17 +1221,25 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "ID",
                         "name": "id",
-                        "in": "path",
-                        "required": true
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.GetAllByUIdRes"
+                            "$ref": "#/definitions/models.IdRes"
                         }
                     },
                     "400": {
@@ -1466,13 +1531,23 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.GetAllByUIdRes"
+                            "$ref": "#/definitions/models.IdRes"
                         }
                     },
                     "400": {
@@ -1562,13 +1637,23 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.GetAllByHRAIdRes"
+                            "$ref": "#/definitions/models.IdRes"
                         }
                     },
                     "400": {
@@ -1611,13 +1696,23 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.GetAllByHRAIdRes"
+                            "$ref": "#/definitions/models.IdRes"
                         }
                     },
                     "400": {
@@ -1660,13 +1755,23 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.GetAllByHRAIdRes"
+                            "$ref": "#/definitions/models.IdRes"
                         }
                     },
                     "400": {
@@ -2022,6 +2127,53 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.DeleteResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/hotel/find": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Api for listing hotels by name",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "HOTEL"
+                ],
+                "summary": "FIND HOTELS BY NAME",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ListHotelsModel"
                         }
                     },
                     "404": {
@@ -2455,6 +2607,53 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.DeleteResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.StandartError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/restaurant/find": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Api for listing restaurants by name",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "RESTAURANT"
+                ],
+                "summary": "FIND RESTAURANTS BY NAME",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ListRestaurantsModel"
                         }
                     },
                     "404": {
@@ -3007,7 +3206,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/user.ListUsersRes"
+                            "$ref": "#/definitions/models.ListUsersRes"
                         }
                     },
                     "400": {
@@ -3069,7 +3268,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/user.ListUsersRes"
+                            "$ref": "#/definitions/models.ListUsersRes"
                         }
                     },
                     "400": {
@@ -3802,28 +4001,6 @@ const docTemplate = `{
                 }
             }
         },
-        "models.GetAllByHRAIdRes": {
-            "type": "object",
-            "properties": {
-                "user_id": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/models.UserId"
-                    }
-                }
-            }
-        },
-        "models.GetAllByUIdRes": {
-            "type": "object",
-            "properties": {
-                "bookings": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/models.BookingRes"
-                    }
-                }
-            }
-        },
         "models.HotelModel": {
             "type": "object",
             "properties": {
@@ -3865,6 +4042,25 @@ const docTemplate = `{
                 },
                 "website_url": {
                     "type": "string"
+                }
+            }
+        },
+        "models.IdReq": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.IdRes": {
+            "type": "object",
+            "properties": {
+                "ids": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.IdReq"
+                    }
                 }
             }
         },
@@ -3965,6 +4161,9 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "models.ListUsersRes": {
+            "type": "object"
         },
         "models.LocationModel": {
             "type": "object",
@@ -4179,9 +4378,6 @@ const docTemplate = `{
                 "reason": {
                     "type": "string"
                 },
-                "user_id": {
-                    "type": "string"
-                },
                 "will_arrive": {
                     "type": "string"
                 },
@@ -4284,14 +4480,6 @@ const docTemplate = `{
                 "website_url": {
                     "type": "string",
                     "default": "updated website url"
-                }
-            }
-        },
-        "models.UserId": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string"
                 }
             }
         },
@@ -4399,64 +4587,6 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "role": {
-                    "type": "string"
-                }
-            }
-        },
-        "user.ListUsersRes": {
-            "type": "object",
-            "properties": {
-                "count": {
-                    "type": "integer"
-                },
-                "users": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/user.UserList"
-                    }
-                }
-            }
-        },
-        "user.UserList": {
-            "type": "object",
-            "properties": {
-                "card": {
-                    "type": "string"
-                },
-                "created_at": {
-                    "type": "string"
-                },
-                "date_of_birth": {
-                    "type": "string"
-                },
-                "deleted_at": {
-                    "type": "string"
-                },
-                "email": {
-                    "type": "string"
-                },
-                "full_name": {
-                    "type": "string"
-                },
-                "gender": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "phone_number": {
-                    "type": "string"
-                },
-                "profile_img": {
-                    "type": "string"
-                },
-                "refresh_token": {
-                    "type": "string"
-                },
-                "role": {
-                    "type": "string"
-                },
-                "updated_at": {
                     "type": "string"
                 }
             }

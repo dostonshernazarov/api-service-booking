@@ -40,7 +40,7 @@ go-gen:
 # generate swag
 .PHONY: swag-gen
 swag-gen:
-	swag init --parseDependency --dir ./api -g router.go -o ./api/docs
+	swag init -g api/router.go -o api/docs
 
 # run test
 .PHONY: test

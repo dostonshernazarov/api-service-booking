@@ -91,6 +91,7 @@ func NewRoute(option RouteOption) *gin.Engine {
 	api.PUT("/attraction", HandlerV1.UpdateAttraction)
 	api.DELETE("/attraction", HandlerV1.DeleteAttraction)
 	api.GET("/attraction/listlocation", HandlerV1.ListAttractionsByLocation)
+	api.GET("/attraction/find", HandlerV1.FindAttractionsByName)
 
 	// HOTEL METHODS
 	api.POST("/hotel", HandlerV1.CreateHotel)
@@ -99,6 +100,7 @@ func NewRoute(option RouteOption) *gin.Engine {
 	api.PUT("/hotel", HandlerV1.UpdateHotel)
 	api.DELETE("/hotel", HandlerV1.DeleteHotel)
 	api.GET("/hotel/listlocation", HandlerV1.ListHotelsByLocation)
+	api.GET("/hotel/find", HandlerV1.FindHotelsByName)
 
 	// RESTAURANT METHODS
 	api.POST("/restaurant", HandlerV1.CreateRestaurant)
@@ -107,6 +109,7 @@ func NewRoute(option RouteOption) *gin.Engine {
 	api.PUT("/restaurant", HandlerV1.UpdateRestaurant)
 	api.DELETE("/restaurant", HandlerV1.DeleteRestaurant)
 	api.GET("/restaurant/listlocation", HandlerV1.ListRestaurantsByLocation)
+	api.GET("/restaurant/find", HandlerV1.FindRestaurantsByName)
 
 	// FAVOURITE METHODS
 	api.POST("/favourite/add", HandlerV1.AddToFavourites)
