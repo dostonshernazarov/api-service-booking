@@ -78,14 +78,14 @@ func NewConfig() (*Config, error) {
 	config.Context.Timeout = getEnv("CONTEXT_TIMEOUT", "7s")
 
 	// server configuration
-	config.Server.Host = getEnv("SERVER_HOST", "localhost")
+	config.Server.Host = getEnv("SERVER_HOST", "api-service")
 	config.Server.Port = getEnv("SERVER_PORT", ":8080")
 	config.Server.ReadTimeout = getEnv("SERVER_READ_TIMEOUT", "10s")
 	config.Server.WriteTimeout = getEnv("SERVER_WRITE_TIMEOUT", "10s")
 	config.Server.IdleTimeout = getEnv("SERVER_IDLE_TIMEOUT", "120s")
 
 	// db configuration
-	config.DB.Host = getEnv("POSTGRES_HOST", "localhost")
+	config.DB.Host = getEnv("POSTGRES_HOST", "postgres")
 	config.DB.Port = getEnv("POSTGRES_PORT", "5432")
 	config.DB.Name = getEnv("POSTGRES_DATABASE", "touristandb")
 	config.DB.User = getEnv("POSTGRES_USER", "postgres")
@@ -99,15 +99,15 @@ func NewConfig() (*Config, error) {
 	config.Redis.Password = getEnv("REDIS_PASSWORD", "")
 	config.Redis.Name = getEnv("REDIS_DATABASE", "0")
 
-	config.EstablishmentService.Host = getEnv("ESTABLISHMENT_SERVICE_GRPC_HOST", "localhost")
+	config.EstablishmentService.Host = getEnv("ESTABLISHMENT_SERVICE_GRPC_HOST", "establishment-service")
 	config.EstablishmentService.Port = getEnv("ESTABLISHMENT_SERVICE_GRPC_PORT", ":50024")
 
 	// user configuration
-	config.UserService.Host = getEnv("USER_SERVICE_GRPC_HOST", "localhost")
+	config.UserService.Host = getEnv("USER_SERVICE_GRPC_HOST", "user-service")
 	config.UserService.Port = getEnv("USER_SERVICE_GRPC_PORT", ":50025")
 
 	// booking configuration
-	config.BookingService.Host = getEnv("BOOKING_SERVICE_GRPC_HOST", "localhost")
+	config.BookingService.Host = getEnv("BOOKING_SERVICE_GRPC_HOST", "booking-service")
 	config.BookingService.Port = getEnv("BOOKING_SERVICE_GRPC_PORT", ":50023")
 
 	// token configuration
