@@ -1,8 +1,8 @@
 p, unauthorized, /v1/swagger/*,  GET
 p, unauthorized, /v1/users/register, POST
 p, unauthorized, /v1/users/verify, GET
-p, unauthorized, /v1/users/login, GET
-p, unauthorized, /v1/admins/login, GET
+p, unauthorized, /v1/users/login, POST
+p, unauthorized, /v1/admins/login, POST
 p, unauthorized, /v1/users/set/{email}, GET
 p, unauthorized, /v1/users/code, GET
 p, unauthorized, /v1/users/password, PUT
@@ -93,4 +93,3 @@ p, sudo, /v1/admins/{id}, DELETE
 g, admin, user, *
 g, admin, unauthorized, *
 g, sudo, admin, *
-

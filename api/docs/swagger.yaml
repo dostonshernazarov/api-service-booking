@@ -347,6 +347,13 @@ definitions:
       updated_at:
         type: string
     type: object
+  models.Login:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
   models.RegisterReq:
     properties:
       email:
@@ -773,17 +780,17 @@ paths:
       tags:
       - ADMIN
   /v1/admins/login:
-    get:
+    post:
       consumes:
       - application/json
       description: Api for login admin
       parameters:
-      - in: query
-        name: email
-        type: string
-      - in: query
-        name: password
-        type: string
+      - description: Login
+        in: body
+        name: User
+        required: true
+        schema:
+          $ref: '#/definitions/models.Login'
       produces:
       - application/json
       responses:
@@ -1172,10 +1179,8 @@ paths:
       - application/json
       description: Api for Get All Attractions By User Id
       parameters:
-      - description: ID
-        in: path
+      - in: query
         name: id
-        required: true
         type: string
       - in: query
         name: limit
@@ -1556,10 +1561,8 @@ paths:
       - application/json
       description: Api for Get All Restaurants By User Id
       parameters:
-      - description: ID
-        in: path
+      - in: query
         name: id
-        required: true
         type: string
       - in: query
         name: limit
@@ -2741,17 +2744,17 @@ paths:
       tags:
       - USER
   /v1/users/login:
-    get:
+    post:
       consumes:
       - application/json
       description: Api for login user
       parameters:
-      - in: query
-        name: email
-        type: string
-      - in: query
-        name: password
-        type: string
+      - description: Login
+        in: body
+        name: User
+        required: true
+        schema:
+          $ref: '#/definitions/models.Login'
       produces:
       - application/json
       responses:

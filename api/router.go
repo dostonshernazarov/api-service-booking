@@ -124,11 +124,11 @@ func NewRoute(option RouteOption) *gin.Engine {
 	// REGISTER METHODS
 	api.POST("/users/register", HandlerV1.RegisterUser)
 	api.GET("/users/verify", HandlerV1.Verification)
-	api.GET("/users/login", HandlerV1.Login)
+	api.POST("/users/login", HandlerV1.Login)
 	api.GET("/users/set/:email", HandlerV1.ForgetPassword)
 	api.GET("/users/code", HandlerV1.ForgetPasswordVerify)
 	api.PUT("/users/password", HandlerV1.SetNewPassword)
-	api.GET("/admins/login", HandlerV1.LoginAdmin)
+	api.POST("/admins/login", HandlerV1.LoginAdmin)
 
 	api.GET("/token/:refresh", HandlerV1.UpdateToken)
 
@@ -151,7 +151,7 @@ func NewRoute(option RouteOption) *gin.Engine {
 	api.GET("/booking/hotels/deleted", HandlerV1.UHBListDeleted)
 	api.PUT("/booking/hotels", HandlerV1.UHBUpdate)
 	api.DELETE("/booking/hotels/:id", HandlerV1.UHBDelete)
-	
+
 	// BOOKING RESTAURANT
 	api.POST("/booking/restaurants", HandlerV1.URBCreate)
 	api.GET("/booking/restaurants/:id", HandlerV1.URBGetAllByUId)

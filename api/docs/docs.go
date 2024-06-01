@@ -168,7 +168,7 @@ const docTemplate = `{
             }
         },
         "/v1/admins/login": {
-            "get": {
+            "post": {
                 "security": [
                     {
                         "BearerAuth": []
@@ -187,14 +187,13 @@ const docTemplate = `{
                 "summary": "LOGIN",
                 "parameters": [
                     {
-                        "type": "string",
-                        "name": "email",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "password",
-                        "in": "query"
+                        "description": "Login",
+                        "name": "User",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Login"
+                        }
                     }
                 ],
                 "responses": {
@@ -913,10 +912,8 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "ID",
                         "name": "id",
-                        "in": "path",
-                        "required": true
+                        "in": "query"
                     },
                     {
                         "type": "integer",
@@ -1527,10 +1524,8 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "ID",
                         "name": "id",
-                        "in": "path",
-                        "required": true
+                        "in": "query"
                     },
                     {
                         "type": "integer",
@@ -3287,7 +3282,7 @@ const docTemplate = `{
             }
         },
         "/v1/users/login": {
-            "get": {
+            "post": {
                 "security": [
                     {
                         "BearerAuth": []
@@ -3306,14 +3301,13 @@ const docTemplate = `{
                 "summary": "LOGIN",
                 "parameters": [
                     {
-                        "type": "string",
-                        "name": "email",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "password",
-                        "in": "query"
+                        "description": "Login",
+                        "name": "User",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Login"
+                        }
                     }
                 ],
                 "responses": {
@@ -4196,6 +4190,17 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Login": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
                     "type": "string"
                 }
             }

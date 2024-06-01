@@ -159,7 +159,7 @@
             }
         },
         "/v1/admins/login": {
-            "get": {
+            "post": {
                 "security": [
                     {
                         "BearerAuth": []
@@ -178,14 +178,13 @@
                 "summary": "LOGIN",
                 "parameters": [
                     {
-                        "type": "string",
-                        "name": "email",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "password",
-                        "in": "query"
+                        "description": "Login",
+                        "name": "User",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Login"
+                        }
                     }
                 ],
                 "responses": {
@@ -904,10 +903,8 @@
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "ID",
                         "name": "id",
-                        "in": "path",
-                        "required": true
+                        "in": "query"
                     },
                     {
                         "type": "integer",
@@ -1518,10 +1515,8 @@
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "ID",
                         "name": "id",
-                        "in": "path",
-                        "required": true
+                        "in": "query"
                     },
                     {
                         "type": "integer",
@@ -3278,7 +3273,7 @@
             }
         },
         "/v1/users/login": {
-            "get": {
+            "post": {
                 "security": [
                     {
                         "BearerAuth": []
@@ -3297,14 +3292,13 @@
                 "summary": "LOGIN",
                 "parameters": [
                     {
-                        "type": "string",
-                        "name": "email",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "password",
-                        "in": "query"
+                        "description": "Login",
+                        "name": "User",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Login"
+                        }
                     }
                 ],
                 "responses": {
@@ -4187,6 +4181,17 @@
                     "type": "string"
                 },
                 "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Login": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
                     "type": "string"
                 }
             }

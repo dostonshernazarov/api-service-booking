@@ -275,13 +275,13 @@ func (h HandlerV1) Verification(c *gin.Context) {
 
 // LOGIN ...
 // @Security BearerAuth
-// @Router /v1/users/login [GET]
+// @Router /v1/users/login [POST]
 // @Summary LOGIN
 // @Description Api for login user
 // @Tags LOGIN
 // @Accept json
 // @Produce json
-// @Param request query models.Login true "request"
+// @Param User body models.Login true "Login"
 // @Success 200 {object} models.UserResCreate
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
@@ -293,8 +293,19 @@ func (h HandlerV1) Login(c *gin.Context) {
 	)
 	defer span.End()
 
-	email := c.Query("email")
-	password := c.Query("password")
+	var body models.Login
+
+	err := c.ShouldBindJSON(&body)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		h.Logger.Error("failed to bind json", l.Error(err))
+		return
+	}
+
+	email := body.Email
+	password := body.Password
 
 	user, err := h.Service.UserService().Get(ctx, &pbu.Filter{
 		Filter: map[string]string{"email": email},
@@ -371,13 +382,13 @@ func (h HandlerV1) Login(c *gin.Context) {
 
 // LOGIN ADMIN...
 // @Security BearerAuth
-// @Router /v1/admins/login [GET]
+// @Router /v1/admins/login [POST]
 // @Summary LOGIN
 // @Description Api for login admin
 // @Tags LOGIN
 // @Accept json
 // @Produce json
-// @Param request query models.Login true "request"
+// @Param User body models.Login true "Login"
 // @Success 200 {object} models.UserResCreate
 // @Failure 400 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
@@ -389,8 +400,19 @@ func (h HandlerV1) LoginAdmin(c *gin.Context) {
 	)
 	defer span.End()
 
-	email := c.Query("email")
-	password := c.Query("password")
+	var body models.Login
+
+	err := c.ShouldBindJSON(&body)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		h.Logger.Error("failed to bind json", l.Error(err))
+		return
+	}
+
+	email := body.Email
+	password := body.Password
 
 	user, err := h.Service.UserService().Get(ctx, &pbu.Filter{
 		Filter: map[string]string{"email": email},
