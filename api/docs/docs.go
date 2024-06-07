@@ -3820,9 +3820,21 @@ const docTemplate = `{
         "models.CreateHotel": {
             "type": "object",
             "properties": {
+                "address": {
+                    "type": "string",
+                    "default": "87G9+V57, Shaykhontohur Street 28, Tashkent, Toshkent Shahri"
+                },
+                "city": {
+                    "type": "string",
+                    "default": "Tashkent"
+                },
                 "contact_number": {
                     "type": "string",
                     "default": "+(99891)-234-56-78"
+                },
+                "country": {
+                    "type": "string",
+                    "default": "Uzbekistan"
                 },
                 "description": {
                     "type": "string",
@@ -3832,22 +3844,25 @@ const docTemplate = `{
                     "type": "string",
                     "default": "Silk Road"
                 },
-                "images": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/models.CreateImage"
-                    }
+                "latitude": {
+                    "type": "number",
+                    "default": 40.7128
                 },
                 "licence_url": {
                     "type": "string",
                     "default": "https://creativecommons.org/licenses/by/1.2/"
                 },
-                "location": {
-                    "$ref": "#/definitions/models.CreateLocation"
+                "longitude": {
+                    "type": "number",
+                    "default": 74.006
                 },
                 "rating": {
                     "type": "number",
                     "default": 4.6
+                },
+                "state_province": {
+                    "type": "string",
+                    "default": "Shaykhontohur"
                 },
                 "website_url": {
                     "type": "string",

@@ -39,7 +39,6 @@ func (h HandlerV1) CreateHotel(c *gin.Context) {
 
 	jspbMarshal.UseProtoNames = true
 
-
 	if err := c.ShouldBindJSON(&body); err != nil {
 		c.JSON(404, gin.H{
 			"error": err.Error(),
@@ -50,11 +49,10 @@ func (h HandlerV1) CreateHotel(c *gin.Context) {
 	owner_id, statusCode := GetIdFromToken(c.Request, h.Config)
 	if statusCode != http.StatusOK {
 		c.JSON(statusCode, gin.H{
-            "error": "Can't get",
-        })
-        return
-    }
-
+			"error": "Can't get",
+		})
+		return
+	}
 
 	hotel_id := uuid.New().String()
 	location_id := uuid.New().String()
@@ -62,17 +60,17 @@ func (h HandlerV1) CreateHotel(c *gin.Context) {
 	// get images
 	var images []*pbe.Image
 
-	for _, bodyImage := range body.Images {
-		image_id := uuid.New().String()
-		image := pbe.Image{
-			ImageId:         image_id,
-			EstablishmentId: hotel_id,
-			ImageUrl:        bodyImage.ImageUrl,
-			Category:        "hotel",
-		}
-
-		images = append(images, &image)
-	}
+	//for _, bodyImage := range body.Images {
+	//	image_id := uuid.New().String()
+	//	image := pbe.Image{
+	//		ImageId:         image_id,
+	//		EstablishmentId: hotel_id,
+	//		ImageUrl:        bodyImage.ImageUrl,
+	//		Category:        "hotel",
+	//	}
+	//
+	//	images = append(images, &image)
+	//}
 
 	// Format("2006-01-02T15:04:05Z")
 	response, err := h.Service.EstablishmentService().CreateHotel(ctx, &pbe.Hotel{
@@ -88,12 +86,12 @@ func (h HandlerV1) CreateHotel(c *gin.Context) {
 		Location: &pbe.Location{
 			LocationId:      location_id,
 			EstablishmentId: hotel_id,
-			Address:         body.Location.Address,
-			Latitude:        float32(body.Location.Latitude),
-			Longitude:       float32(body.Location.Longitude),
-			Country:         body.Location.Country,
-			City:            body.Location.City,
-			StateProvince:   body.Location.StateProvince,
+			Address:         body.Address,
+			Latitude:        float32(body.Latitude),
+			Longitude:       float32(body.Longitude),
+			Country:         body.Country,
+			City:            body.City,
+			StateProvince:   body.StateProvince,
 			Category:        "hotel",
 		},
 	})
@@ -333,8 +331,8 @@ func (h HandlerV1) ListHotels(c *gin.Context) {
 	}
 
 	listModel := models.ListHotelsModel{
-		Hotels:  respHotels,
-		Count: response.Overall,
+		Hotels: respHotels,
+		Count:  response.Overall,
 	}
 
 	c.JSON(200, listModel)
@@ -387,12 +385,12 @@ func (h HandlerV1) UpdateHotel(c *gin.Context) {
 			LicenceUrl:    body.LicenceUrl,
 			WebsiteUrl:    body.WebsiteUrl,
 			Location: &pbe.Location{
-				Address:       body.Location.Address,
-				Latitude:      float32(body.Location.Latitude),
-				Longitude:     float32(body.Location.Longitude),
-				Country:       body.Location.Country,
-				City:          body.Location.City,
-				StateProvince: body.Location.StateProvince,
+				Address:       body.Address,
+				Latitude:      float32(body.Latitude),
+				Longitude:     float32(body.Longitude),
+				Country:       body.Country,
+				City:          body.City,
+				StateProvince: body.StateProvince,
 			},
 		},
 	})
@@ -612,8 +610,8 @@ func (h HandlerV1) ListHotelsByLocation(c *gin.Context) {
 	}
 
 	respModel := models.ListHotelsModel{
-		Hotels:  respHotels,
-		Count: uint64(response.Count),
+		Hotels: respHotels,
+		Count:  uint64(response.Count),
 	}
 
 	c.JSON(200, respModel)
@@ -645,7 +643,6 @@ func (h HandlerV1) FindHotelsByName(c *gin.Context) {
 	defer span.End()
 
 	name := c.Query("name")
-
 
 	response, err := h.Service.EstablishmentService().FindHotelsByName(ctx, &pbe.FindHotelsByNameRequest{
 		Name: name,
@@ -705,8 +702,8 @@ func (h HandlerV1) FindHotelsByName(c *gin.Context) {
 	}
 
 	listModel := models.ListHotelsModel{
-		Hotels:  respHotels,
-		Count: response.Count,
+		Hotels: respHotels,
+		Count:  response.Count,
 	}
 
 	c.JSON(200, listModel)

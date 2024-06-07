@@ -1,14 +1,18 @@
 package models
 
 type CreateHotel struct {
-	HotelName     string         `json:"hotel_name" default:"Silk Road"`
-	Description   string         `json:"description" default:"in affordable prices"`
-	Rating        float64        `json:"rating" default:"4.6"`
-	ContactNumber string         `json:"contact_number" default:"+(99891)-234-56-78"`
-	LicenceUrl    string         `json:"licence_url" default:"https://creativecommons.org/licenses/by/1.2/"`
-	WebsiteUrl    string         `json:"website_url" default:"https://creativecommons.org/licenses/by/1.3/"`
-	Images        []*CreateImage `json:"images"`
-	Location      CreateLocation `json:"location"`
+	HotelName     string  `json:"hotel_name" default:"Silk Road"`
+	Description   string  `json:"description" default:"in affordable prices"`
+	Rating        float64 `json:"rating" default:"4.6"`
+	ContactNumber string  `json:"contact_number" default:"+(99891)-234-56-78"`
+	LicenceUrl    string  `json:"licence_url" default:"https://creativecommons.org/licenses/by/1.2/"`
+	WebsiteUrl    string  `json:"website_url" default:"https://creativecommons.org/licenses/by/1.3/"`
+	Address       string  `json:"address" default:"87G9+V57, Shaykhontohur Street 28, Tashkent, Toshkent Shahri"`
+	Latitude      float64 `json:"latitude" default:"40.7128"`
+	Longitude     float64 `json:"longitude" default:"74.0060"`
+	Country       string  `json:"country" default:"Uzbekistan"`
+	City          string  `json:"city" default:"Tashkent"`
+	StateProvince string  `json:"state_province" default:"Shaykhontohur"`
 }
 
 type HotelModel struct {

@@ -97,8 +97,17 @@ definitions:
     type: object
   models.CreateHotel:
     properties:
+      address:
+        default: 87G9+V57, Shaykhontohur Street 28, Tashkent, Toshkent Shahri
+        type: string
+      city:
+        default: Tashkent
+        type: string
       contact_number:
         default: +(99891)-234-56-78
+        type: string
+      country:
+        default: Uzbekistan
         type: string
       description:
         default: in affordable prices
@@ -106,18 +115,21 @@ definitions:
       hotel_name:
         default: Silk Road
         type: string
-      images:
-        items:
-          $ref: '#/definitions/models.CreateImage'
-        type: array
+      latitude:
+        default: 40.7128
+        type: number
       licence_url:
         default: https://creativecommons.org/licenses/by/1.2/
         type: string
-      location:
-        $ref: '#/definitions/models.CreateLocation'
+      longitude:
+        default: 74.006
+        type: number
       rating:
         default: 4.6
         type: number
+      state_province:
+        default: Shaykhontohur
+        type: string
       website_url:
         default: https://creativecommons.org/licenses/by/1.3/
         type: string
