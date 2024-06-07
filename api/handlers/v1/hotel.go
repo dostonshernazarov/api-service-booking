@@ -4,13 +4,12 @@ import (
 	"Booking/api-service-booking/api/models"
 	pbe "Booking/api-service-booking/genproto/establishment-proto"
 	"Booking/api-service-booking/internal/pkg/otlp"
-	"net/http"
-	"strconv"
-
+	"Booking/api-service-booking/internal/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"go.opentelemetry.io/otel/attribute"
 	"google.golang.org/protobuf/encoding/protojson"
+	"net/http"
 )
 
 // CREATE HOTEL
@@ -231,8 +230,7 @@ func (h HandlerV1) GetHotel(c *gin.Context) {
 // @Tags HOTEL
 // @Accept json
 // @Produce json
-// @Param page query string true "page"
-// @Param limit query string true "limit"
+// @Param request query models.Pagination true "request"
 // @Success 200 {object} models.ListHotelsModel
 // @Failure 404 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
@@ -250,31 +248,20 @@ func (h HandlerV1) ListHotels(c *gin.Context) {
 	)
 	defer span.End()
 
-	page := c.Query("page")
-	pageInt, err := strconv.Atoi(page)
-	if err != nil {
-		c.JSON(404, gin.H{
-			"error": err.Error(),
+	queryParams := c.Request.URL.Query()
+	params, errStr := utils.ParseQueryParam(queryParams)
+	if errStr != nil {
+		c.JSON(http.StatusBadRequest, models.Error{
+			Message: "Incorrect Date",
 		})
-		h.Logger.Error(err.Error())
 		return
 	}
 
-	limit := c.Query("limit")
-	limitInt, err := strconv.Atoi(limit)
-	if err != nil {
-		c.JSON(404, gin.H{
-			"error": err.Error(),
-		})
-		h.Logger.Error(err.Error())
-		return
-	}
-
-	offset := (pageInt - 1) * limitInt
+	offset := (params.Page - 1) * params.Limit
 
 	response, err := h.Service.EstablishmentService().ListHotels(ctx, &pbe.ListHotelsRequest{
 		Offset: int64(offset),
-		Limit:  int64(limitInt),
+		Limit:  int64(params.Limit),
 	})
 	if err != nil {
 		c.JSON(500, gin.H{
@@ -502,8 +489,7 @@ func (h HandlerV1) DeleteHotel(c *gin.Context) {
 // @Tags HOTEL
 // @Accept json
 // @Produce json
-// @Param page query string true "page"
-// @Param limit query string true "limit"
+// @Param request query models.Pagination true "request"
 // @Param request query models.FieldValuesByLocation true "request"
 // @Success 200 {object} models.ListHotelsModel
 // @Failure 404 {object} models.StandartError
@@ -522,27 +508,16 @@ func (h HandlerV1) ListHotelsByLocation(c *gin.Context) {
 	)
 	defer span.End()
 
-	page := c.Query("page")
-	pageInt, err := strconv.Atoi(page)
-	if err != nil {
-		c.JSON(404, gin.H{
-			"error": err.Error(),
+	queryParams := c.Request.URL.Query()
+	params, errStr := utils.ParseQueryParam(queryParams)
+	if errStr != nil {
+		c.JSON(http.StatusBadRequest, models.Error{
+			Message: "Incorrect Date",
 		})
-		h.Logger.Error(err.Error())
 		return
 	}
 
-	limit := c.Query("limit")
-	limitInt, err := strconv.Atoi(limit)
-	if err != nil {
-		c.JSON(404, gin.H{
-			"error": err.Error(),
-		})
-		h.Logger.Error(err.Error())
-		return
-	}
-
-	offset := (pageInt - 1) * limitInt
+	offset := (params.Page - 1) * params.Limit
 
 	country := c.Query("country")
 	city := c.Query("city")
@@ -550,7 +525,7 @@ func (h HandlerV1) ListHotelsByLocation(c *gin.Context) {
 
 	response, err := h.Service.EstablishmentService().ListHotelsByLocation(ctx, &pbe.ListHotelsByLocationRequest{
 		Offset:        uint64(offset),
-		Limit:         uint64(limitInt),
+		Limit:         uint64(params.Limit),
 		Country:       country,
 		City:          city,
 		StateProvince: state_province,

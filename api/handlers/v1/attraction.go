@@ -4,13 +4,12 @@ import (
 	"Booking/api-service-booking/api/models"
 	pbe "Booking/api-service-booking/genproto/establishment-proto"
 	"Booking/api-service-booking/internal/pkg/otlp"
-	"net/http"
-	"strconv"
-
+	"Booking/api-service-booking/internal/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"go.opentelemetry.io/otel/attribute"
 	"google.golang.org/protobuf/encoding/protojson"
+	"net/http"
 )
 
 // CREATE ATTRACTION
@@ -33,7 +32,6 @@ func (h HandlerV1) CreateAttraction(c *gin.Context) {
 
 	jspbMarshal.UseProtoNames = true
 
-
 	ctx, span := otlp.Start(c, "api", "CreateAttraction")
 	span.SetAttributes(
 		attribute.Key("method").String(c.Request.Method),
@@ -50,10 +48,10 @@ func (h HandlerV1) CreateAttraction(c *gin.Context) {
 	owner_id, statusCode := GetIdFromToken(c.Request, h.Config)
 	if statusCode != http.StatusOK {
 		c.JSON(statusCode, gin.H{
-            "error": "Can't get",
-        })
-        return
-    }
+			"error": "Can't get",
+		})
+		return
+	}
 
 	attraction_id := uuid.New().String()
 	location_id := uuid.New().String()
@@ -61,17 +59,17 @@ func (h HandlerV1) CreateAttraction(c *gin.Context) {
 	// get images
 	var images []*pbe.Image
 
-	for _, bodyImage := range body.Images {
-		image_id := uuid.New().String()
-		image := pbe.Image{
-			ImageId:         image_id,
-			EstablishmentId: attraction_id,
-			ImageUrl:        bodyImage.ImageUrl,
-			Category:        "attraction",
-		}
-
-		images = append(images, &image)
-	}
+	//for _, bodyImage := range body.Images {
+	//	image_id := uuid.New().String()
+	//	image := pbe.Image{
+	//		ImageId:         image_id,
+	//		EstablishmentId: attraction_id,
+	//		ImageUrl:        bodyImage.ImageUrl,
+	//		Category:        "attraction",
+	//	}
+	//
+	//	images = append(images, &image)
+	//}
 
 	// Format("2006-01-02T15:04:05Z")
 	response, err := h.Service.EstablishmentService().CreateAttraction(ctx, &pbe.Attraction{
@@ -87,12 +85,12 @@ func (h HandlerV1) CreateAttraction(c *gin.Context) {
 		Location: &pbe.Location{
 			LocationId:      location_id,
 			EstablishmentId: attraction_id,
-			Address:         body.Location.Address,
-			Latitude:        float32(body.Location.Latitude),
-			Longitude:       float32(body.Location.Longitude),
-			Country:         body.Location.Country,
-			City:            body.Location.City,
-			StateProvince:   body.Location.StateProvince,
+			Address:         body.Address,
+			Latitude:        float32(body.Latitude),
+			Longitude:       float32(body.Longitude),
+			Country:         body.Country,
+			City:            body.City,
+			StateProvince:   body.StateProvince,
 			Category:        "attraction",
 		},
 	})
@@ -232,8 +230,7 @@ func (h HandlerV1) GetAttraction(c *gin.Context) {
 // @Tags ATTRACTION
 // @Accept json
 // @Produce json
-// @Param page query string true "page"
-// @Param limit query string true "limit"
+// @Param request query models.Pagination true "request"
 // @Success 200 {object} models.ListAttractionModel
 // @Failure 404 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
@@ -251,31 +248,20 @@ func (h HandlerV1) ListAttractions(c *gin.Context) {
 	)
 	defer span.End()
 
-	page := c.Query("page")
-	pageInt, err := strconv.Atoi(page)
-	if err != nil {
-		c.JSON(404, gin.H{
-			"error": err.Error(),
+	queryParams := c.Request.URL.Query()
+	params, errStr := utils.ParseQueryParam(queryParams)
+	if errStr != nil {
+		c.JSON(http.StatusBadRequest, models.Error{
+			Message: "Incorrect Date",
 		})
-		h.Logger.Error(err.Error())
 		return
 	}
 
-	limit := c.Query("limit")
-	limitInt, err := strconv.Atoi(limit)
-	if err != nil {
-		c.JSON(404, gin.H{
-			"error": err.Error(),
-		})
-		h.Logger.Error(err.Error())
-		return
-	}
-
-	offset := (pageInt - 1) * limitInt
+	offset := (params.Page - 1) * params.Limit
 
 	response, err := h.Service.EstablishmentService().ListAttractions(ctx, &pbe.ListAttractionsRequest{
 		Offset: int64(offset),
-		Limit:  int64(limitInt),
+		Limit:  int64(params.Limit),
 	})
 	if err != nil {
 		c.JSON(500, gin.H{
@@ -354,7 +340,7 @@ func (h HandlerV1) ListAttractions(c *gin.Context) {
 // @Router /v1/attraction [PUT]
 func (h HandlerV1) UpdateAttraction(c *gin.Context) {
 	var (
-		body        models.Attraction
+		body        models.UpdateAttraction
 		jspbMarshal protojson.MarshalOptions
 	)
 
@@ -366,14 +352,14 @@ func (h HandlerV1) UpdateAttraction(c *gin.Context) {
 	)
 	defer span.End()
 
+	attraction_id := c.Query("attraction_id")
+
 	if err := c.ShouldBindJSON(&body); err != nil {
 		c.JSON(404, gin.H{
 			"error": err.Error(),
 		})
 		return
 	}
-
-	attraction_id := c.Query("attraction_id")
 
 	response, err := h.Service.EstablishmentService().UpdateAttraction(ctx, &pbe.UpdateAttractionRequest{
 		Attraction: &pbe.Attraction{
@@ -385,12 +371,12 @@ func (h HandlerV1) UpdateAttraction(c *gin.Context) {
 			LicenceUrl:     body.LicenceUrl,
 			WebsiteUrl:     body.WebsiteUrl,
 			Location: &pbe.Location{
-				Address:       body.Location.Address,
-				Latitude:      float32(body.Location.Latitude),
-				Longitude:     float32(body.Location.Longitude),
-				Country:       body.Location.Country,
-				City:          body.Location.City,
-				StateProvince: body.Location.StateProvince,
+				Address:       body.Address,
+				Latitude:      float32(body.Latitude),
+				Longitude:     float32(body.Longitude),
+				Country:       body.Country,
+				City:          body.City,
+				StateProvince: body.StateProvince,
 			},
 		},
 	})
@@ -501,8 +487,7 @@ func (h HandlerV1) DeleteAttraction(c *gin.Context) {
 // @Tags ATTRACTION
 // @Accept json
 // @Produce json
-// @Param page query string true "page"
-// @Param limit query string true "limit"
+// @Param request query models.Pagination true "request"
 // @Param request query models.FieldValuesByLocation true "request"
 // @Success 200 {object} models.ListAttractionModel
 // @Failure 404 {object} models.StandartError
@@ -520,27 +505,16 @@ func (h HandlerV1) ListAttractionsByLocation(c *gin.Context) {
 	)
 	defer span.End()
 
-	page := c.Query("page")
-	pageInt, err := strconv.Atoi(page)
-	if err != nil {
-		c.JSON(404, gin.H{
-			"error": err.Error(),
+	queryParams := c.Request.URL.Query()
+	params, errStr := utils.ParseQueryParam(queryParams)
+	if errStr != nil {
+		c.JSON(http.StatusBadRequest, models.Error{
+			Message: "Incorrect Date",
 		})
-		h.Logger.Error(err.Error())
 		return
 	}
 
-	limit := c.Query("limit")
-	limitInt, err := strconv.Atoi(limit)
-	if err != nil {
-		c.JSON(404, gin.H{
-			"error": err.Error(),
-		})
-		h.Logger.Error(err.Error())
-		return
-	}
-
-	offset := (pageInt - 1) * limitInt
+	offset := (params.Page - 1) * params.Limit
 
 	country := c.Query("country")
 	city := c.Query("city")
@@ -548,7 +522,7 @@ func (h HandlerV1) ListAttractionsByLocation(c *gin.Context) {
 
 	response, err := h.Service.EstablishmentService().ListAttractionsByLocation(ctx, &pbe.ListAttractionsByLocationRequest{
 		Offset:        uint64(offset),
-		Limit:         uint64(limitInt),
+		Limit:         uint64(params.Limit),
 		Country:       country,
 		City:          city,
 		StateProvince: state_province,
@@ -609,7 +583,7 @@ func (h HandlerV1) ListAttractionsByLocation(c *gin.Context) {
 
 	respModel := models.ListAttractionModel{
 		Attractions: respAttractions,
-		Count:     uint64(response.Count),
+		Count:       uint64(response.Count),
 	}
 
 	c.JSON(200, respModel)

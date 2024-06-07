@@ -4,9 +4,9 @@ import (
 	"Booking/api-service-booking/api/models"
 	pbe "Booking/api-service-booking/genproto/establishment-proto"
 	"Booking/api-service-booking/internal/pkg/otlp"
+	"Booking/api-service-booking/internal/pkg/utils"
 	"context"
 	"net/http"
-	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -62,17 +62,17 @@ func (h HandlerV1) CreateRestaurant(c *gin.Context) {
 	// get images
 	var images []*pbe.Image
 
-	for _, bodyImage := range body.Images {
-		image_id := uuid.New().String()
-		image := pbe.Image{
-			ImageId:         image_id,
-			EstablishmentId: restaurant_id,
-			ImageUrl:        bodyImage.ImageUrl,
-			Category:        "restaurant",
-		}
-
-		images = append(images, &image)
-	}
+	//for _, bodyImage := range body.Images {
+	//	image_id := uuid.New().String()
+	//	image := pbe.Image{
+	//		ImageId:         image_id,
+	//		EstablishmentId: restaurant_id,
+	//		ImageUrl:        bodyImage.ImageUrl,
+	//		Category:        "restaurant",
+	//	}
+	//
+	//	images = append(images, &image)
+	//}
 
 	// Format("2006-01-02T15:04:05Z")
 	response, err := h.Service.EstablishmentService().CreateRestaurant(ctx, &pbe.Restaurant{
@@ -89,12 +89,12 @@ func (h HandlerV1) CreateRestaurant(c *gin.Context) {
 		Location: &pbe.Location{
 			LocationId:      location_id,
 			EstablishmentId: restaurant_id,
-			Address:         body.Location.Address,
-			Latitude:        float32(body.Location.Latitude),
-			Longitude:       float32(body.Location.Longitude),
-			Country:         body.Location.Country,
-			City:            body.Location.City,
-			StateProvince:   body.Location.StateProvince,
+			Address:         body.Address,
+			Latitude:        float32(body.Latitude),
+			Longitude:       float32(body.Longitude),
+			Country:         body.Country,
+			City:            body.City,
+			StateProvince:   body.StateProvince,
 			Category:        "restaurant",
 		},
 	})
@@ -239,8 +239,7 @@ func (h HandlerV1) GetRestaurant(c *gin.Context) {
 // @Tags RESTAURANT
 // @Accept json
 // @Produce json
-// @Param page query string true "page"
-// @Param limit query string true "limit"
+// @Param request query models.Pagination true "request"
 // @Success 200 {object} models.ListRestaurantsModel
 // @Failure 404 {object} models.StandartError
 // @Failure 500 {object} models.StandartError
@@ -261,31 +260,20 @@ func (h HandlerV1) ListRestaurants(c *gin.Context) {
 	)
 	defer span.End()
 
-	page := c.Query("page")
-	pageInt, err := strconv.Atoi(page)
-	if err != nil {
-		c.JSON(404, gin.H{
-			"error": err.Error(),
+	queryParams := c.Request.URL.Query()
+	params, errStr := utils.ParseQueryParam(queryParams)
+	if errStr != nil {
+		c.JSON(http.StatusBadRequest, models.Error{
+			Message: "Incorrect Date",
 		})
-		h.Logger.Error(err.Error())
 		return
 	}
 
-	limit := c.Query("limit")
-	limitInt, err := strconv.Atoi(limit)
-	if err != nil {
-		c.JSON(404, gin.H{
-			"error": err.Error(),
-		})
-		h.Logger.Error(err.Error())
-		return
-	}
-
-	offset := (pageInt - 1) * limitInt
+	offset := (params.Page - 1) * params.Limit
 
 	response, err := h.Service.EstablishmentService().ListRestaurants(ctx, &pbe.ListRestaurantsRequest{
 		Offset: int64(offset),
-		Limit:  int64(limitInt),
+		Limit:  int64(params.Limit),
 	})
 	if err != nil {
 		c.JSON(500, gin.H{
@@ -365,7 +353,7 @@ func (h HandlerV1) ListRestaurants(c *gin.Context) {
 // @Router /v1/restaurant [PUT]
 func (h HandlerV1) UpdateRestaurant(c *gin.Context) {
 	var (
-		body        models.CreateRestaurant
+		body        models.UpdateRestaurant
 		jspbMarshal protojson.MarshalOptions
 	)
 
@@ -400,12 +388,12 @@ func (h HandlerV1) UpdateRestaurant(c *gin.Context) {
 			LicenceUrl:     body.LicenceUrl,
 			WebsiteUrl:     body.WebsiteUrl,
 			Location: &pbe.Location{
-				Address:       body.Location.Address,
-				Latitude:      float32(body.Location.Latitude),
-				Longitude:     float32(body.Location.Longitude),
-				Country:       body.Location.Country,
-				City:          body.Location.City,
-				StateProvince: body.Location.StateProvince,
+				Address:       body.Address,
+				Latitude:      float32(body.Latitude),
+				Longitude:     float32(body.Longitude),
+				Country:       body.Country,
+				City:          body.City,
+				StateProvince: body.StateProvince,
 			},
 		},
 	})
@@ -518,8 +506,7 @@ func (h HandlerV1) DeleteRestaurant(c *gin.Context) {
 // @Tags RESTAURANT
 // @Accept json
 // @Produce json
-// @Param page query string true "page"
-// @Param limit query string true "limit"
+// @Param request query models.Pagination true "request"
 // @Param request query models.FieldValuesByLocation true "request"
 // @Success 200 {object} models.ListRestaurantsModel
 // @Failure 404 {object} models.StandartError
@@ -538,27 +525,16 @@ func (h HandlerV1) ListRestaurantsByLocation(c *gin.Context) {
 	)
 	defer span.End()
 
-	page := c.Query("page")
-	pageInt, err := strconv.Atoi(page)
-	if err != nil {
-		c.JSON(404, gin.H{
-			"error": err.Error(),
+	queryParams := c.Request.URL.Query()
+	params, errStr := utils.ParseQueryParam(queryParams)
+	if errStr != nil {
+		c.JSON(http.StatusBadRequest, models.Error{
+			Message: "Incorrect Date",
 		})
-		h.Logger.Error(err.Error())
 		return
 	}
 
-	limit := c.Query("limit")
-	limitInt, err := strconv.Atoi(limit)
-	if err != nil {
-		c.JSON(404, gin.H{
-			"error": err.Error(),
-		})
-		h.Logger.Error(err.Error())
-		return
-	}
-
-	offset := (pageInt - 1) * limitInt
+	offset := (params.Page - 1) * params.Limit
 
 	country := c.Query("country")
 	city := c.Query("city")
@@ -566,7 +542,7 @@ func (h HandlerV1) ListRestaurantsByLocation(c *gin.Context) {
 
 	response, err := h.Service.EstablishmentService().ListRestaurantsByLocation(ctx, &pbe.ListRestaurantsByLocationRequest{
 		Offset:        uint64(offset),
-		Limit:         uint64(limitInt),
+		Limit:         uint64(params.Limit),
 		Country:       country,
 		City:          city,
 		StateProvince: state_province,

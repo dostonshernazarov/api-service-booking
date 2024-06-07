@@ -55,27 +55,39 @@ definitions:
     type: object
   models.CreateAttraction:
     properties:
+      address:
+        default: 87G9+V57, Shaykhontohur Street 28, Tashkent, Toshkent Shahri
+        type: string
       attraction_name:
         default: Anhor Park
+        type: string
+      city:
+        default: Tashkent
         type: string
       contact_number:
         default: +(99891)-234-56-78
         type: string
+      country:
+        default: Uzbekistan
+        type: string
       description:
         default: available for all ages
         type: string
-      images:
-        items:
-          $ref: '#/definitions/models.CreateImage'
-        type: array
+      latitude:
+        default: 40.7128
+        type: number
       licence_url:
         default: https://creativecommons.org/licenses/by/4.0/
         type: string
-      location:
-        $ref: '#/definitions/models.CreateLocation'
+      longitude:
+        default: 74.006
+        type: number
       rating:
         default: 4.3
         type: number
+      state_province:
+        default: Shaykhontohur
+        type: string
       website_url:
         default: https://creativecommons.org/licenses/by/4.1/
         type: string
@@ -134,13 +146,7 @@ definitions:
         default: https://creativecommons.org/licenses/by/1.3/
         type: string
     type: object
-  models.CreateImage:
-    properties:
-      image_url:
-        default: www.photo/images/141
-        type: string
-    type: object
-  models.CreateLocation:
+  models.CreateRestaurant:
     properties:
       address:
         default: 87G9+V57, Shaykhontohur Street 28, Tashkent, Toshkent Shahri
@@ -148,36 +154,24 @@ definitions:
       city:
         default: Tashkent
         type: string
-      country:
-        default: Uzbekistan
-        type: string
-      latitude:
-        default: 40.7128
-        type: number
-      longitude:
-        default: 74.006
-        type: number
-      state_province:
-        default: Shaykhontohur
-        type: string
-    type: object
-  models.CreateRestaurant:
-    properties:
       contact_number:
         default: +(99891)-234-56-78
+        type: string
+      country:
+        default: Uzbekistan
         type: string
       description:
         default: uzbek national cousine
         type: string
-      images:
-        items:
-          $ref: '#/definitions/models.CreateImage'
-        type: array
+      latitude:
+        default: 40.7128
+        type: number
       licence_url:
         default: https://creativecommons.org/licenses/by/3.2/
         type: string
-      location:
-        $ref: '#/definitions/models.CreateLocation'
+      longitude:
+        default: 74.006
+        type: number
       opening_hours:
         default: 06:00-22:00
         type: string
@@ -186,6 +180,9 @@ definitions:
         type: number
       restaurant_name:
         default: Kamolon Osh Markazi
+        type: string
+      state_province:
+        default: Shaykhontohur
         type: string
       website_url:
         default: https://creativecommons.org/licenses/by/3.3/
@@ -451,23 +448,39 @@ definitions:
     type: object
   models.UpdateAttraction:
     properties:
+      address:
+        default: updated address
+        type: string
       attraction_name:
         default: updated attraction name
+        type: string
+      city:
+        default: updated city
         type: string
       contact_number:
         default: updated contact number
         type: string
+      country:
+        default: updated country
+        type: string
       description:
         default: updated description
         type: string
+      latitude:
+        default: 1.1
+        type: number
       licence_url:
         default: updated licence url
         type: string
-      location:
-        $ref: '#/definitions/models.UpdateLocation'
+      longitude:
+        default: 1.1
+        type: number
       rating:
         default: 5
         type: number
+      state_province:
+        default: updated state or province
+        type: string
       website_url:
         default: updated website url
         type: string
@@ -535,17 +548,30 @@ definitions:
     type: object
   models.UpdateRestaurant:
     properties:
+      address:
+        default: updated address
+        type: string
+      city:
+        default: updated city
+        type: string
       contact_number:
         default: updated contact number
+        type: string
+      country:
+        default: updated country
         type: string
       description:
         default: updated description
         type: string
+      latitude:
+        default: 1.1
+        type: number
       licence_url:
         default: updated licence url
         type: string
-      location:
-        $ref: '#/definitions/models.UpdateLocation'
+      longitude:
+        default: 1.1
+        type: number
       opening_hours:
         default: 09:00-00:00
         type: string
@@ -554,6 +580,9 @@ definitions:
         type: number
       restaurant_name:
         default: updated restaurant name
+        type: string
+      state_province:
+        default: updated state or province
         type: string
       website_url:
         default: updated website url
@@ -986,16 +1015,12 @@ paths:
       - application/json
       description: Api for listing attractions by page and limit
       parameters:
-      - description: page
-        in: query
-        name: page
-        required: true
-        type: string
-      - description: limit
-        in: query
+      - in: query
         name: limit
-        required: true
-        type: string
+        type: integer
+      - in: query
+        name: page
+        type: integer
       produces:
       - application/json
       responses:
@@ -1022,16 +1047,12 @@ paths:
       - application/json
       description: Api for listing attractions by page, limit, country, city and state_province
       parameters:
-      - description: page
-        in: query
-        name: page
-        required: true
-        type: string
-      - description: limit
-        in: query
+      - in: query
         name: limit
-        required: true
-        type: string
+        type: integer
+      - in: query
+        name: page
+        type: integer
       - in: query
         name: city
         type: string
@@ -2006,16 +2027,12 @@ paths:
       - application/json
       description: Api for listing hotels by page and limit
       parameters:
-      - description: page
-        in: query
-        name: page
-        required: true
-        type: string
-      - description: limit
-        in: query
+      - in: query
         name: limit
-        required: true
-        type: string
+        type: integer
+      - in: query
+        name: page
+        type: integer
       produces:
       - application/json
       responses:
@@ -2042,16 +2059,12 @@ paths:
       - application/json
       description: Api for listing hotels by page, limit, country, city and state_province
       parameters:
-      - description: page
-        in: query
-        name: page
-        required: true
-        type: string
-      - description: limit
-        in: query
+      - in: query
         name: limit
-        required: true
-        type: string
+        type: integer
+      - in: query
+        name: page
+        type: integer
       - in: query
         name: city
         type: string
@@ -2313,16 +2326,12 @@ paths:
       - application/json
       description: Api for listing restaurants by page and limit
       parameters:
-      - description: page
-        in: query
-        name: page
-        required: true
-        type: string
-      - description: limit
-        in: query
+      - in: query
         name: limit
-        required: true
-        type: string
+        type: integer
+      - in: query
+        name: page
+        type: integer
       produces:
       - application/json
       responses:
@@ -2349,16 +2358,12 @@ paths:
       - application/json
       description: Api for listing restaurants by page, limit, country, city and state_province
       parameters:
-      - description: page
-        in: query
-        name: page
-        required: true
-        type: string
-      - description: limit
-        in: query
+      - in: query
         name: limit
-        required: true
-        type: string
+        type: integer
+      - in: query
+        name: page
+        type: integer
       - in: query
         name: city
         type: string

@@ -582,18 +582,14 @@ const docTemplate = `{
                 "summary": "LIST ATTRACTIONS BY PAGE AND LIMIT",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "page",
-                        "name": "page",
-                        "in": "query",
-                        "required": true
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
                     },
                     {
-                        "type": "string",
-                        "description": "limit",
-                        "name": "limit",
-                        "in": "query",
-                        "required": true
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -638,18 +634,14 @@ const docTemplate = `{
                 "summary": "LIST ATTRACTIONS BY PAGE, LIMIT, COUNTRY, CITY AND STATE_PROVINCE",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "page",
-                        "name": "page",
-                        "in": "query",
-                        "required": true
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
                     },
                     {
-                        "type": "string",
-                        "description": "limit",
-                        "name": "limit",
-                        "in": "query",
-                        "required": true
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
                     },
                     {
                         "type": "string",
@@ -2206,18 +2198,14 @@ const docTemplate = `{
                 "summary": "LIST HOTELS BY PAGE AND LIMIT",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "page",
-                        "name": "page",
-                        "in": "query",
-                        "required": true
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
                     },
                     {
-                        "type": "string",
-                        "description": "limit",
-                        "name": "limit",
-                        "in": "query",
-                        "required": true
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -2262,18 +2250,14 @@ const docTemplate = `{
                 "summary": "LIST HOTELS BY PAGE, LIMIT, COUNTRY, CITY AND STATE_PROVINCE",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "page",
-                        "name": "page",
-                        "in": "query",
-                        "required": true
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
                     },
                     {
-                        "type": "string",
-                        "description": "limit",
-                        "name": "limit",
-                        "in": "query",
-                        "required": true
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
                     },
                     {
                         "type": "string",
@@ -2686,18 +2670,14 @@ const docTemplate = `{
                 "summary": "LIST RESTAURANTS BY PAGE AND LIMIT",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "page",
-                        "name": "page",
-                        "in": "query",
-                        "required": true
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
                     },
                     {
-                        "type": "string",
-                        "description": "limit",
-                        "name": "limit",
-                        "in": "query",
-                        "required": true
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -2742,18 +2722,14 @@ const docTemplate = `{
                 "summary": "LIST RESTAURANTS BY PAGE, LIMIT, COUNTRY, CITY AND STATE_PROVINCE",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "page",
-                        "name": "page",
-                        "in": "query",
-                        "required": true
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
                     },
                     {
-                        "type": "string",
-                        "description": "limit",
-                        "name": "limit",
-                        "in": "query",
-                        "required": true
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
                     },
                     {
                         "type": "string",
@@ -3759,34 +3735,49 @@ const docTemplate = `{
         "models.CreateAttraction": {
             "type": "object",
             "properties": {
+                "address": {
+                    "type": "string",
+                    "default": "87G9+V57, Shaykhontohur Street 28, Tashkent, Toshkent Shahri"
+                },
                 "attraction_name": {
                     "type": "string",
                     "default": "Anhor Park"
+                },
+                "city": {
+                    "type": "string",
+                    "default": "Tashkent"
                 },
                 "contact_number": {
                     "type": "string",
                     "default": "+(99891)-234-56-78"
                 },
+                "country": {
+                    "type": "string",
+                    "default": "Uzbekistan"
+                },
                 "description": {
                     "type": "string",
                     "default": "available for all ages"
                 },
-                "images": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/models.CreateImage"
-                    }
+                "latitude": {
+                    "type": "number",
+                    "default": 40.7128
                 },
                 "licence_url": {
                     "type": "string",
                     "default": "https://creativecommons.org/licenses/by/4.0/"
                 },
-                "location": {
-                    "$ref": "#/definitions/models.CreateLocation"
+                "longitude": {
+                    "type": "number",
+                    "default": 74.006
                 },
                 "rating": {
                     "type": "number",
                     "default": 4.3
+                },
+                "state_province": {
+                    "type": "string",
+                    "default": "Shaykhontohur"
                 },
                 "website_url": {
                     "type": "string",
@@ -3870,16 +3861,7 @@ const docTemplate = `{
                 }
             }
         },
-        "models.CreateImage": {
-            "type": "object",
-            "properties": {
-                "image_url": {
-                    "type": "string",
-                    "default": "www.photo/images/141"
-                }
-            }
-        },
-        "models.CreateLocation": {
+        "models.CreateRestaurant": {
             "type": "object",
             "properties": {
                 "address": {
@@ -3890,47 +3872,29 @@ const docTemplate = `{
                     "type": "string",
                     "default": "Tashkent"
                 },
-                "country": {
-                    "type": "string",
-                    "default": "Uzbekistan"
-                },
-                "latitude": {
-                    "type": "number",
-                    "default": 40.7128
-                },
-                "longitude": {
-                    "type": "number",
-                    "default": 74.006
-                },
-                "state_province": {
-                    "type": "string",
-                    "default": "Shaykhontohur"
-                }
-            }
-        },
-        "models.CreateRestaurant": {
-            "type": "object",
-            "properties": {
                 "contact_number": {
                     "type": "string",
                     "default": "+(99891)-234-56-78"
+                },
+                "country": {
+                    "type": "string",
+                    "default": "Uzbekistan"
                 },
                 "description": {
                     "type": "string",
                     "default": "uzbek national cousine"
                 },
-                "images": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/models.CreateImage"
-                    }
+                "latitude": {
+                    "type": "number",
+                    "default": 40.7128
                 },
                 "licence_url": {
                     "type": "string",
                     "default": "https://creativecommons.org/licenses/by/3.2/"
                 },
-                "location": {
-                    "$ref": "#/definitions/models.CreateLocation"
+                "longitude": {
+                    "type": "number",
+                    "default": 74.006
                 },
                 "opening_hours": {
                     "type": "string",
@@ -3943,6 +3907,10 @@ const docTemplate = `{
                 "restaurant_name": {
                     "type": "string",
                     "default": "Kamolon Osh Markazi"
+                },
+                "state_province": {
+                    "type": "string",
+                    "default": "Shaykhontohur"
                 },
                 "website_url": {
                     "type": "string",
@@ -4351,28 +4319,49 @@ const docTemplate = `{
         "models.UpdateAttraction": {
             "type": "object",
             "properties": {
+                "address": {
+                    "type": "string",
+                    "default": "updated address"
+                },
                 "attraction_name": {
                     "type": "string",
                     "default": "updated attraction name"
+                },
+                "city": {
+                    "type": "string",
+                    "default": "updated city"
                 },
                 "contact_number": {
                     "type": "string",
                     "default": "updated contact number"
                 },
+                "country": {
+                    "type": "string",
+                    "default": "updated country"
+                },
                 "description": {
                     "type": "string",
                     "default": "updated description"
+                },
+                "latitude": {
+                    "type": "number",
+                    "default": 1.1
                 },
                 "licence_url": {
                     "type": "string",
                     "default": "updated licence url"
                 },
-                "location": {
-                    "$ref": "#/definitions/models.UpdateLocation"
+                "longitude": {
+                    "type": "number",
+                    "default": 1.1
                 },
                 "rating": {
                     "type": "number",
                     "default": 5
+                },
+                "state_province": {
+                    "type": "string",
+                    "default": "updated state or province"
                 },
                 "website_url": {
                     "type": "string",
@@ -4470,20 +4459,37 @@ const docTemplate = `{
         "models.UpdateRestaurant": {
             "type": "object",
             "properties": {
+                "address": {
+                    "type": "string",
+                    "default": "updated address"
+                },
+                "city": {
+                    "type": "string",
+                    "default": "updated city"
+                },
                 "contact_number": {
                     "type": "string",
                     "default": "updated contact number"
+                },
+                "country": {
+                    "type": "string",
+                    "default": "updated country"
                 },
                 "description": {
                     "type": "string",
                     "default": "updated description"
                 },
+                "latitude": {
+                    "type": "number",
+                    "default": 1.1
+                },
                 "licence_url": {
                     "type": "string",
                     "default": "updated licence url"
                 },
-                "location": {
-                    "$ref": "#/definitions/models.UpdateLocation"
+                "longitude": {
+                    "type": "number",
+                    "default": 1.1
                 },
                 "opening_hours": {
                     "type": "string",
@@ -4496,6 +4502,10 @@ const docTemplate = `{
                 "restaurant_name": {
                     "type": "string",
                     "default": "updated restaurant name"
+                },
+                "state_province": {
+                    "type": "string",
+                    "default": "updated state or province"
                 },
                 "website_url": {
                     "type": "string",
